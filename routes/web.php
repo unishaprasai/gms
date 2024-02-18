@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\HomeController;
+use App\Http\Controllers\backend\AdminController;
 
 
 /*
@@ -34,3 +35,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+route::get('/view_members',[AdminController::class,'view_members']);
+
+route::post('/add_members',[AdminController::class,'add_members']);
