@@ -8616,7 +8616,7 @@ pre {
 .table-primary td,
 .table-primary thead th,
 .table-primary tbody + tbody {
-  border-color: #7ac5f3; }
+  border-color: #eceff1; }
 
 .table-hover .table-primary:hover {
   background-color: #0074bc; }

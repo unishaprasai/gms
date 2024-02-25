@@ -11,6 +11,24 @@
     <script src="Backend/assets/js/misc.js"></script>
     <script src="Backend/assets/js/settings.js"></script>
     <script src="Backend/assets/js/todolist.js"></script>
+    
+    <script src="Backend/assets/js/jquery-3.6.0.min.js"></script>
+
+    <script src="Backend/assets/js/feather.min.js"></script>
+
+    <script src="Backend/assets/js/jquery.slimscroll.min.js"></script>
+
+    <script src="Backend/assets/js/jquery.dataTables.min.js"></script>
+    <script src="Backend/assets/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="Backend/assets/js/bootstrap.bundle.min.js"></script>
+
+    <script src="Backend/assets/plugins/select2/js/select2.min.js"></script>
+
+    <script src="Backend/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <script src="Backend/assets/plugins/sweetalert/sweetalerts.min.js"></script>
+
+    <script src="assets/js/script.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="Backend/assets/js/dashboard.js"></script>

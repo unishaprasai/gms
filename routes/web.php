@@ -2,9 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\backend\HomeController;
-use App\Http\Controllers\backend\AdminController;
-
+use App\Http\Controllers\Backend\HomeController;
+use App\Http\Controllers\Backend\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
-route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
+Route::get('post', [HomeController::class, 'post']);
 
-route::get('post',[HomeController::class,'post']);
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -35,6 +31,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-route::get('/view_members',[AdminController::class,'view_members']);
 
-route::post('/add_members',[AdminController::class,'add_members']);
+Route::get('/view_members', [AdminController::class, 'view_members']);
+Route::get('/add_members', [AdminController::class, 'add_member']);
+Route::post('/add_members', [AdminController::class, 'add_members']);
+Route::get('/delete_members/{id}', [AdminController::class, 'delete_members']);
+Route::get('/edit_members/{id}', [AdminController::class, 'edit_members']);
+Route::put('/update_member/{id}', [AdminController::class, 'update_member']); // New route for updating members

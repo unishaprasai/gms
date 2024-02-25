@@ -11,8 +11,77 @@ class AdminController extends Controller
 {
     public function view_members()
 {
-    return view('backend.view_members');
+    $members=members::all();
+
+    return view('backend.view_members',compact('members'));
 }
+
+public function add_member()
+{
+    return view('backend.add_members');
+}
+
+public function delete_members($id)
+{
+    $members=members::find($id);
+    $members->delete();
+
+    return redirect()->back()->with('success','Member Deleted Sucessfully');
+}
+
+
+public function edit_members($id)
+{
+    $members=members::find($id);
+    return view('backend.edit_members',compact('members'));
+}
+
+public function update_member(Request $request, $id)
+{
+    // Validate the request data
+    $validatedData = $request->validate([
+        'mname' => 'required',
+        'memail' => 'required|email',
+        'maddress' => 'required',
+        'mphone' => 'required',
+        'date_of_join' => 'required|date',
+        'membership_type' => 'required',
+        'shift' => 'required',
+        'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate photo upload
+    ]);
+
+    // Find the member by ID
+    $members = Members::findOrFail($id);
+
+    // Update member details
+    $members->name = $request->input('mname');
+    $members->email = $request->input('memail');
+    $members->address = $request->input('maddress');
+    $members->phone = $request->input('mphone');
+    $members->date_of_join = $request->input('date_of_join');
+    $members->membership_type = $request->input('membership_type');
+    $members->shift = $request->input('shift');
+
+    // Handle photo update if a new photo is provided
+    if ($request->hasFile('photo')) {
+        // Delete the previous photo if exists
+        if ($members->photo) {
+            Storage::delete($members->photo);
+        }
+        
+        // Store the new photo
+        $photoPath = $request->file('photo')->store('public/photos');
+        $members->photo = $photoPath;
+    }
+
+    // Save the changes
+    $members->save();
+
+    // Redirect back with success message
+    return redirect()->back()->with('success', 'Member details updated successfully');
+}
+
+
 
 public function add_members(Request $request)
 {
