@@ -55,7 +55,7 @@
             </a>
             <div class="collapse" id="ui-users">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Add Users</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('add_users') }}">Add Users</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">View Users</a></li>
               </ul>
             </div>
@@ -85,8 +85,8 @@
             </a>
             <div class="collapse" id="ui-trainer">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Add Trainers</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">View Trainers</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('add_trainers') }}">Add Trainers</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('view_trainers') }}">View Trainers</a></li>
               </ul>
             </div>
           </li>
