@@ -73,7 +73,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Update Trainer Details</h5>
 
-                                <form action="{{ url('/update_trainers' . $trainer->id) }}" method="post">
+                                <form action="{{ url('update_trainers/' . $trainer->id) }}" method="post">
                                     @csrf
                                     @method('PUT')
 
@@ -139,20 +139,13 @@
                 });
             }
         });
-
-        function closeAlert() {
-            var alertOverlay = document.querySelector('.alert-overlay');
-            if (alertOverlay) {
-                alertOverlay.remove();
-            }
-        }
         function closeAlert() {
             var alertOverlay = document.querySelector('.alert-overlay');
             if (alertOverlay) {
                 alertOverlay.remove();
             }
             // Redirect to the view members page
-            window.location.href = "{{ url('/view_tariners') }}";
+            window.location.href = "{{ url('/view_trainers') }}";
         }
     </script>
 </body>

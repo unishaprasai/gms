@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/view_members', [AdminController::class, 'view_members']);
+
 Route::get('/add_users', [AdminController::class, 'add_users']);
 Route::get('/add_members', [AdminController::class, 'add_member']);
 Route::post('/add_members', [AdminController::class, 'add_members']);
@@ -47,7 +48,7 @@ Route::get('/add_trainers', [AdminController::class, 'add_trainer']);
 Route::post('/add_trainers', [AdminController::class, 'add_trainers']);
 Route::get('/view_trainers', [AdminController::class, 'view_trainers']);
 Route::get('/edit_trainers/{id}', [AdminController::class, 'edit_trainers']);
-Route::put('/update_trainers/{id}', [AdminController::class, 'update_trainers']);
+Route::post('/update_trainers/{id}', [AdminController::class, 'update_trainers']);
 
 
 

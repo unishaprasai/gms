@@ -72,29 +72,7 @@
     @include('backend.script')
 
     <script>
-        document.getElementById('userForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var form = this;
-            var formData = new FormData(form);
-
-            fetch(form.action, {
-                method: form.method,
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('User added successfully!');
-                    form.reset(); // Reset the form fields after successful submission
-                } else {
-                    alert('Failed to add user. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again later.');
-            });
-        });
+       
 
         document.getElementById('password').addEventListener('focus', function() {
             document.querySelector('.password-toggle').style.display = 'block';

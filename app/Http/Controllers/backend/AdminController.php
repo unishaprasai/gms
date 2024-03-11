@@ -6,23 +6,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\members;
 use App\Models\user;        
-use App\Models\Trainers;                                     
+use App\Models\Trainers;   
+use Illuminate\Support\Facades\Hash;      
+use Illuminate\Support\Facades\Storage;
+
 
 
 
 class AdminController extends Controller
 {
+    public function add_users()
+    {
+        return view('backend.add_users');
+    }
 
-public function add_users()
-{
-    return view('backend.add_users');
-}
-
-public function store_users(Request $request)
-{
-  
-    try {
-        dd($request->all());
+    public function store_users(Request $request)
+    {
+ 
         // Validate the form data
         $validatedData = $request->validate([
             'uname' => ['required', 'string', 'max:255'],
@@ -33,39 +33,22 @@ public function store_users(Request $request)
 
         // Create a new instance of the User model
         $user = new User;
+     
 
         // Assign values from the request to the model attributes
         $user->name = $validatedData['uname'];
         $user->email = $validatedData['uemail'];
-        $user->password = bcrypt($validatedData['upassword']); // Hash the password
-        $user->usertype = $validatedData['user_type'];
+        $user->password = Hash::make($validatedData['upassword']); // Hash the password
+        $user->usertype = $validatedData['usertype'];
 
         // Save the user data to the database
         $user->save();
 
-        // Return a JSON response indicating success
-        return response()->json(['success' => true]);
+        dd($user);
 
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        // Validation error occurred
-        return response()->json(['success' => false, 'errors' => $e->validator->errors()], 422);
-    } catch (\Illuminate\Database\QueryException $e) {
-        // Database query error occurred
-        $errorMessage = $e->getMessage();
-        return response()->json(['success' => false, 'error' => $errorMessage], 500);
-    } catch (\Exception $e) {
-        // Other generic error occurred
-        $errorMessage = $e->getMessage();
-        return response()->json(['success' => false, 'error' => 'Failed to add user. Error: ' . $errorMessage], 500);
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'User added successfully');
     }
-}
-
-
-
-
-
-
-
 public function add_member()
 {
     return view('backend.add_members');
