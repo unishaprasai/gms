@@ -40,7 +40,7 @@ class UserController extends Controller
         // Save the user data to the database
         $user->save();
 
-        dd($user);
+        // dd($user);
 
         // Redirect back with success message
         return redirect()->back()->with('success', 'User added successfully');
