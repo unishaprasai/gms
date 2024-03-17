@@ -11,6 +11,12 @@
     @include('backend.layouts.header')
     <div class="fcontainer">
         <h1 class="mt-5 mb-4 text-center">Add your Users</h1>
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+
 
         <div class="main-panel">
             <div class="row justify-content-center">
@@ -18,7 +24,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">User Details</h5>
-                            <form id="userForm" action="{{ url('store_users') }}" method="post" enctype="multipart/form-data">
+                            <form id="userForm" action="/store_users" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">Name</label>

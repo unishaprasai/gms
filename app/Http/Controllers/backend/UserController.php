@@ -18,12 +18,11 @@ class UserController extends Controller
 
     public function store_users(Request $request)
     {
- 
         // Validate the form data
         $validatedData = $request->validate([
             'uname' => ['required', 'string', 'max:255'],
             'uemail' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'upassword' => ['required', 'string', 'min:8', 'confirmed'],
+            'upassword' => ['required', 'string', 'min:8'],
             'usertype' => ['required', 'string', 'in:trainer,member'],
         ]);
 
@@ -39,8 +38,6 @@ class UserController extends Controller
 
         // Save the user data to the database
         $user->save();
-
-        // dd($user);
 
         // Redirect back with success message
         return redirect()->back()->with('success', 'User added successfully');
