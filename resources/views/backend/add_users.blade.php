@@ -2,28 +2,18 @@
 <html lang="en">
 
 <head>
-    @include('backend.css')
-    <title>Register Your User</title>
+    <!-- Required meta tags -->
+    @include('backend.layouts.css')
 </head>
-@include('backend.slidebar')
-<style>
-    .fcontainer {
-        position: relative;
-        margin-top: -580px;
-    }
-    .password-toggle {
-        display: none;
-    }
-</style>
+@include('backend.layouts.slidebar')
 
 <body>
+    @include('backend.layouts.header')
     <div class="fcontainer">
-        @include('backend.header')
         <h1 class="mt-5 mb-4 text-center">Add your Users</h1>
 
-        <div class="main-panel">  
+        <div class="main-panel">
             <div class="row justify-content-center">
-                <!-- User Details -->
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-body">
@@ -51,7 +41,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="confirm">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirm" name="confirm_password" required>
+                                    <input type="password" class="form-control" id="confirm" name="upassword_confirmation" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="user_type">User Type</label>
@@ -60,20 +50,19 @@
                                         <option value="member">Member</option>
                                     </select>
                                 </div>
-                              
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
                             </form>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @include('backend.script')
+
+    @include('backend.layouts.footer')
 
     <script>
-       
-
         document.getElementById('password').addEventListener('focus', function() {
             document.querySelector('.password-toggle').style.display = 'block';
         });
@@ -93,6 +82,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>

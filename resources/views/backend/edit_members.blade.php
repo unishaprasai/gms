@@ -3,38 +3,14 @@
 
 <head>
     <base href="/public">
-    @include('backend.css')
+    @include('backend.layouts.css')
     <title>Edit Gym Membership</title>
 </head>
-@include('backend.slidebar')
-<style>
-    .fcontainer {
-        position: relative;
-        margin-top: -580px;
-    }
-
-    .alert-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80%;
-        max-width: 400px;
-        z-index: 9999;
-    }
-
-    .alert-box {
-        padding: 20px;
-        background-color: #d4edda;
-        border-color: #c3e6cb;
-        color: #155724;
-        border-radius: .25rem;
-    }
-</style>
+@include('backend.layouts.slidebar')
 
 <body>
     <div class="fcontainer">
-        @include('backend.header')
+        @include('backend.layouts.header')
         <h1 class="mt-5 mb-4 text-center">Edit Gym Membership</h1>
 
         @if(session('success'))
@@ -130,7 +106,7 @@
             </div>
         </div>
     </div>
-    @include('backend.script')
+    @include('backend.layouts.footer')
 
     <script>
         function closeAlert() {

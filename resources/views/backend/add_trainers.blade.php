@@ -1,39 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    @include('backend.layouts.css')
+  </head>
+  @include('backend.layouts.slidebar')
+  @include('backend.layouts.header')
+  <body>
 
-<head>
-    @include('backend.css')
-    <title>Gym Membership Form</title>
-</head>
-@include('backend.slidebar')
-<style>
-    .fcontainer {
-        position: relative;
-        margin-top: -580px;
-    }
-
-    .alert-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80%;
-        max-width: 400px;
-        z-index: 9999;
-    }
-
-    .alert-box {
-        padding: 20px;
-        background-color: #d4edda;
-        border-color: #c3e6cb;
-        color: #155724;
-        border-radius: .25rem;
-    }
-</style>
-
-<body>
-<div class="fcontainer">
-@include('backend.header')
+    <div class="fcontainer">
         <h1 class="mt-5 mb-4 text-center">Add Trainers</h1>
         
 
@@ -117,7 +92,7 @@
         </div>
 </div>
     </div>
-    @include('backend.script')
+  
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var closeButton = document.getElementById('closeButton');
@@ -135,6 +110,6 @@
             }
         }
     </script>
-</body>
-
+  </body>
+  @include('backend.layouts.footer')
 </html>

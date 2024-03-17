@@ -1,52 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-   
-    @include('backend.css')
-    <title>Gym Membership Details</title>
-</head>
-@include('backend.slidebar')
-<style>
-    .fcontainer {
-        position: relative;
-        margin-top: -580px;
-    }
-
-    
-    .alert-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80%;
-        max-width: 400px;
-        z-index: 9999;
-    }
-
-    .alert-box {
-        padding: 20px;
-        background-color: #d4edda;
-        border-color: #c3e6cb;
-        color: #155724;
-        border-radius: .25rem;
-    }
-
-    /* Style for message */
-    .message {
-        text-align: center;
-        margin-top: 20px;
-        padding: 10px;
-        background-color: #f8d7da;
-        border: 1px solid #f5c6cb;
-        border-radius: .25rem;
-        display: none; /* Initially hidden */
-    }
-</style>
+  <head>
+    <!-- Required meta tags -->
+    @include('backend.layouts.css')
+  </head>
+  @include('backend.layouts.slidebar')
+  @include('backend.layouts.header')
 
 <body>
     <div class="fcontainer">
-        @include('backend.header')
         <h1 class="mt-5 mb-4 text-center">View Members</h1>
 
         @if(session('success'))
@@ -130,7 +92,7 @@
             </div>
         </div>
     </div>
-    @include('backend.script')
+    @include('backend.layouts.footer')
 
     <script>
         function closeAlert() {

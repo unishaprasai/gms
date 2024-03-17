@@ -1,54 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    @include('backend.css')
-    <title>Gym Membership Details</title>
-</head>
-@include('backend.slidebar')
-<style>
-    .fcontainer {
-        position: relative;
-        margin-top: -580px;
-    }
-
-
-    .alert-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80%;
-        max-width: 400px;
-        z-index: 9999;
-    }
-
-    .alert-box {
-        padding: 20px;
-        background-color: #d4edda;
-        border-color: #c3e6cb;
-        color: #155724;
-        border-radius: .25rem;
-    }
-
-    /* Style for message */
-    .message {
-        text-align: center;
-        margin-top: 20px;
-        padding: 10px;
-        background-color: #f8d7da;
-        border: 1px solid #f5c6cb;
-        border-radius: .25rem;
-        display: none;
-        /* Initially hidden */
-    }
-</style>
-
-<body>
+  <head>
+    <!-- Required meta tags -->
+    @include('backend.layouts.css')
+  </head>
+  @include('backend.layouts.slidebar')
+  <body>
+    
+    
     <div class="fcontainer">
-        @include('backend.header')
-        <h1 class="mt-5 mb-4 text-center">View Members</h1>
+    @include('backend.layouts.header')
+        <h1 class="mt-5 mb-4 text-center">View Trainers</h1>
 
         @if(session('success'))
         <div class="alert-overlay">
@@ -61,8 +24,8 @@
         </div>
         @endif
 
-        <div class="row justify-content-center mb-3"> <!-- Centering the search button -->
-            <div class="col-md-6">
+        <div class="row justify-content-center mb-3"> 
+        <div class="col-md-6">
                 <div class="input-group">
                     <input type="text" class="form-control" id="searchInput" placeholder="Search by name or email">
                     <div class="input-group-append">
@@ -73,7 +36,7 @@
         </div>
 
         <div class="row justify-content-end">
-            <!-- Membership Details Table -->
+
             <div class="col-xl-10">
                 <div class="card">
                     <div class="card-body">
@@ -102,9 +65,9 @@
                                         <td>{{ $trainer->date_of_join }}</td>
                                         <td>{{ $trainer->salary }}</td>
                                         <td>
-                                            <!-- Edit button -->
+                                        
                                             <a href="{{url('edit_trainers', $trainer->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                                            <!-- Delete button with confirmation message -->
+                                        
                                             <a href="{{url('delete_trainers', $trainer->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
                                         </td>
                                     </tr>
@@ -116,15 +79,12 @@
                 </div>
             </div>
         </div>
-
-        <!-- Message area -->
         <div class="message" id="noResultMessage" style="display: none;">
             <div class="alert alert-danger" role="alert">
                 No trainers found with the given name or email.
             </div>
         </div>
     </div>
-    @include('backend.script')
 
     <script>
     function closeAlert() {
@@ -168,7 +128,7 @@
         }
     });
 </script>
+  </body>
 
-</body>
-
+  @include('backend.layouts.footer')
 </html>
