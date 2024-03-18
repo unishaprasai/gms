@@ -13,7 +13,7 @@ class HomeController extends Controller
     {
         if (Auth::id()) {
             $usertype = Auth()->user()->usertype; // corrected syntax
-            if ($usertype == 'user') {
+            if ($usertype == 'trainer') {
                 return view('dashboard');
             }
 

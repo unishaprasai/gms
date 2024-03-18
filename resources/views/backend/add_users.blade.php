@@ -7,6 +7,7 @@
 </head>
 @include('backend.layouts.slidebar')
 
+
 <body>
     @include('backend.layouts.header')
     <div class="fcontainer">
@@ -79,12 +80,12 @@
 
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
-                icon.classList.remove('mdi-eye');
-                icon.classList.add('mdi-eye-off');
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
             } else {
                 passwordInput.type = "password";
-                icon.classList.remove('mdi-eye-off');
-                icon.classList.add('mdi-eye');
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
             }
         });
     </script>

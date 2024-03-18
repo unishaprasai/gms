@@ -16,6 +16,12 @@ class UserController extends Controller
         return view('backend.add_users');
     }
 
+    public function view_users()
+    {
+        $users = User::all();
+        return view('backend.view_users', compact('users'));
+    }
+
     public function store_users(Request $request)
     {
         // Validate the form data
@@ -42,4 +48,58 @@ class UserController extends Controller
         // Redirect back with success message
         return redirect()->back()->with('success', 'User added successfully');
     }
+
+    public function delete_users($id){
+       
+         // Find the trainer by ID
+    $users = User::find($id);
+
+    if (!$users) {
+        // Trainer not found, you may want to handle this case differently (e.g., show error message)
+        return redirect()->back()->with('error', 'Trainer not found!');
+    }
+
+    // Delete the trainer
+    $users->delete();
+
+    // Redirect back with success message
+    return redirect()->back()->with('success', 'Trainer deleted successfully!');
+        }
+        
+
+        public function edit_users($id)
+        {
+            $users = User::findOrFail($id);
+            return view('backend.edit_users', compact('users'));
+        }
+    
+
+        public function update_users(Request $request, $id)
+{
+    // Validate the request data
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'usertype' => 'required|in:admin,user', // Example validation for user type
+        // Add more validation rules for other fields as needed
+    ]);
+
+    // Find the user by ID
+    $user = User::find($id);
+    if (!$user) {
+        return redirect()->back()->with('error', 'User not found!');
+    }
+
+    // Update the user's data
+    $user->name = $validatedData['name'];
+    $user->email = $validatedData['email'];
+    $user->usertype = $validatedData['usertype'];
+    // Update other fields as needed
+
+    $user->save();
+
+    return redirect()->back()->with('success', 'User details updated successfully!');
+}
+
+
 }

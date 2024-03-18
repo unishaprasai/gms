@@ -24,6 +24,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+
 Route::get('/register', [RegisteredUserController::class, 'adduser']);
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
@@ -48,6 +49,10 @@ Route::put('/update_member/{id}', [MemberController::class, 'update_member']); /
 
 Route::get('/add_users', [UserController::class, 'add_users']);
 Route::post('/store_users', [UserController::class, 'store_users'])->name('store_users');
+Route::get('/view_users', [UserController::class, 'view_users']);
+Route::get('/edit_users/{id}', [UserController::class, 'edit_users']);
+Route::put('/update_users/{id}', [UserController::class, 'update_users']);
+Route::get('/delete_users/{id}', [UserController::class, 'delete_users']);
 
 
 

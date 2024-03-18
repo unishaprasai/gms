@@ -12,7 +12,7 @@
                                   
                             <ul>
                             <li><a href="{{ url('add_users') }}">New User </a></li>
-                                <li><a href="{{ url('add_users') }}">Users List</a></li>
+                                <li><a href="{{ url('view_users') }}">Users List</a></li>
                             </ul>
                         </li>
 
