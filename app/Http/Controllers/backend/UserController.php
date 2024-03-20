@@ -50,8 +50,6 @@ class UserController extends Controller
         // Send email to the user
     Mail::to($user->email)->send(new UserRegisteredMail($user->name, $user->email,$validatedData['upassword']));
 
-     
-    dd('Email send Sucessfully');
         // Redirect back with success message
         return redirect()->back()->with('success', 'User added successfully');
     }
