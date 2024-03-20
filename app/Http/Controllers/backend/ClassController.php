@@ -4,7 +4,9 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\classes;
+use App\Models\Trainers;
 use Illuminate\Http\Request;
+
 
 class ClassController extends Controller
 {    
@@ -55,4 +57,40 @@ class ClassController extends Controller
     // Redirect back with success message
     return redirect()->back()->with('success', 'Class deleted successfully!');
 }
+
+public function edit_class($id)
+{
+    $class = Classes::findOrFail($id); // Retrieve the class by ID
+    $trainers = Trainers::pluck('trainer_name', 'id'); 
+
+    return view('backend.edit_class', compact('class', 'trainers'));
+}
+
+public function update_class(Request $request, $id)
+{
+    $validatedData = $request->validate([
+        'ClassName' => 'required|string|max:255',
+        'trainerid' => 'required|exists:trainers,id',
+        'shift' => 'required|string|in:Morning,Afternoon,Evening,Night',
+        'class_time' => 'required|string',
+        'venue' => 'required|string|max:255',
+    ]);
+
+    // Find the class by ID
+    $class = Classes::findOrFail($id);
+
+    // Update class attributes with validated data
+    $class->ClassName = $validatedData['ClassName'];
+    $class->trainersid = $validatedData['trainerid'];
+    $class->shift = $validatedData['shift'];
+    $class->class_time = $validatedData['class_time'];
+    $class->venue = $validatedData['venue'];
+
+
+    // Save the updated class
+    $class->save();
+
+    return redirect()->back()->with('success', 'Trainer updated successfully!');
+}
+
 }

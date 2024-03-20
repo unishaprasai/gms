@@ -71,6 +71,6 @@ Route::get('/delete_trainers/{id}', [TrainerController::class, 'delete_trainers'
 Route::get('/add_classes', [ClassController::class, 'index']);
 Route::post('/add_class', [ClassController::class, 'addClass']);
 Route::get('/view_class', [classController::class, 'view_class']);
-// Route::get('/edit_trainers/{id}', [TrainerController::class, 'edit_trainers']);
-// Route::put('/update_trainers/{id}', [TrainerController::class, 'update_trainers']);
+Route::get('/edit_class/{id}', [ClassController::class, 'edit_class']);
+Route::put('/update_class/{id}', [ClassController::class, 'update_class']);
 Route::get('/delete_class/{id}', [ClassController::class, 'delete_class']);

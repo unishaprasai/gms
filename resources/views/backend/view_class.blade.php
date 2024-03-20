@@ -62,8 +62,8 @@
                                         <td>{{ $class->class_time }}</td>
                                         <td>{{ $class->venue }}</td>
                                         <td>
-
-                                        <a href="{{url('delete_class', $class->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this class?')">Delete</a>
+                                            <a href="{{url('edit_class', $class->id)}}" class="btn btn-sm btn-primary">Edit</a>
+                                            <a href="{{url('delete_class', $class->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this class?')">Delete</a>
                                         </td>
                                     </tr>
                                     @endforeach
