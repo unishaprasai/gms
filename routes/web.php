@@ -7,7 +7,8 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\UserController; 
 use App\Http\Controllers\Backend\TrainerController; 
 use App\Http\Controllers\Backend\MemberController; 
-use App\Http\Controllers\Auth\RegisteredUserController; 
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\backend\ClassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+
 Route::get('/view_members', [MemberController::class, 'view_members']);
 Route::get('/add_members', [MemberController::class, 'add_member']);
 Route::post('/add_members', [MemberController::class, 'add_members']);
@@ -66,3 +68,9 @@ Route::get('/delete_trainers/{id}', [TrainerController::class, 'delete_trainers'
 
 
 
+Route::get('/add_classes', [ClassController::class, 'index']);
+Route::post('/add_class', [ClassController::class, 'addClass']);
+Route::get('/view_class', [classController::class, 'view_class']);
+// Route::get('/edit_trainers/{id}', [TrainerController::class, 'edit_trainers']);
+// Route::put('/update_trainers/{id}', [TrainerController::class, 'update_trainers']);
+Route::get('/delete_class/{id}', [ClassController::class, 'delete_class']);

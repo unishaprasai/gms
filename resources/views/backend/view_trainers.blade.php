@@ -44,6 +44,7 @@
                             <table class="table table-bordered mx-auto">
                                 <thead>
                                     <tr class="heading">
+                                        <th>Id</th>
                                         <th>Trainer Name</th>
                                         <th>Trainer Email</th>
                                         <th>Address</th>
@@ -57,6 +58,7 @@
                                 <tbody>
                                     @foreach($trainers as $trainer)
                                     <tr>
+                                    <td>{{ $trainer->id }}</td>
                                         <td>{{ $trainer->trainer_name }}</td>
                                         <td>{{ $trainer->trainer_email }}</td>
                                         <td>{{ $trainer->trainer_address }}</td>

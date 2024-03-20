@@ -36,6 +36,16 @@
                             </ul>
                         </li>
 
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="backend/assets/img/icons/users1.svg" alt="img"><span>
+                                    Classes</span> <span class="menu-arrow"></span></a>
+                                  
+                            <ul>
+                            <li><a href="{{ url('add_classes') }}">New Class </a></li>
+                                <li><a href="{{ url('view_class') }}">View Classes</a></li>
+                            </ul>
+                        </li>
+
                         <!-- <li class="submenu">
                             <a href="javascript:void(0);"><img src="backend/assets/img/icons/sales1.svg" alt="img"><span>
                                     Sales</span> <span class="menu-arrow"></span></a>
