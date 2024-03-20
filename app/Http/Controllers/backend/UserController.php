@@ -8,6 +8,8 @@ use App\Models\user;
    
 use Illuminate\Support\Facades\Hash;      
 use Illuminate\Support\Facades\Storage;
+use App\Mail\UserRegisteredMail;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -45,6 +47,11 @@ class UserController extends Controller
         // Save the user data to the database
         $user->save();
 
+        // Send email to the user
+    Mail::to($user->email)->send(new UserRegisteredMail($user->name, $user->email,$validatedData['upassword']));
+
+     
+    dd('Email send Sucessfully');
         // Redirect back with success message
         return redirect()->back()->with('success', 'User added successfully');
     }
