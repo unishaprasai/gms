@@ -11,7 +11,9 @@ class PackageController extends Controller
 {
     public function index()
     {
-        return view('backend.add_package');
+ 
+        $trainers = Trainers::pluck('trainer_name', 'id');
+        return view('backend.add_package', compact('trainers'));;
     }
 
     public function add_package(Request $request)
@@ -23,7 +25,7 @@ class PackageController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'duration_in_days' => 'required|integer|min:1',
-        ]);
+        ]); 
 
         $package = Package::create($validatedData);
 

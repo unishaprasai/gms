@@ -57,7 +57,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="assign_trainer">Assigned Trainer</label>
-                                    <input type="text" class="form-control" id="assign_trainer" name="assign_trainer" required>
+                                    <select class="form-control" id="assign_trainer" name="assign_trainer" required>
+                                        <option value="">Select Assigned Trainer</option>
+                                        @foreach ($trainers as $trainerId => $trainerName)
+                                        <option value="{{ $trainerId }}">{{ $trainerName }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
