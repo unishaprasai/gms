@@ -45,27 +45,6 @@
             </li>
 
 
-            <li class="nav-item dropdown has-arrow flag-nav">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button">
-                    <img src="backend/assets/img/flags/us1.png" alt="" height="20">
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="backend/assets/img/flags/us.png" alt="" height="16"> English
-                    </a>
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="backend/assets/img/flags/fr.png" alt="" height="16"> French
-                    </a>
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="backend/assets/img/flags/es.png" alt="" height="16"> Spanish
-                    </a>
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="backend/assets/img/flags/de.png" alt="" height="16"> German
-                    </a>
-                </div>
-            </li>
-
-
             <li class="nav-item dropdown">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                     <img src="backend/assets/img/icons/notification-bing.svg" alt="img"> <span class="badge rounded-pill">4</span>
@@ -190,7 +169,10 @@
                             Profile</a>
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2" data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="/"><img src="backend/assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
+                        <a class="dropdown-item logout pb-0" href="/" onclick="logoutAndClearLocalStorage(event)">
+                            <img src="backend/assets/img/icons/log-out.svg" class="me-2" alt="img">Logout
+                        </a>
+
                     </div>
                 </div>
             </li>
@@ -207,3 +189,15 @@
         </div>
 
     </div>
+
+    <script>
+    function logoutAndClearLocalStorage(event) {
+        event.preventDefault(); // Prevent the default link behavior
+
+        // Clear local storage
+        localStorage.clear();
+
+        // Redirect to the logout route
+        window.location.href = event.target.href;
+    }
+</script>
