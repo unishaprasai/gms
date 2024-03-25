@@ -46,6 +46,17 @@
                             </ul>
                         </li>
 
+
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="backend/assets/img/icons/product.svg" alt="img"><span>
+                                    Packages</span> <span class="menu-arrow"></span></a>
+                                  
+                            <ul>
+                            <li><a href="{{ url('add_packages') }}">New Package </a></li>
+                                <li><a href="{{ url('view_package') }}">View Packages</a></li>
+                            </ul>
+                        </li>
+
                         <!-- <li class="submenu">
                             <a href="javascript:void(0);"><img src="backend/assets/img/icons/sales1.svg" alt="img"><span>
                                     Sales</span> <span class="menu-arrow"></span></a>
