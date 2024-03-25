@@ -78,7 +78,7 @@ Route::get('/delete_class/{id}', [ClassController::class, 'delete_class']);
 
 Route::get('/add_packages', [PackageController::class, 'index']);
 Route::post('/add_package', [PackageController::class, 'add_package']);
-// Route::get('/view_class', [classController::class, 'view_class']);
-// Route::get('/edit_class/{id}', [ClassController::class, 'edit_class']);
-// Route::put('/update_class/{id}', [ClassController::class, 'update_class']);
-// Route::get('/delete_class/{id}', [ClassController::class, 'delete_class']);
+Route::get('/view_package', [PackageController::class, 'view_package']);
+Route::get('/edit_package/{package_id}', [PackageController::class, 'edit_package']);
+Route::put('/update_package/{package_id}', [PackageController::class, 'update_package']);
+Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_package']);

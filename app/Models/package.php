@@ -9,6 +9,9 @@ class Package extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'package_id';
+
+
     protected $fillable = ['package_id','name', 'assign_trainer', 'description', 'price', 'duration_in_days']; // Include fillable attributes
         public function trainer()
     {

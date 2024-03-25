@@ -17,7 +17,7 @@
                         </li>
 
                         <li class="submenu">
-                            <a href="javascript:void(0);"><img src="backend/assets/img/icons/users1.svg" alt="img"><span>
+                            <a href="javascript:void(0);"><img src="backend/assets/img/icons/member.svg" alt="img"><span>
                                     Members</span> <span class="menu-arrow"></span></a>
                                   
                             <ul>
@@ -37,7 +37,7 @@
                         </li>
 
                         <li class="submenu">
-                            <a href="javascript:void(0);"><img src="backend/assets/img/icons/users1.svg" alt="img"><span>
+                            <a href="javascript:void(0);"><img src="backend/assets/img/icons/time.svg" alt="img"><span>
                                     Classes</span> <span class="menu-arrow"></span></a>
                                   
                             <ul>

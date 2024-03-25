@@ -69,13 +69,7 @@
                                     <label for="description">Services</label>
                                     <input type="text" class="form-control" id="description" name="description">
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label for="shift">Shift</label>
-                                    <select class="form-control" id="shift" name="shift" required>
-                                        <option value="Morning">Morning</option>
-                                        <option value="Evening">Evening</option>
-                                    </select>
-                                </div> -->
+
                                 <div class="form-group">
                                     <label for="price">Price</label>
                                     <input type="text" class="form-control" id="price" name="price" required>
