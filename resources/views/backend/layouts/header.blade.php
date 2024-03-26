@@ -169,9 +169,7 @@
                             Profile</a>
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2" data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="/" onclick="logoutAndClearLocalStorage(event)">
-                            <img src="backend/assets/img/icons/log-out.svg" class="me-2" alt="img">Logout
-                        </a>
+                        <x-logout-button />
 
                     </div>
                 </div>
