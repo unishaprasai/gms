@@ -11,6 +11,14 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\backend\ClassController;
 use App\Http\Controllers\backend\PackageController;
 
+use App\Http\Controllers\Frontend\AboutUsController;
+use App\Http\Controllers\Frontend\BMIController;
+use App\Http\Controllers\Frontend\ClassTimeController;
+use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\ServiceController;
+use App\Http\Controllers\Frontend\UserDashboardController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,7 +55,7 @@ Route::get('/add_members', [MemberController::class, 'add_member']);
 Route::post('/add_members', [MemberController::class, 'add_members']);
 Route::get('/delete_members/{id}', [MemberController::class, 'delete_members']);
 Route::get('/edit_members/{id}', [MemberController::class, 'edit_members']);
-Route::put('/update_member/{id}', [MemberController::class, 'update_member']); // New route for updating members
+Route::put('/update_member/{id}', [MemberController::class, 'update_member']); 
 
 
 Route::get('/add_users', [UserController::class, 'add_users']);
@@ -84,3 +92,16 @@ Route::get('/view_package', [PackageController::class, 'view_package']);
 Route::get('/edit_package/{package_id}', [PackageController::class, 'edit_package']);
 Route::put('/update_package/{package_id}', [PackageController::class, 'update_package']);
 Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_package']);
+
+
+
+
+
+
+
+//User
+Route::get('/user',[UserDashboardController::class,'index']);
+Route::get('/about',[AboutUsController::class,'index']);
+Route::get('bmicalculator',[BMIController::class,'index']);
+Route::get('/classtime',[ClassTimeController::class,'index']);
+Route::get('/services',[ServiceController::class,'index']);

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\members;
 use Illuminate\Support\Facades\Hash;      
 use Illuminate\Support\Facades\Storage;
+use App\Models\Package;
 
 
 class MemberController extends Controller
@@ -14,8 +15,9 @@ class MemberController extends Controller
 
 
 public function add_member()
-{
-    return view('backend.add_members');
+{      $packages = package::all(); // Fetch all packages from the database
+
+    return view('backend.add_members',compact('packages'));
 }
 
 

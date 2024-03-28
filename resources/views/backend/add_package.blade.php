@@ -4,12 +4,15 @@
 <head>
     <!-- Required meta tags -->
     @include('backend.layouts.css')
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 @include('backend.layouts.slidebar')
 
 <body>
     @include('backend.layouts.header')
-    <h1 class="mt-5 mb-4 text-center">Add Packages</h1>
+    <h1 class="mt-5 mb-4 text-center"style="padding-top: 28px;">Add Packages</h1>
 
 
     @if(session('success'))
@@ -79,6 +82,7 @@
                                     <input type="number" class="form-control" id="duration_in_days" name="duration_in_days" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                <button type="button" class="btn btn-danger btn-block" onclick="clearForm()">Cancel</button>
                             </form>
                         </div>
                     </div>
@@ -88,22 +92,33 @@
     </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var closeButton = document.getElementById('closeButton');
-            if (closeButton) {
-                closeButton.addEventListener('click', function() {
-                    closeAlert();
-                });
-            }
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('trainerform');
 
-        function closeAlert() {
-            var alertOverlay = document.querySelector('.alert-overlay');
-            if (alertOverlay) {
-                alertOverlay.remove();
-            }
-        }
-    </script>
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            Swal.fire({
+                title: 'Confirm Submission',
+                text: 'Are you sure you want to submit this form?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, submit it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Form submission when confirmed
+                    form.submit();
+                }
+            });
+        });
+    });
+
+    function clearForm() {
+        document.getElementById('class_form').reset();
+    }
+</script>
 
 </body>
 @include('backend.layouts.footer')

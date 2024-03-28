@@ -57,6 +57,16 @@
                             </ul>
                         </li>
 
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="backend/assets/img/icons/product.svg" alt="img"><span>
+                                    Packages</span> <span class="menu-arrow"></span></a>
+                                  
+                            <ul>
+                            <li><a href="{{ url('add_packages') }}">Attendance </a></li>
+                                <li><a href="{{ url('view_package') }}">Attendance Records</a></li>
+                            </ul>
+                        </li>
+
 
 
                         <li>

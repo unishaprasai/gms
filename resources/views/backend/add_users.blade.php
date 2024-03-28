@@ -4,6 +4,8 @@
 <head>
     <!-- Required meta tags -->
     @include('backend.layouts.css')
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 @include('backend.layouts.slidebar')
 
@@ -11,12 +13,28 @@
 <body>
     @include('backend.layouts.header')
     <div class="fcontainer">
-        <h1 class="mt-5 mb-4 text-center">Add your Users</h1>
+        <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">Add your Users</h1>
         @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-        @endif
+    <script>
+        Swal.fire({
+            title: 'Success',
+            text: "{!! addslashes(session('success')) !!}",
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    </script>
+    @endif
+
+    @if($errors->any())
+    <script>
+        Swal.fire({
+            title: 'Error',
+            html: '<ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
+            icon: 'error'
+        });
+    </script>
+    @endif
 
 
         <div class="main-panel">
@@ -39,11 +57,9 @@
                                     <label for="password">Password</label>
                                     <div class="input-group">
                                         <input type="password" class="form-control" id="password" name="upassword" required>
-                                        <div class="input-group-append">
                                             <button class="btn btn-outline-secondary password-toggle" type="button" id="togglePassword">
-                                                <i class="mdi mdi-eye" aria-hidden="true"></i>
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
                                             </button>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -58,6 +74,7 @@
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                <button type="button" class="btn btn-danger btn-block" onclick="clearForm()">Cancel</button>
                             </form>
 
                         </div>
@@ -80,14 +97,38 @@
 
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
+                icon.className = "fa fa-eye-slash";
             } else {
                 passwordInput.type = "password";
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
+                icon.className = "fa fa-eye";
             }
         });
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('class_form');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            Swal.fire({
+                title: 'Confirm Submission',
+                text: 'Are you sure you want to submit this form?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, submit it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Form submission when confirmed
+                    form.submit();
+                }
+            });
+        });
+    });
+
+    function clearForm() {
+        document.getElementById('userForm').reset();
+    }
     </script>
 
 </body>
