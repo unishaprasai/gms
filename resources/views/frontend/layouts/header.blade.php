@@ -84,9 +84,9 @@
                 <div class="col-lg-6">
                 <nav class="nav-menu">
     <ul>
-        <li class="{{ Request::is('user/') ? 'active' : '' }}"><a href="{{ url('/') }}">Home</a></li>
+        <li class="{{ Request::is('user/') ? 'active' : '' }}"><a href="{{ url('/user') }}">Home</a></li>
         <li class="{{ Request::is('about') ? 'active' : '' }}"><a href="{{ url('/about') }}">About Us</a></li>
-        <li class="{{ Request::is('classtime') ? 'active' : '' }}"><a href="{{ url('/class') }}">Classes</a></li>
+        <li class="{{ Request::is('classtime') ? 'active' : '' }}"><a href="{{ url('/classtime') }}">Classes</a></li>
         <li class="{{ Request::is('services') ? 'active' : '' }}"><a href="{{ url('/services') }}">Services</a></li>
         <li class="{{ Request::is('team') ? 'active' : '' }}"><a href="{{ url('/team') }}">Our Team</a></li>
         <li>

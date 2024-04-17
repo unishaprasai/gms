@@ -4,15 +4,15 @@
 @section('main-container')
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb-bg.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="frontend/img/breadcrumb-bg.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb-text">
                         <h2>Classes detail</h2>
                         <div class="bt-option">
-                            <a href="./index.html">Home</a>
-                            <a href="#">Classes</a>
+                            <a href="/user">Home</a>
+                            <a href="">Classes</a>
                             <span>Body building</span>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                 <div class="col-lg-8">
                     <div class="class-details-text">
                         <div class="cd-pic">
-                            <img src="img/classes/class-details/class-detailsl.jpg" alt="">
+                            <img src="frontend/img/classes/class-details/class-detailsl.jpg" alt="">
                         </div>
                         <div class="cd-text">
                             <div class="cd-single-item">

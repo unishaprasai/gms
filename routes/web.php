@@ -12,8 +12,7 @@ use App\Http\Controllers\backend\AttendanceController;
 use App\Http\Controllers\backend\ClassController;
 use App\Http\Controllers\backend\PackageController;
 use App\Http\Controllers\backend\AnnouncementController;
-
-
+use App\Http\Controllers\backend\NotificationController;
 use App\Http\Controllers\Frontend\AboutUsController;
 use App\Http\Controllers\Frontend\BMIController;
 use App\Http\Controllers\Frontend\ClassTimeController;
@@ -108,6 +107,8 @@ Route::get('/attendance_sheet', [AttendanceController::class, 'index']);
 
 Route::get('/add_ann', [AnnouncementController::class, 'index']);
 Route::post('/add_announcement', [AnnouncementController::class, 'store']);
+
+// Route::get('/add_announcement', [NotificationController::class, 'index']);
 
 
 
