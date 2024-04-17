@@ -29,6 +29,7 @@ public function add_members(Request $request)
     // dd($request->all());
     // Create a new instance of the Member model
     $member = new Members;
+    $packages = package::all();
 
     // Assign values from the request to the model attributes
     $member->name = $request->input('mname');
@@ -38,6 +39,15 @@ public function add_members(Request $request)
     $member->date_of_join = $request->input('date_of_join'); // Changed to match the form input name
     $member->membership_type = $request->input('membership_type'); // Changed to match the form input name
     $member->shift = $request->input('shift');
+
+    $validatedData = $request->validate([
+        'maddress' => 'required|string|max:255',
+        'mphone' => 'required|string|max:20',
+        'date_of_join' => 'required|date',
+        'membership_type' => 'nullable|string|max:255', 
+        'shift' => 'required|string|max:50',
+    ]);
+    
 
     // Handling file upload (photo)
     if ($request->hasFile('photo')) {

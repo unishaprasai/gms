@@ -17,7 +17,11 @@ class HomeController extends Controller
             Log::info("User Type: $usertype");
     
             if ($usertype == 'trainer') {
-                return view('dashboard');
+                return view('backend.home');
+            }
+
+            if ($usertype == 'member') {
+                return view('Frontend.index');
             }
     
             if ($usertype == 'admin') {

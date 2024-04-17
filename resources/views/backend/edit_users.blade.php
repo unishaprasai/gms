@@ -65,8 +65,8 @@
                                     <div class="form-group">
                                         <label for="usertype">User Type</label>
                                         <select class="form-control" id="usertype" name="usertype" required>
-                                            <option value="admin" {{ $users->usertype == 'admin' ? 'selected' : '' }}>Admin</option>
-                                            <option value="user" {{ $users->usertype == 'user' ? 'selected' : '' }}>User</option>
+                                            <option value="admin" {{ $users->usertype == 'Trainer' ? 'selected' : '' }}>Trainer</option>
+                                            <option value="user" {{ $users->usertype == 'Member' ? 'selected' : '' }}>Member</option>
                                             <!-- Add more options as needed -->
                                         </select>
                                     </div>

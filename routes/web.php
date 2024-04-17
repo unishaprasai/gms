@@ -8,8 +8,11 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\TrainerController; 
 use App\Http\Controllers\Backend\MemberController; 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\backend\AttendanceController;
 use App\Http\Controllers\backend\ClassController;
 use App\Http\Controllers\backend\PackageController;
+use App\Http\Controllers\backend\AnnouncementController;
+
 
 use App\Http\Controllers\Frontend\AboutUsController;
 use App\Http\Controllers\Frontend\BMIController;
@@ -58,21 +61,21 @@ Route::get('/edit_members/{id}', [MemberController::class, 'edit_members']);
 Route::put('/update_member/{id}', [MemberController::class, 'update_member']); 
 
 
-Route::get('/add_users', [UserController::class, 'add_users']);
-Route::post('/store_users', [UserController::class, 'store_users'])->name('store_users');
+Route::get('/add_users', [UserController::class, 'add_users'])->middleware('isAdmin');
+Route::post('/store_users', [UserController::class, 'store_users'])->name('store_users')->middleware('isAdmin');
 Route::get('/view_users', [UserController::class, 'view_users']);
 Route::get('/edit_users/{id}', [UserController::class, 'edit_users']);
 Route::put('/update_users/{id}', [UserController::class, 'update_users']);
-Route::get('/delete_users/{id}', [UserController::class, 'delete_users']);
+Route::get('/delete_users/{id}', [UserController::class, 'delete_users'])->middleware('isAdmin');
 
 
 
-Route::get('/add_trainers', [TrainerController::class, 'index']);
-Route::post('/add_trainers', [TrainerController::class, 'add_trainers']);
-Route::get('/view_trainers', [TrainerController::class, 'view_trainers']);
-Route::get('/edit_trainers/{id}', [TrainerController::class, 'edit_trainers']);
-Route::put('/update_trainers/{id}', [TrainerController::class, 'update_trainers']);
-Route::get('/delete_trainers/{id}', [TrainerController::class, 'delete_trainers']);
+Route::get('/add_trainers', [TrainerController::class, 'index'])->middleware('isAdmin');
+Route::post('/add_trainers', [TrainerController::class, 'add_trainers'])->middleware('isAdmin');
+Route::get('/view_trainers', [TrainerController::class, 'view_trainers'])->middleware('isAdmin');
+Route::get('/edit_trainers/{id}', [TrainerController::class, 'edit_trainers'])->middleware('isAdmin',);
+Route::put('/update_trainers/{id}', [TrainerController::class, 'update_trainers'])->middleware('isAdmin');
+Route::get('/delete_trainers/{id}', [TrainerController::class, 'delete_trainers'])->middleware('isAdmin');
 
 
 
@@ -96,12 +99,25 @@ Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_pa
 
 
 
+Route::get('/attendance_sheet', [AttendanceController::class, 'index']);
+ Route::post('/save_attendance', [AttendanceController::class, 'save_attendance']);
+// Route::get('/view_package', [PackageController::class, 'view_package']);
+// Route::get('/edit_package/{package_id}', [PackageController::class, 'edit_package']);
+// Route::put('/update_package/{package_id}', [PackageController::class, 'update_package']);
+// Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_package']);
+
+Route::get('/add_ann', [AnnouncementController::class, 'index']);
+Route::post('/add_announcement', [AnnouncementController::class, 'store']);
 
 
 
-//User
+//Member
 Route::get('/user',[UserDashboardController::class,'index']);
 Route::get('/about',[AboutUsController::class,'index']);
 Route::get('bmicalculator',[BMIController::class,'index']);
 Route::get('/classtime',[ClassTimeController::class,'index']);
 Route::get('/services',[ServiceController::class,'index']);
+
+Route::middleware('isAdmin')->group(function(){
+    
+});

@@ -90,9 +90,8 @@
                                         <input type="text" class="form-control" id="venue" name="venue" value="{{ old('venue', $class->venue) }}" required>
                                     </div>
 
-                                    <!-- Add other input fields for updating -->
-
                                     <button type="submit" class="btn btn-primary">Update</button>
+                                    
                                 </form>
                             </div>
                         </div>

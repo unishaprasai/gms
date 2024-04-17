@@ -11,8 +11,10 @@
                                     Users</span> <span class="menu-arrow"></span></a>
                                   
                             <ul>
-                            <li><a href="{{ url('add_users') }}">New User </a></li>
-                                <li><a href="{{ url('view_users') }}">Users List</a></li>
+                            @if(auth()->user()->usertype === 'admin')
+                                <li><a href="{{ url('add_users') }}">New User </a></li>
+                            @endif
+                            <li><a href="{{ url('view_users') }}">Users List</a></li>
                             </ul>
                         </li>
 
@@ -26,15 +28,21 @@
                             </ul>
                         </li>
 
-                        <li class="submenu">
+                     @if(auth()->user()->usertype === 'admin')
+                     <li class="submenu">
                             <a href="javascript:void(0);"><img src="backend/assets/img/icons/users1.svg" alt="img"><span>
                                     Trainers</span> <span class="menu-arrow"></span></a>
                                   
                             <ul>
+                            @if(auth()->user()->usertype === 'admin')
                             <li><a href="{{ url('add_trainers') }}">New Trainer </a></li>
-                                <li><a href="{{ url('view_trainers') }}">Trainers List</a></li>
+                            @endif
+
+                            <li><a href="{{ url('view_trainers') }}">Trainers List</a></li>
+                            
                             </ul>
                         </li>
+                    @endif
 
                         <li class="submenu">
                             <a href="javascript:void(0);"><img src="backend/assets/img/icons/time.svg" alt="img"><span>
@@ -58,11 +66,16 @@
                         </li>
 
                         <li class="submenu">
-                            <a href="javascript:void(0);"><img src="backend/assets/img/icons/product.svg" alt="img"><span>
-                                    Packages</span> <span class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);"><img src="backend/assets/img/icons/places.svg" alt="img"><span>
+                                    Attendance</span> <span class="menu-arrow"></span></a>
                                   
                             <ul>
-                            <li><a href="{{ url('add_packages') }}">Attendance </a></li>
+                            @if(auth()->user()->usertype === 'admin')
+
+                            <li><a href="{{ url('attendance_sheet') }}">Trainers Attendance </a></li>
+                            @endif
+
+                            <li><a href="{{ url('attendance_sheet') }}">Students Attendance </a></li>
                                 <li><a href="{{ url('view_package') }}">Attendance Records</a></li>
                             </ul>
                         </li>
@@ -79,7 +92,9 @@
                                     Announcements</span> <span class="menu-arrow"></span></a>
                                   
                             <ul>
-                            <li><a href="{{ url('add_packages') }}">New Announcements </a></li>
+                            @if(auth()->user()->usertype === 'admin')
+                            <li><a href="{{ url('add_ann') }}">New Announcements </a></li>
+                            @endif
                                 <li><a href="{{ url('view_package') }}">View Announcements </a></li>
                             </ul>
                         </li>

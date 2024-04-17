@@ -4,6 +4,8 @@
 <head>
     <!-- Required meta tags -->
     @include('backend.layouts.css')
+    <!-- Include SweetAlert library -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 @include('backend.layouts.slidebar')
 
@@ -28,9 +30,10 @@
         <div class="row justify-content-center mb-3">
             <div class="col-md-6">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Search Classes">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search Packages">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="searchButton">Search</button>
+                        <button class="btn btn-outline-secondary btn-green" type="button" id="searchButton">Search</button>
+                        <button class="btn btn-outline-secondary btn-blue" type="button" id="refreshButton">Refresh</button>
                     </div>
                 </div>
             </div>
@@ -54,7 +57,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="packageTableBody">
                                     @foreach($packages as $package)
                                     <tr>
                                         <td>{{ $package->package_id }}</td>
@@ -65,20 +68,21 @@
                                         <td>{{ $package->duration_in_days }}</td>
                                         <td>
                                             <a href="{{url('edit_package', $package->package_id)}}" class="btn btn-sm btn-primary">Edit</a>
-                                            <a href="{{url('delete_package', $package->package_id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this package?')">Delete</a>
+                                            <button class="btn btn-sm btn-danger" onclick="confirmDelete('{{ url('/delete_package', $package->package_id) }}')">Delete</button>
+
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
+                        <div class="message" id="noResultMessage" style="display: none;">
+                            <div class="alert alert-danger" role="alert">
+                                No packages found with the given name or ID.
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="message" id="noResultMessage" style="display: none;">
-            <div class="alert alert-danger" role="alert">
-                No trainers found with the given name or email.
             </div>
         </div>
     </div>
@@ -93,23 +97,32 @@
 
         // Add an event listener to the search button
         document.getElementById('searchButton').addEventListener('click', function() {
+            searchPackages();
+        });
+
+        // Add an event listener to the refresh button
+        document.getElementById('refreshButton').addEventListener('click', function() {
+            location.reload();
+        });
+
+        function searchPackages() {
             // Get the search query from the input field
             var searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
 
             // Get all table rows
-            var rows = document.querySelectorAll('.table tbody tr');
+            var rows = document.querySelectorAll('#packageTableBody tr');
             var noResultMessage = document.getElementById('noResultMessage');
 
-            // Flag to check if any member is found
+            // Flag to check if any package is found
             var found = false;
 
             // Loop through each row and hide/show based on the search query
             rows.forEach(function(row) {
-                var trainer_name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                var trainer_email = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                var packageName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                var packageId = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
 
-                // Check if name or email contains the search query
-                if (trainer_name.includes(searchQuery) || trainer_email.includes(searchQuery)) {
+                // Check if name or ID contains the search query
+                if (packageName.includes(searchQuery) || packageId.includes(searchQuery)) {
                     row.style.display = '';
                     found = true;
                 } else {
@@ -117,13 +130,34 @@
                 }
             });
 
-            // Display message if no members found
+            // Display message if no packages found
             if (!found) {
                 noResultMessage.style.display = 'block';
             } else {
                 noResultMessage.style.display = 'none';
             }
-        });
+        }
+
+        // Initial search when the page loads
+        searchPackages();
+
+        // Function to confirm delete using SweetAlert
+        function confirmDelete(deleteUrl) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this package!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to delete URL
+                    window.location.href = deleteUrl;
+                }
+            });
+        }
     </script>
 </body>
 

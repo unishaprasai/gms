@@ -3,6 +3,8 @@
   <head>
     <!-- Required meta tags -->
     @include('backend.layouts.css')
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   @include('backend.layouts.slidebar')
   @include('backend.layouts.header')
@@ -36,8 +38,11 @@
                                     <!-- Add edit and delete buttons for each user -->
                                     <a href="{{url('edit_users', $user->id)}}" class="btn btn-sm btn-primary">Edit</a>
 
+                                    @if(auth()->user()->usertype === 'admin')
 
                                     <a href="{{url('delete_users', $user->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
+
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

@@ -1,18 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     @include('backend.layouts.css')
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  </head>
-  @include('backend.layouts.slidebar')
-  <body>
+</head>
+@include('backend.layouts.slidebar')
+
+<body>
     @include('backend.layouts.header')
-    <h1 class="mt-5 mb-4 text-center "style="padding-top: 28px;">Gym Membership Form</h1>
-        
+    <h1 class="mt-5 mb-4 text-center " style="padding-top: 28px;">Gym Membership Form</h1>
+
 
     @if(session('success'))
     <script>
@@ -36,14 +37,14 @@
     </script>
     @endif
 
-        <div class="main-panel">  
-            <div class="content wrapper">
+    <div class="main-panel">
+        <div class="content wrapper">
             <div class="row justify-content-center">
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Membership Details</h5>
-                            <form id="member_form"action="{{ url('add_members') }}" method="post" enctype="multipart/form-data">
+                            <form id="member_form" action="{{ url('add_members') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -69,7 +70,7 @@
                                     <label for="membership_type">Membership Type</label>
                                     <select class="form-control" id="membership_type" name="membership_type" required>
                                         @foreach($packages as $package)
-                                            <option value="{{ $package->id }}">{{ $package->name }}</option>
+                                        <option value="{{ $package->name }}">{{ $package->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -92,37 +93,38 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
     </div>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('trainerform');
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('trainerform');
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
 
-            Swal.fire({
-                title: 'Confirm Submission',
-                text: 'Are you sure you want to submit this form?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, submit it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Form submission when confirmed
-                    form.submit();
-                }
+                Swal.fire({
+                    title: 'Confirm Submission',
+                    text: 'Are you sure you want to submit this form?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, submit it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Form submission when confirmed
+                        form.submit();
+                    }
+                });
             });
         });
-    });
 
-    function clearForm() {
-        document.getElementById('class_form').reset();
-    }
-</script>
+        function clearForm() {
+            document.getElementById('class_form').reset();
+        }
+    </script>
 
-  </body>
-  @include('backend.layouts.footer')
+</body>
+@include('backend.layouts.footer')
+
 </html>

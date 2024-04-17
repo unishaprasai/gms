@@ -15,9 +15,10 @@ class PackageController extends Controller
         $trainers = Trainers::pluck('trainer_name', 'id');
         return view('backend.add_package', compact('trainers'));;
     }
-
+    
     public function add_package(Request $request)
     {
+        // Validate the incoming request data
         $validatedData = $request->validate([
             'package_id' => 'required|numeric',
             'name' => 'required|string|max:255',
@@ -25,12 +26,24 @@ class PackageController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'duration_in_days' => 'required|integer|min:1',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate photo upload
         ]); 
-
+    
+        // Check if a photo was uploaded
+        if ($request->hasFile('photo')) {
+            // Store the uploaded photo in the public storage directory
+            $photoPath = $request->file('photo')->store('public/packages');
+            
+            // Update the photo field in the validated data
+            $validatedData['photo'] = $photoPath;
+        }
+    
+        // Create a new package with the validated data
         $package = Package::create($validatedData);
-
+    
         return redirect()->back()->with('success', 'Package added successfully!');
     }
+    
 
 
     public function view_package(){
@@ -47,6 +60,17 @@ class PackageController extends Controller
     // Check if the package exists
     if (!$package) {
         return redirect()->back()->with('error', 'Package not found!');
+    }
+
+      // Delete the associated photo file if it exists
+      if ($package->photo) {
+        // Get the full path to the photo file
+        $photoPath = public_path('packages/' . $package->photo);
+
+        // Check if the file exists and delete it
+        if (file_exists($photoPath)) {
+            unlink($photoPath); // Delete the file
+        }
     }
 
     // Delete the package
