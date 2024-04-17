@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Package;
 use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -24,8 +25,8 @@ class HomeController extends Controller
             }
     
             if ($userType == 'member') {
-                // Redirect members to the frontend index
-                return redirect()->route('frontend.index');
+                $items = Package::all(); // Fetch all packages from the database
+                return view('frontend.index', compact('items'));
             }
     
             if ($userType == 'admin') {
