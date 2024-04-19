@@ -9,8 +9,7 @@
 
 <body>
     <div class="fcontainer">
-        <h1 class="mt-5 mb-4 text-center">View Members</h1>
-
+    <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">View Members</h1>
         @if(session('success'))
         <div class="alert-overlay">
             <div class="alert-box">
@@ -42,8 +41,7 @@
                             <table class="table table-bordered mx-auto">
                                 <thead>
                                     <tr class="heading">
-                                        <th>Image</th>
-                                        <th>Name</th>
+                                                                                <th>Name</th>
                                         <th>Email</th>
                                         <th>Address</th>
                                         <th>Phone Number</th>
@@ -56,10 +54,6 @@
                                 <tbody>
                                     @foreach($members as $member)
                                     <tr>
-                                        <td>
-                                            <!-- Display image -->
-                                            <!-- <img src="/photos/{{$member->photo}}" alt="Member Image"> -->
-                                        </td>
                                         <td>{{$member->name}}</td>
                                         <td>{{$member->email}}</td>
                                         <td>{{$member->address}}</td>

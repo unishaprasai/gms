@@ -14,8 +14,8 @@
     <div class="col-xl-8">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">User List</h5>
-                <div class="table-responsive">
+            <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">View Users</h1>
+                            <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>

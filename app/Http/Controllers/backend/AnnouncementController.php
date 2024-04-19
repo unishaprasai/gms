@@ -25,4 +25,26 @@ class AnnouncementController extends Controller
     return redirect()->back()->with('success', 'Announcements added successfully!');
 }
 
+public function view()
+{
+    $Announcements = Announcement::all();
+    return view('backend.view_announcement', compact('Announcements'));
+}
+
+public function delete($id)
+{
+    $Announcements = Announcement::find($id);
+
+    if (!$Announcements) {
+        // Announcement not found, you may want to handle this case differently
+        return redirect()->back()->with('error', 'Announcements not found!');
+    }
+
+    // Delete the Announcement
+    $Announcements->delete();
+
+    // Redirect back with success message
+    return redirect()->back()->with('success', 'Announcement deleted successfully!');
+}
+
 }

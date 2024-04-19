@@ -95,7 +95,7 @@
                             @if(auth()->user()->usertype === 'admin')
                             <li><a href="{{ url('add_ann') }}">New Announcements </a></li>
                             @endif
-                                <li><a href="{{ url('view_package') }}">View Announcements </a></li>
+                                <li><a href="{{ url('view_announcement') }}">View Announcements </a></li>
                             </ul>
                         </li>
                         

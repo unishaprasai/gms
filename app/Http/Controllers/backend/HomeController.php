@@ -19,18 +19,29 @@ class HomeController extends Controller
             Log::info("User Type: $userType");
     
             if ($userType == 'trainer') {
-                // Fetch notifications for trainers
-                $notifications = Announcement::where('recipient', 'trainer')->get();
-                return view('backend.home', compact('notifications'));
+                $items = Package::all();
+    
+                // Fetch notifications for trainers or both trainers/members
+                $notifications = Announcement::where('recipient', 'trainer')
+                    ->orWhere('recipient', 'both')
+                    ->get();
+    
+                return view('backend.home', compact('items', 'notifications'));
             }
     
             if ($userType == 'member') {
-                $items = Package::all(); // Fetch all packages from the database
-                return view('frontend.index', compact('items'));
+                $items = Package::all();
+    
+                // Fetch notifications for members or both users/members
+                $notifications = Announcement::where('recipient', 'member')
+                    ->orWhere('recipient', 'both')
+                    ->get();
+    
+                return view('frontend.index', compact('items', 'notifications'));
             }
     
             if ($userType == 'admin') {
-                // Fetch notifications for admins
+                // Fetch notifications for admin
                 $notifications = Announcement::where('recipient', 'admin')->get();
                 return view('backend.home', compact('notifications'));
             }
@@ -42,5 +53,4 @@ class HomeController extends Controller
             return redirect()->route('login'); // Redirect to login if not authenticated
         }
     }
-    
 }

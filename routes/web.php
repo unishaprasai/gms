@@ -107,8 +107,14 @@ Route::get('/attendance_sheet', [AttendanceController::class, 'index']);
 
 Route::get('/add_ann', [AnnouncementController::class, 'index']);
 Route::post('/add_announcement', [AnnouncementController::class, 'store']);
+Route::get('/view_announcement', [AnnouncementController::class, 'view']);
+Route::get('/delete_announcement/{id}', [AnnouncementController::class, 'delete']);
+
+
 
 // Route::get('/add_announcement', [NotificationController::class, 'index']);
+Route::post('/notifications/markAllAsRead', 'NotificationController@markAllAsRead')->name('notifications.markAllAsRead');
+
 
 
 

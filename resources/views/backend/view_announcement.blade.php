@@ -11,7 +11,7 @@
     
     <div class="fcontainer">
     @include('backend.layouts.header')
-    <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">View Trainers</h1>
+      <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">View Announcements</h1>
         @if(session('success'))
         <div class="alert-overlay">
             <div class="alert-box">
@@ -26,7 +26,7 @@
         <div class="row justify-content-center mb-3"> 
         <div class="col-md-6">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Search by name or email">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search by ID or Title">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="searchButton">Search</button>
                     </div>
@@ -44,33 +44,26 @@
                                 <thead>
                                     <tr class="heading">
                                         <th>Id</th>
-                                        <th>Trainer Name</th>
-                                        <th>Trainer Email</th>
-                                        <th>Address</th>
-                                        <th>Phone Number</th>
-                                        <th>Date of Joining</th>
-                                        <th>Assign Exercise</th>
-                                        <th>Salary</th>
+                                        <th>Title</th>
+                                        <th>Content</th>
+                                        <th>Recipient</th>
+                                        <th>Created at</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($trainers as $trainer)
+                                    @foreach($Announcements as $Announcement)
                                     <tr>
-                                    <td>{{ $trainer->id }}</td>
-                                        <td>{{ $trainer->trainer_name }}</td>
-                                        <td>{{ $trainer->trainer_email }}</td>
-                                        <td>{{ $trainer->trainer_address }}</td>
-                                        <td>{{ $trainer->phone }}</td>
-                                        <td>{{ $trainer->Assign_exercise }}</td>
-                                        <td>{{ $trainer->date_of_join }}</td>
-                                        <td>{{ $trainer->salary }}</td>
-                                        <td>
-                                        
-                                            <a href="{{url('edit_trainers', $trainer->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                                        
-                                            <a href="{{url('delete_trainers', $trainer->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
-                                        </td>
+                                    <td>{{ $Announcement->id }}</td>
+                                        <td>{{ $Announcement->title }}</td>
+                                        <td>{{ $Announcement->content }}</td>
+                                        <td>{{ $Announcement->recipient }}</td>
+                                        <td>{{ $Announcement->created_at }}</td>
+
+                                        <td> <a href="{{url('delete_announcement',$Announcement->id)}}"
+                                                class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Are you sure you want to delete this announcement?')">Delete</a></td>
+                                     
                                     </tr>
                                     @endforeach
                                 </tbody>

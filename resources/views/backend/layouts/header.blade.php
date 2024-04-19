@@ -47,7 +47,7 @@
 
             <li class="nav-item dropdown">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                    <img src="backend/assets/img/icons/notification-bing.svg" alt="img"> <span class="badge rounded-pill">4</span>
+                    <img src="backend/assets/img/icons/notification-bing.svg" alt="img"> <span class="badge rounded-pill" id="unread-notifications">{{ $notifications->where('read', false)->count() }}</span>
                 </a>
                 <div class="dropdown-menu notifications">
                     <div class="topnav-dropdown-header">
@@ -56,7 +56,16 @@
                     </div>
                     <div class="noti-content">
                         <ul class="notification-list">
-                        @foreach($notifications as $notification)
+                            @foreach($notifications as $notification)
+                            @if($notification->recipient === 'admin' && Auth::user()->usertype !== 'admin')
+                            @continue {{-- Skip notifications not meant for admins --}}
+                            @endif
+                            @if($notification->recipient === 'trainer' && Auth::user()->usertype !== 'trainer')
+                            @continue {{-- Skip notifications not meant for trainers --}}
+                            @endif
+                            @if($notification->recipient === 'member' && Auth::user()->usertype !== 'member')
+                            @continue {{-- Skip notifications not meant for members --}}
+                            @endif
                             <li class="notification-message">
                                 <a href="activities.html">
                                     <div class="media d-flex">
@@ -74,10 +83,13 @@
                         </ul>
                     </div>
                     <div class="topnav-dropdown-footer">
-                        <a href="activities.html">View all Notifications</a>
+                        <a href="javascript:void(0)" id="clear-noti-btn">Clear All</a>
                     </div>
                 </div>
             </li>
+
+
+
 
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
@@ -87,7 +99,6 @@
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-                            <span class="user-img"><img src="backend/assets/img/profiles/avator1.jpg" alt="">
                                 <span class="status online"></span></span>
                             <div class="profilesets">
                                 @auth <!-- Check if the user is authenticated -->
@@ -125,13 +136,38 @@
     </div>
 
     <script>
-    function logoutAndClearLocalStorage(event) {
-        event.preventDefault(); // Prevent the default link behavior
+        function logoutAndClearLocalStorage(event) {
+            event.preventDefault(); // Prevent the default link behavior
 
-        // Clear local storage
-        localStorage.clear();
+            // Clear local storage
+            localStorage.clear();
 
-        // Redirect to the logout route
-        window.location.href = event.target.href;
-    }
-</script>
+            // Redirect to the logout route
+            window.location.href = event.target.href;
+
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const clearBtn = document.getElementById('clear-noti-btn');
+                const unreadCount = document.getElementById('unread-notifications');
+
+                clearBtn.addEventListener('click', function() {
+                    fetch('{{ route("notifications.markAllAsRead") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-Token': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({}) // No data needed for the request body
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Update the unread count to 0
+                            unreadCount.innerText = '0';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+            });
+        }
+    </script>
