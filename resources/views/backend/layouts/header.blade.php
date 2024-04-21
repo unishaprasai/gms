@@ -46,13 +46,16 @@
 
 
             <li class="nav-item dropdown">
-                <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                    <img src="backend/assets/img/icons/notification-bing.svg" alt="img"> <span class="badge rounded-pill" id="unread-notifications">{{ $notifications->where('read', false)->count() }}</span>
+
+                <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" id="notificationDropdown">
+                    <img src="backend/assets/img/icons/notification-bing.svg" alt="img"> <span class="badge rounded-pill" id="unread-notifications">
+                        {{ $notifications->where('read', false)->where('recipient', Auth::user()->usertype)->count() }}
+                    </span>
                 </a>
+
                 <div class="dropdown-menu notifications">
                     <div class="topnav-dropdown-header">
                         <span class="notification-title">Notifications</span>
-                        <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
                     </div>
                     <div class="noti-content">
                         <ul class="notification-list">
@@ -63,9 +66,15 @@
                             @if($notification->recipient === 'trainer' && Auth::user()->usertype !== 'trainer')
                             @continue {{-- Skip notifications not meant for trainers --}}
                             @endif
-                            @if($notification->recipient === 'member' && Auth::user()->usertype !== 'member')
+                            @if($notification->recipient === 'user' && Auth::user()->usertype !== 'member')
                             @continue {{-- Skip notifications not meant for members --}}
                             @endif
+
+                            {{-- Push notification to both users and trainers --}}
+                            @if($notification->recipient === 'both' && (Auth::user()->usertype === 'member' || Auth::user()->usertype === 'trainer'))
+                            {{-- Place your notification logic here --}}
+                            @endif
+
                             <li class="notification-message">
                                 <a href="activities.html">
                                     <div class="media d-flex">
@@ -83,7 +92,7 @@
                         </ul>
                     </div>
                     <div class="topnav-dropdown-footer">
-                        <a href="javascript:void(0)" id="clear-noti-btn">Clear All</a>
+                        <a href="javascript:void(0)" id="clear-noti-btn">View All Notifications</a>
                     </div>
                 </div>
             </li>
@@ -99,7 +108,7 @@
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-                                <span class="status online"></span></span>
+                            <span class="status online"></span></span>
                             <div class="profilesets">
                                 @auth <!-- Check if the user is authenticated -->
                                 <h6>{{ Auth::user()->name }}</h6> <!-- Display the user's name -->
@@ -145,29 +154,29 @@
             // Redirect to the logout route
             window.location.href = event.target.href;
 
-
             document.addEventListener('DOMContentLoaded', function() {
-                const clearBtn = document.getElementById('clear-noti-btn');
-                const unreadCount = document.getElementById('unread-notifications');
-
-                clearBtn.addEventListener('click', function() {
-                    fetch('{{ route("notifications.markAllAsRead") }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-Token': '{{ csrf_token() }}'
-                            },
-                            body: JSON.stringify({}) // No data needed for the request body
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            // Update the unread count to 0
-                            unreadCount.innerText = '0';
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
+                document.getElementById('unread-notifications').addEventListener('click', function() {
+                    // Set badge count to 0
+                    document.getElementById('unread-notifications').innerText = '0';
                 });
             });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('clear-noti-btn').addEventListener('click', function() {
+                    // Example logic to remove notifications
+                    let notificationList = document.querySelector('.notification-list');
+                    if (notificationList) {
+                        // Remove all child elements (notifications)
+                        while (notificationList.firstChild) {
+                            notificationList.removeChild(notificationList.firstChild);
+                        }
+                    }
+                    // Update badge count to zero
+                    document.getElementById('unread-notifications').innerText = '0';
+                    console.log('All notifications cleared!');
+                });
+            });
+
+
         }
     </script>

@@ -8,7 +8,6 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\TrainerController; 
 use App\Http\Controllers\Backend\MemberController; 
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\backend\AttendanceController;
 use App\Http\Controllers\backend\ClassController;
 use App\Http\Controllers\backend\PackageController;
 use App\Http\Controllers\backend\AnnouncementController;
@@ -98,8 +97,8 @@ Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_pa
 
 
 
-Route::get('/attendance_sheet', [AttendanceController::class, 'index']);
- Route::post('/save_attendance', [AttendanceController::class, 'save_attendance']);
+// Route::get('/attendance_sheet', [AttendanceController::class, 'index']);
+//  Route::post('/save_attendance', [AttendanceController::class, 'save_attendance']);
 // Route::get('/view_package', [PackageController::class, 'view_package']);
 // Route::get('/edit_package/{package_id}', [PackageController::class, 'edit_package']);
 // Route::put('/update_package/{package_id}', [PackageController::class, 'update_package']);

@@ -96,20 +96,21 @@
             </div>
         </div>
         <div class="row">
-            @foreach($items as $package)
-            <div class="col-lg-4 col-md-6">
-                <div class="class-item">
-                    <div class="ci-pic">
-
-                    <img src="{{ asset('storage/packages/' . $package->photo) }}">
-                 
-                    </div>
-                    <div class="ci-text">
-                        <h5>{{ $package->name }}</h5>
-                    </div>
-                </div>
+        @foreach($items as $package)
+    <div class="col-lg-4 col-md-6">
+        <div class="class-item">
+            <div class="ci-pic">
+                @php
+                  $imageName = pathinfo($package->photo, PATHINFO_FILENAME) . '.jpg';
+                @endphp
+                <img src="{{ asset('storage/packages/' . $imageName) }}">
             </div>
-            @endforeach
+            <div class="ci-text">
+                <h5>{{ $package->name }}</h5>
+            </div>
+        </div>
+    </div>
+@endforeach
         </div>
     </div>
 </section>

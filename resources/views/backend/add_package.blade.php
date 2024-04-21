@@ -67,7 +67,7 @@
 
                                 <div class="form-group">
                                     <label for="description">Services</label>
-                                    <input type="text" class="form-control" id="description" name="description">
+                                    <textarea class="form-control" id="description" name="description" rows="5" ></textarea>
                                 </div>
 
                                 <div class="form-group">
