@@ -11,7 +11,10 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\backend\ClassController;
 use App\Http\Controllers\backend\PackageController;
 use App\Http\Controllers\backend\AnnouncementController;
+use App\Http\Controllers\backend\TrainerAttendanceController;
+
 use App\Http\Controllers\backend\NotificationController;
+
 use App\Http\Controllers\Frontend\AboutUsController;
 use App\Http\Controllers\Frontend\BMIController;
 use App\Http\Controllers\Frontend\ClassTimeController;
@@ -97,9 +100,11 @@ Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_pa
 
 
 
-// Route::get('/attendance_sheet', [AttendanceController::class, 'index']);
-//  Route::post('/save_attendance', [AttendanceController::class, 'save_attendance']);
-// Route::get('/view_package', [PackageController::class, 'view_package']);
+
+
+ Route::get('/attendance_sheet', [TrainerAttendanceController::class, 'index'])->name('backend.attendance');
+ Route::post('/save', [TrainerAttendanceController::class, 'checkIn']);
+
 // Route::get('/edit_package/{package_id}', [PackageController::class, 'edit_package']);
 // Route::put('/update_package/{package_id}', [PackageController::class, 'update_package']);
 // Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_package']);
