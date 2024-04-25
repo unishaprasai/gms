@@ -117,12 +117,11 @@
                             <span class="status online"></span></span>
                             <div class="profilesets">
                                 @auth <!-- Check if the user is authenticated -->
-                                <h6>{{ Auth::user()->name }}</h6> <!-- Display the user's name -->
-                                <h5>{{ Auth::user()->usertype }}</h5> <!-- Display the user's usertype -->
-                                @else <!-- If user is not authenticated, show default text or login link -->
+                                <h6>{{ Auth::user()->name }}</h6> 
+                                <h5>{{ Auth::user()->usertype }}</h5> 
+                                @else 
                                 <h6>Guest</h6>
                                 <h5>Guest</h5>
-                                <!-- You can add a login link here if needed -->
                                 @endauth
                             </div>
                         </div>

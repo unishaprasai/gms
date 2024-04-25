@@ -98,17 +98,29 @@
                                 </ul>
                             </li>
                             <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Contact</a></li>
-                            @auth 
+                            @auth
                             <li class="{{ Request::is('mattendance_sheet') ? 'active' : '' }}"><a href="{{ url('/attendance') }}">My Attendance</a></li>
 
                             <li>
                                 <a href="#"><i class="fa fa-bell"></i></a>
                                 <ul class="dropdown">
-                                    <!-- Example notification item -->
-                                    <li><a href="#">New notification 1</a></li>
-                                    <li><a href="#">New notification 2</a></li>
-                                    <!-- Add more notification items as needed -->
+                                    @foreach($notifications as $notification)
+                                    @if (($notification->recipient === 'user' || $notification->recipient === 'both') && Auth::user()->usertype === 'member')
+                                    <li class="notification-message">
+                                        <div class="media-body flex-grow-1">
+                                            <p class="noti-details">
+                                                <strong>{{ $notification->title }}</strong><br>
+                                                {{ $notification->content }}
+                                            </p>
+                                            <p class="noti-time">
+                                                <span class="notification-time">{{ $notification->created_at->diffForHumans() }}</span>
+                                            </p>
+                                        </div>
+                                    </li>
+                                    @endif
+                                    @endforeach
                                 </ul>
+
                             </li>
                             @endauth
                         </ul>

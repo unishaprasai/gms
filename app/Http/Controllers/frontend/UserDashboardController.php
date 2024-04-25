@@ -6,22 +6,29 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\Trainers;
+use App\Models\Announcement;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserDashboardController extends Controller
 {
-    public function index(){
-       
-        $items = Package::all();
-    
-       
-        $team = Trainers::all();
-        
-        $data = compact('items', 'team');
-    
-        return view('frontend.index', $data);
+    public function index()
+    {
+        if (Auth::check()) {
+            $userType = Auth()->user()->usertype;
+            Log::info("User Type: $userType");
+
+            if ($userType == 'member') {
+                $items = Package::all();
+                $team = Trainers::all();
+
+                // Fetch notifications for member or both trainers/members
+                $notifications = Announcement::where('recipient', 'user')
+                    ->orWhere('recipient', 'both')
+                    ->get();
+
+                return view('frontend.index', compact('items', 'notifications', 'team'));
+            }
+        }
     }
-    
-
-
-
-    }
+}

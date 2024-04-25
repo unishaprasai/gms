@@ -27,6 +27,6 @@ class MemberAttendance extends Model
 
     public function member()
     {
-        return $this->belongsTo(Members::class, 'id');
+        return $this->belongsTo(Members::class, 'member_id');
     }
 }
