@@ -55,7 +55,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="packageTableBody">
+                                <tbody id="AttendanceTableBody">
                                     @foreach ($trainerAttendances as $attendance)
                                     <tr>
                                     <td> {{ $attendance->trainer_id }}</td>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="message" id="noResultMessage" style="display: none;">
                             <div class="alert alert-danger" role="alert">
-                                No packages found with the given name or ID.
+                                No attendance found with the given date or ID.
                             </div>
                         </div>
                     </div>

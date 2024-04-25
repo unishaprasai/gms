@@ -20,8 +20,13 @@ class MemberAttendance extends Model
     {
         return $this->belongsTo(User::class, 'member_id', 'id');
     }
+    // public function member()
+    // {
+    //     return $this->belongsTo(Members::class);
+    // }
+
     public function member()
     {
-        return $this->belongsTo(Members::class);
+        return $this->belongsTo(Members::class, 'id');
     }
 }

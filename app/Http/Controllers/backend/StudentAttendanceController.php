@@ -68,6 +68,14 @@ class StudentAttendanceController extends Controller
         return redirect()->back()->with('success', 'Attendance recorded.');
     }
 
+    public function view_index()
+    {
+        $MemberAttendances =MemberAttendance ::with('member')->get();
+    
+    
+        return view('backend.student_attendance', compact('MemberAttendances'));
+    }
+
     public function delete($id)
     {
         // Find the member by ID

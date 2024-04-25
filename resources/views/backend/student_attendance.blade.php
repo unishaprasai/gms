@@ -14,7 +14,7 @@
 
     <div class="fcontainer">
         @include('backend.layouts.header')
-        <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">View Packages</h1>
+        <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">View Student's Attendance</h1>
 
         @if(session('success'))
         <div class="alert-overlay">
@@ -30,7 +30,7 @@
         <div class="row justify-content-center mb-3">
             <div class="col-md-6">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Search Packages">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search Attendance">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary btn-green" type="button" id="searchButton">Search</button>
                         <button class="btn btn-outline-secondary btn-blue" type="button" id="refreshButton">Refresh</button>
@@ -48,27 +48,22 @@
                             <table class="table table-bordered mx-auto">
                                 <thead>
                                     <tr class="heading">
-                                        <th>Package Id</th>
-                                        <th>Package Name</th>
-                                        <th>Assign Trainer</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
-                                        <th>Days</th>
+                                        <th>Member Id</th>
+                                        <th>Member Name</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="packageTableBody">
-                                    @foreach($packages as $package)
+                                <tbody id="AttendanceTableBody">
+                                    @foreach ($MemberAttendances as $attendance)
                                     <tr>
-                                        <td>{{ $package->package_id }}</td>
-                                        <td>{{ $package->name }}</td>
-                                        <td>{{ $package->assign_trainer }}</td>
-                                        <td>{{ $package->description }}</td>
-                                        <td>{{ $package->price }}</td>
-                                        <td>{{ $package->duration_in_days }}</td>
-                                        <td>
-                                            <a href="{{url('edit_package', $package->package_id)}}" class="btn btn-sm btn-primary">Edit</a>
-                                            <!-- <button class="btn btn-sm btn-danger" onclick="confirmDelete('{{ url('/delete_package', $package->package_id) }}')">Delete</button> -->
+                                    <td> {{ $attendance->member_id }}</td>
+                                     <td> {{ $attendance->member->name }}</td>
+                                    <td> {{ $attendance->attendance_date }}</td>
+                                    <td> {{ $attendance->status }}</td>
+                                    <td>
+                                    <a href="{{url('delete_mem_att', $attendance->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
 
                                         </td>
                                     </tr>
@@ -78,7 +73,7 @@
                         </div>
                         <div class="message" id="noResultMessage" style="display: none;">
                             <div class="alert alert-danger" role="alert">
-                                No packages found with the given name or ID.
+                                No attendance found with the given date or ID.
                             </div>
                         </div>
                     </div>
@@ -95,57 +90,12 @@
             }
         }
 
-        // Add an event listener to the search button
-        document.getElementById('searchButton').addEventListener('click', function() {
-            searchPackages();
-        });
-
-        // Add an event listener to the refresh button
-        document.getElementById('refreshButton').addEventListener('click', function() {
-            location.reload();
-        });
-
-        function searchPackages() {
-            // Get the search query from the input field
-            var searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
-
-            // Get all table rows
-            var rows = document.querySelectorAll('#packageTableBody tr');
-            var noResultMessage = document.getElementById('noResultMessage');
-
-            // Flag to check if any package is found
-            var found = false;
-
-            // Loop through each row and hide/show based on the search query
-            rows.forEach(function(row) {
-                var packageName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                var packageId = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
-
-                // Check if name or ID contains the search query
-                if (packageName.includes(searchQuery) || packageId.includes(searchQuery)) {
-                    row.style.display = '';
-                    found = true;
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-
-            // Display message if no packages found
-            if (!found) {
-                noResultMessage.style.display = 'block';
-            } else {
-                noResultMessage.style.display = 'none';
-            }
-        }
-
-        // Initial search when the page loads
-        searchPackages();
 
         // Function to confirm delete using SweetAlert
         function confirmDelete(deleteUrl) {
             Swal.fire({
                 title: 'Are you sure?',
-                text: 'You will not be able to recover this package!',
+                text: 'You will not be able to recover this record!',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',

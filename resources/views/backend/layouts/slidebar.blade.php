@@ -75,7 +75,7 @@
                         <li><a href="{{ url('view_trainers_att') }}">Trainers Attendance </a></li>
                         @endif
 
-                        <li><a href="{{ url('attendance_sheet') }}">Students Attendance </a></li>
+                        <li><a href="{{ url('view_members_att') }}">Students Attendance </a></li>
 
                         @if(auth()->user()->usertype === 'trainer')
                         <li><a href="{{ url('attendance_sheet') }}">My Attendance </a></li>
