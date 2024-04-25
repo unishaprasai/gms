@@ -20,8 +20,13 @@ class TrainerAttendance extends Model
     {
         return $this->belongsTo(User::class, 'trainer_id', 'id');
     }
+    // public function trainer()
+    // {
+    //     return $this->belongsTo(Trainers::class);
+    // }
+
     public function trainer()
     {
-        return $this->belongsTo(Trainers::class);
+        return $this->belongsTo(Trainers::class, 'trainer_id');
     }
 }

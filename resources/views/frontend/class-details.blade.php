@@ -12,8 +12,7 @@
                         <h2>Classes detail</h2>
                         <div class="bt-option">
                             <a href="/user">Home</a>
-                            <a href="">Classes</a>
-                            <span>Body building</span>
+                            <span>Classes</span>
                         </div>
                     </div>
                 </div>

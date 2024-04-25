@@ -108,6 +108,9 @@ Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_pa
 
  Route::get('/attendance_sheet', [TrainerAttendanceController::class, 'index'])->name('backend.attendance');
  Route::post('/save', [TrainerAttendanceController::class, 'checkIn']);
+ Route::get('/view_trainers_att', [TrainerAttendanceController::class, 'view_index']);
+ Route::get('/delete_trainer_att/{id}', [TrainerAttendanceController::class, 'delete']);
+
 
 // Route::get('/edit_package/{package_id}', [PackageController::class, 'edit_package']);
 // Route::put('/update_package/{package_id}', [PackageController::class, 'update_package']);
@@ -144,6 +147,11 @@ Route::get('/profile_edit',[ProfileEditController::class,'index']);
 
 Route::get('/attendance', [StudentAttendanceController::class, 'index']);
  Route::post('/update_att', [StudentAttendanceController::class, 'checkIn']);
+ Route::get('/delete_mem_att/{id}', [TrainerAttendanceController::class, 'delete']);
+
+//  Route::get('/attendance', [StudentAttendanceController::class, 'index']);
+
+ 
 
 
 

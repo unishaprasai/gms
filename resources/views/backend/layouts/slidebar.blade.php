@@ -72,7 +72,7 @@
                     <ul>
                         @if(auth()->user()->usertype === 'admin')
 
-                        <li><a href="{{ url('attendance_sheet') }}">Trainers Attendance </a></li>
+                        <li><a href="{{ url('view_trainers_att') }}">Trainers Attendance </a></li>
                         @endif
 
                         <li><a href="{{ url('attendance_sheet') }}">Students Attendance </a></li>

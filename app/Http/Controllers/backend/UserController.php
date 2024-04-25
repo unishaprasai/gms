@@ -60,15 +60,14 @@ class UserController extends Controller
     $users = User::find($id);
 
     if (!$users) {
-        // Trainer not found, you may want to handle this case differently (e.g., show error message)
-        return redirect()->back()->with('error', 'Trainer not found!');
+        return redirect()->back()->with('error', 'User not found!');
     }
 
     // Delete the trainer
     $users->delete();
 
     // Redirect back with success message
-    return redirect()->back()->with('success', 'Trainer deleted successfully!');
+    return redirect()->back()->with('success', 'User deleted successfully!');
         }
         
 

@@ -68,6 +68,23 @@ class StudentAttendanceController extends Controller
         return redirect()->back()->with('success', 'Attendance recorded.');
     }
 
+    public function delete($id)
+    {
+        // Find the member by ID
+        $MemberAttendances = MemberAttendance::find($id);
+
+        if (!$MemberAttendances) {
+            // Class not found, you may want to handle this case differently (e.g., show error message)
+            return redirect()->back()->with('error', 'Attendances not found!');
+        }
+
+        
+        $MemberAttendances->delete();
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Attendance deleted successfully!');
+    }
+
 
 
 

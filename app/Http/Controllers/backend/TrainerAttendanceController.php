@@ -67,6 +67,31 @@ class TrainerAttendanceController extends Controller
     }
 
 
+    public function view_index()
+{
+    $trainerAttendances = TrainerAttendance::with('trainer')->get();
+
+
+    return view('backend.trainer_attendance', compact('trainerAttendances'));
+}
+
+public function delete($id)
+    {
+        // Find the trainer by ID
+        $trainerAttendances = TrainerAttendance::find($id);
+
+        if (!$trainerAttendances) {
+            // Class not found, you may want to handle this case differently (e.g., show error message)
+            return redirect()->back()->with('error', 'Attendances not found!');
+        }
+
+        // Delete the trainer
+        $trainerAttendances->delete();
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Attendance deleted successfully!');
+    }
+
 
 
 }
