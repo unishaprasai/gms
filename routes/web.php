@@ -132,7 +132,11 @@ Route::get('bmicalculator',[BMIController::class,'index']);
 Route::get('/classtime',[ClassTimeController::class,'index']);
 Route::get('/services',[ServiceController::class,'index']);
 Route::get('/team',[TeamController::class,'index']);
+
+
+
 Route::get('/contact',[ContactController::class,'index']);
+Route::post('/submit', [ContactController::class, 'store']);
 
 
 
