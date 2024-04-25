@@ -1,7 +1,4 @@
-@extends('frontend.layouts.main')
 
-
-@section('main-container')
 <section class="common-hero type-banner">
     <div class="section-container">
         <div class="custom-container">

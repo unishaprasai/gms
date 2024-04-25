@@ -14,7 +14,7 @@ use App\Http\Controllers\backend\AnnouncementController;
 use App\Http\Controllers\backend\TrainerAttendanceController;
 
 use App\Http\Controllers\backend\NotificationController;
-
+use App\Http\Controllers\backend\StudentAttendanceController;
 use App\Http\Controllers\Frontend\AboutUsController;
 use App\Http\Controllers\Frontend\BMIController;
 use App\Http\Controllers\Frontend\ClassTimeController;
@@ -22,6 +22,8 @@ use App\Http\Controllers\Frontend\ContactController ;
 use App\Http\Controllers\Frontend\ServiceController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\TeamController;
+use App\Http\Controllers\Frontend\ProfileEditController;
+
 
 
 
@@ -137,6 +139,12 @@ Route::get('/team',[TeamController::class,'index']);
 
 Route::get('/contact',[ContactController::class,'index']);
 Route::post('/submit', [ContactController::class, 'store']);
+
+Route::get('/profile_edit',[ProfileEditController::class,'index']);
+
+Route::get('/attendance', [StudentAttendanceController::class, 'index']);
+ Route::post('/update_att', [StudentAttendanceController::class, 'checkIn']);
+
 
 
 

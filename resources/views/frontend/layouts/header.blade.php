@@ -88,7 +88,6 @@
                             <li class="{{ Request::is('about') ? 'active' : '' }}"><a href="{{ url('/about') }}">About Us</a></li>
                             <li class="{{ Request::is('classtime') ? 'active' : '' }}"><a href="{{ url('/classtime') }}">Classes</a></li>
                             <li class="{{ Request::is('services') ? 'active' : '' }}"><a href="{{ url('/services') }}">Services</a></li>
-                            <li class="{{ Request::is('team') ? 'active' : '' }}"><a href="{{ url('/team') }}">Our Team</a></li>
                             <li>
                                 <a href="#">Pages</a>
                                 <ul class="dropdown">
@@ -100,6 +99,8 @@
                             </li>
                             <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Contact</a></li>
                             @auth 
+                            <li class="{{ Request::is('mattendance_sheet') ? 'active' : '' }}"><a href="{{ url('/attendance') }}">My Attendance</a></li>
+
                             <li>
                                 <a href="#"><i class="fa fa-bell"></i></a>
                                 <ul class="dropdown">

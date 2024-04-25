@@ -13,7 +13,7 @@
                     <div class="breadcrumb-text">
                         <h2>About us</h2>
                         <div class="bt-option">
-                            <a href="{{url('/')}}">Home</a>
+                            <a href="{{url('/user')}}">Home</a>
                             <span>About</span>
                         </div>
                     </div>
