@@ -18,7 +18,7 @@ use App\Http\Controllers\backend\NotificationController;
 use App\Http\Controllers\Frontend\AboutUsController;
 use App\Http\Controllers\Frontend\BMIController;
 use App\Http\Controllers\Frontend\ClassTimeController;
-use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\ContactController ;
 use App\Http\Controllers\Frontend\ServiceController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\TeamController;
@@ -67,8 +67,8 @@ Route::put('/update_member/{id}', [MemberController::class, 'update_member']);
 Route::get('/add_users', [UserController::class, 'add_users'])->middleware('isAdmin');
 Route::post('/store_users', [UserController::class, 'store_users'])->name('store_users')->middleware('isAdmin');
 Route::get('/view_users', [UserController::class, 'view_users']);
-Route::get('/edit_users/{id}', [UserController::class, 'edit_users']);
-Route::put('/update_users/{id}', [UserController::class, 'update_users']);
+Route::get('/edit_users/{id}', [UserController::class, 'edit_users'])->middleware('isAdmin');
+Route::put('/update_users/{id}', [UserController::class, 'update_users'])->middleware('isAdmin');
 Route::get('/delete_users/{id}', [UserController::class, 'delete_users'])->middleware('isAdmin');
 
 
@@ -132,6 +132,7 @@ Route::get('bmicalculator',[BMIController::class,'index']);
 Route::get('/classtime',[ClassTimeController::class,'index']);
 Route::get('/services',[ServiceController::class,'index']);
 Route::get('/team',[TeamController::class,'index']);
+Route::get('/contact',[ContactController::class,'index']);
 
 
 

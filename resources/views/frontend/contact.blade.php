@@ -4,14 +4,14 @@
 @section('main-container')
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb-bg.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="frontend/img/breadcrumb-bg.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb-text">
                         <h2>Contact Us</h2>
                         <div class="bt-option">
-                            <a href="./index.html">Home</a>
+                            <a href="{{ url('/user') }}">Home</a>
                             <a href="#">Pages</a>
                             <span>Contact us</span>
                         </div>
@@ -34,18 +34,19 @@
                     <div class="contact-widget">
                         <div class="cw-text">
                             <i class="fa fa-map-marker"></i>
-                            <p>333 Middle Winchendon Rd, Rindge,<br/> NH 03461</p>
+                            <p>Pepsicola<br/> Kathmandu</p>
                         </div>
                         <div class="cw-text">
                             <i class="fa fa-mobile"></i>
                             <ul>
-                                <li>125-711-811</li>
-                                <li>125-668-886</li>
+                          
+                                <li>0158974315</li>
+                                <li> 9866265176</li>
                             </ul>
                         </div>
                         <div class="cw-text email">
                             <i class="fa fa-envelope"></i>
-                            <p>Support.gymcenter@gmail.com</p>
+                            <p>smartgymcenter@gmail.com</p>
                         </div>
                     </div>
                 </div>

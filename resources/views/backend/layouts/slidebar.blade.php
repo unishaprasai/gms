@@ -100,7 +100,9 @@
                         <li><a href="{{ url('add_ann') }}">New Announcements </a></li>
                         <li><a href="{{ url('view_announcement') }}">View Announcements </a></li>
                         @endif
+                        @if(auth()->user()->usertype === 'trainer')
                         <li><a href="{{ url('view_noti') }}">View Announcements </a></li>
+                        @endif
                     </ul>
                 </li>
 

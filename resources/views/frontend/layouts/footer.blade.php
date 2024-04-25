@@ -36,8 +36,7 @@
                         <div class="fa-logo">
                             <a href="{{url('/')}}"><img src="{{url('frontend/img/logo.png')}}" alt=""></a>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore dolore magna aliqua endisse ultrices gravida lorem.</p>
+                        <p>LFacility for exercise and fitness training, offering equipment, classes, and personal training services to improve health and achieve fitness goals</p>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-6">
