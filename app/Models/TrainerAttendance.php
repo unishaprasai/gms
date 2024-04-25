@@ -16,9 +16,12 @@ class TrainerAttendance extends Model
         'attendance_date',
         'status',
     ];
-    public function trainer(): BelongsTo
+    public function trainers(): BelongsTo
     {
         return $this->belongsTo(User::class, 'trainer_id', 'id');
     }
-
+    public function trainer()
+    {
+        return $this->belongsTo(Trainers::class);
+    }
 }

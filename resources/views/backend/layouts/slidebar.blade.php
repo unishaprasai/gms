@@ -3,7 +3,7 @@
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
                 <li>
-                    <a href="index.html"><img src="backend/assets/img/icons/dashboard.svg" alt="img"><span>
+                    <a href="{{ url('home') }}"><img src="backend/assets/img/icons/dashboard.svg" alt="img"><span>
                             Dashboard</span> </a>
                 </li>
                 <li class="submenu">
@@ -98,8 +98,9 @@
                     <ul>
                         @if(auth()->user()->usertype === 'admin')
                         <li><a href="{{ url('add_ann') }}">New Announcements </a></li>
-                        @endif
                         <li><a href="{{ url('view_announcement') }}">View Announcements </a></li>
+                        @endif
+                        <li><a href="{{ url('view_noti') }}">View Announcements </a></li>
                     </ul>
                 </li>
 

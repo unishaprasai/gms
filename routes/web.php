@@ -21,6 +21,8 @@ use App\Http\Controllers\Frontend\ClassTimeController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\ServiceController;
 use App\Http\Controllers\Frontend\UserDashboardController;
+use App\Http\Controllers\Frontend\TeamController;
+
 
 
 /*
@@ -71,12 +73,12 @@ Route::get('/delete_users/{id}', [UserController::class, 'delete_users'])->middl
 
 
 
-Route::get('/add_trainers', [TrainerController::class, 'index'])->middleware('isAdmin');
-Route::post('/add_trainers', [TrainerController::class, 'add_trainers'])->middleware('isAdmin');
-Route::get('/view_trainers', [TrainerController::class, 'view_trainers'])->middleware('isAdmin');
-Route::get('/edit_trainers/{id}', [TrainerController::class, 'edit_trainers'])->middleware('isAdmin',);
-Route::put('/update_trainers/{id}', [TrainerController::class, 'update_trainers'])->middleware('isAdmin');
-Route::get('/delete_trainers/{id}', [TrainerController::class, 'delete_trainers'])->middleware('isAdmin');
+Route::get('/add_trainers', [TrainerController::class, 'index']);
+Route::post('/add_trainers', [TrainerController::class, 'add_trainers']);
+Route::get('/view_trainers', [TrainerController::class, 'view_trainers']);
+Route::get('/edit_trainers/{id}', [TrainerController::class, 'edit_trainers']);
+Route::put('/update_trainers/{id}', [TrainerController::class, 'update_trainers']);
+Route::get('/delete_trainers/{id}', [TrainerController::class, 'delete_trainers']);
 
 
 
@@ -118,6 +120,7 @@ Route::get('/delete_announcement/{id}', [AnnouncementController::class, 'delete'
 
 // Route::get('/add_announcement', [NotificationController::class, 'index']);
 Route::post('/notifications/markAllAsRead', 'NotificationController@markAllAsRead')->name('notifications.markAllAsRead');
+Route::get('/view_noti', [NotificationController::class, 'view']);
 
 
 
@@ -128,6 +131,10 @@ Route::get('/about',[AboutUsController::class,'index']);
 Route::get('bmicalculator',[BMIController::class,'index']);
 Route::get('/classtime',[ClassTimeController::class,'index']);
 Route::get('/services',[ServiceController::class,'index']);
+Route::get('/team',[TeamController::class,'index']);
+
+
+
 
 Route::middleware('isAdmin')->group(function(){
     

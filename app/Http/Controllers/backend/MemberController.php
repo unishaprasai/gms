@@ -83,8 +83,11 @@ public function delete_members($id)
 
 public function edit_members($id)
 {
+    $packages = package::all(); // Fetch all packages from the database
+
+    
     $members=members::find($id);
-    return view('backend.edit_members',compact('members'));
+    return view('backend.edit_members',compact('members','packages'));
 }
 
 public function update_member(Request $request, $id)

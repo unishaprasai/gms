@@ -96,21 +96,21 @@
             </div>
         </div>
         <div class="row">
-        @foreach($items as $package)
-    <div class="col-lg-4 col-md-6">
-        <div class="class-item">
-            <div class="ci-pic">
-                @php
-                  $imageName = pathinfo($package->photo, PATHINFO_FILENAME) . '.jpg';
-                @endphp
-                <img src="{{ asset('storage/packages/' . $imageName) }}">
+            @foreach($items as $package)
+            <div class="col-lg-4 col-md-6">
+                <div class="class-item">
+                    <div class="ci-pic">
+                        @php
+                        $imageName = pathinfo($package->photo, PATHINFO_FILENAME) . '.jpg';
+                        @endphp
+                        <img src="{{ asset('storage/packages/' . $imageName) }}">
+                    </div>
+                    <div class="ci-text">
+                        <h5>{{ $package->name }}</h5>
+                    </div>
+                </div>
             </div>
-            <div class="ci-text">
-                <h5>{{ $package->name }}</h5>
-            </div>
-        </div>
-    </div>
-@endforeach
+            @endforeach
         </div>
     </div>
 </section>
@@ -248,56 +248,32 @@
         </div>
         <div class="row">
             <div class="ts-slider owl-carousel">
+
+            @if(isset($team))
+
+
+                @foreach($team as $trainer)
                 <div class="col-lg-4">
-                    <div class="ts-item set-bg" data-setbg="{{url('frontend/img/team/team-1.jpg')}}">
+                    <div class="ts-item set-bg">
+                        @php
+                        $imageName = pathinfo($trainer->photo, PATHINFO_FILENAME) . '.jpg';
+                        @endphp
+                        <img src="{{ asset('trainers/' . $imageName) }}" alt="{{ $trainer->trainer_name }}">
+
                         <div class="ts_text">
-                            <h4>Athart Rachel</h4>
+                            <h4>{{ $trainer->trainer_name }}</h4>
                             <span>Gym Trainer</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="ts-item set-bg" data-setbg="{{url('frontend/img/team/team-2.jpg')}}">
-                        <div class="ts_text">
-                            <h4>Athart Rachel</h4>
-                            <span>Gym Trainer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ts-item set-bg" data-setbg="{{url('frontend/img/team/team-3.jpg')}}">
-                        <div class="ts_text">
-                            <h4>Athart Rachel</h4>
-                            <span>Gym Trainer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ts-item set-bg" data-setbg="{{url('frontend/img/team/team-4.jpg')}}">
-                        <div class="ts_text">
-                            <h4>Athart Rachel</h4>
-                            <span>Gym Trainer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ts-item set-bg" data-setbg="{{url('frontend/img/team/team-5.jpg')}}">
-                        <div class="ts_text">
-                            <h4>Athart Rachel</h4>
-                            <span>Gym Trainer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ts-item set-bg" data-setbg="{{url('frontend/img/team/team-6.jpg')}}">
-                        <div class="ts_text">
-                            <h4>Athart Rachel</h4>
-                            <span>Gym Trainer</span>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                @else
+    <p>Team variable is undefined</p>
+@endif
             </div>
         </div>
+
+    </div>
     </div>
 </section>
 <!-- Team Section End -->

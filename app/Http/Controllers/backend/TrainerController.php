@@ -5,12 +5,16 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Trainers;
+use App\Models\Package;
+
 
 class TrainerController extends Controller
 {
     public function index()
     {
-        return view('backend.add_trainers');
+        $packages = package::all(); // Fetch all packages from the database
+
+    return view('backend.add_trainers',compact('packages'));
     }
     public function add_trainers(Request $request)
     {
@@ -38,13 +42,6 @@ class TrainerController extends Controller
         $trainer->Assign_exercise = $request->input('assign_exercise');
         $trainer->date_of_join = $request->input('trainer_date_of_join');
     
-        // Check if a photo was uploaded
-        // if ($request->hasFile('photo')) {
-        //     // Store the uploaded photo in the storage directory
-        //     $photoPath = $request->file('photo')->store('public/trainers');
-        //     // Update the 'photo' attribute in the model with the path to the stored photo
-        //     $trainer->photo = $photoPath;
-        // }
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
@@ -87,7 +84,8 @@ public function delete_trainers($id)
 public function edit_trainers($id)
 {
     $trainer = Trainers::findOrFail($id);
-    return view('backend.edit_trainers', compact('trainer'));
+    $packages = package::all();
+    return view('backend.edit_trainers', compact('trainer,packages'));
 }
 public function update_trainers(Request $request, $id)
 {

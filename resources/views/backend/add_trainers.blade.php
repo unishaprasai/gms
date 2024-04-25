@@ -38,22 +38,6 @@
         </script>
         @endif
 
-        @if($errors->any())
-        <div class="alert-overlay">
-            <div class="alert-box">
-                <div class="alert alert-danger" role="alert">
-                    <strong>Error:</strong>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                    <button type="button" class="btn btn-success btn-block" id="closeButton">Okay</button>
-                </div>
-            </div>
-        </div>
-        @endif
-
         <div class="main-panel">
             <div class="content wrapper">
                 <div class="row justify-content-center">
@@ -89,14 +73,15 @@
                                         <label for="trainer_date_of_join">Date of Joining</label>
                                         <input type="date" class="form-control" id="trainer_date_of_join" name="trainer_date_of_join" required>
                                     </div>
+        
                                     <div class="form-group">
-                                        <label for="assign_exercise">Assign Exercise</label>
-                                        <select class="form-control" id="assign_exercise" name="assign_exercise" required>
-                                            <option value="basic">Basic</option>
-                                            <option value="premium">Premium</option>
-                                            <option value="gold">Gold</option>
-                                        </select>
-                                    </div>
+                                    <label for="assign_exercise">Assign Exercise </label>
+                                    <select class="form-control" id="assign_exercise" name="assign_exercise" required>
+                                        @foreach($packages as $package)
+                                        <option value="{{ $package->name }}">{{ $package->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                     <div class="form-group">
                                         <label for="photo">Photo</label>
                                         <input type="file" class="form-control-file" id="photo" name="photo">

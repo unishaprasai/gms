@@ -5,22 +5,22 @@
                 <div class="col-md-4">
                     <div class="gt-text">
                         <i class="fa fa-map-marker"></i>
-                        <p>333 Middle Winchendon Rd, Rindge,<br/> NH 03461</p>
+                        <p>Pepsicola<br/> Kathmandu</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="gt-text">
                         <i class="fa fa-mobile"></i>
                         <ul>
-                            <li>125-711-811</li>
-                            <li>125-668-886</li>
+                            <li>0158974315</li>
+                            <li>9866265176</li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="gt-text email">
                         <i class="fa fa-envelope"></i>
-                        <p>Support.gymcenter@gmail.com</p>
+                        <p>smartgym@gmail.com</p>
                     </div>
                 </div>
             </div>
@@ -38,23 +38,15 @@
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore dolore magna aliqua endisse ultrices gravida lorem.</p>
-                        <div class="fa-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa  fa-envelope-o"></i></a>
-                        </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-6">
                     <div class="fs-widget">
                         <h4>Useful links</h4>
                         <ul>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Classes</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="{{url('/about')}}">About</a></li>
+                            <li><a href="{{url('/about')}}">Classes</a></li>
+                            <li><a href="{{url('/about')}}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -62,10 +54,9 @@
                     <div class="fs-widget">
                         <h4>Support</h4>
                         <ul>
-                            <li><a href="#">Login</a></li>
+                            <li><a href="{{url('/')}}">Login</a></li>
                             <li><a href="#">My account</a></li>
-                            <li><a href="#">Subscribe</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="{{url('/about')}}">Contact</a></li>
                         </ul>
                     </div>
                 </div>

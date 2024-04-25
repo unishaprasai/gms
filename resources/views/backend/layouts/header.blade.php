@@ -7,10 +7,10 @@
     <div class="header">
 
         <div class="header-left active">
-            <a href="index.html" class="logo">
+            <a href="{{ url('/home') }}" class="logo">
                 <img src="backend/assets/img/logo.png" alt="">
             </a>
-            <a href="index.html" class="logo-small">
+            <a href="{{ url('/home') }}"  class="logo-small">
                 <img src="backend/assets/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
@@ -76,15 +76,21 @@
                             @endif
 
                             <li class="notification-message">
-                                <a href="activities.html">
+                                <a href="{{ url('view_noti') }}">
                                     <div class="media d-flex">
                                         <span class="avatar flex-shrink-0">
                                             <img alt="" src="backend/assets/img/profiles/avatar-02.jpg">
                                         </span>
                                         <div class="media-body flex-grow-1">
-                                            <p class="noti-details"><span class="noti-title">{{ $notification->title }}</span> {{ $notification->content }}</p>
-                                            <p class="noti-time"><span class="notification-time">{{ $notification->created_at->diffForHumans() }}</span></p>
+                                            <p class="noti-details">
+                                                <strong>{{ $notification->title }}</strong><br> <!-- Title in bold and content on a new line -->
+                                                {{ $notification->content }}
+                                            </p>
+                                            <p class="noti-time">
+                                                <span class="notification-time">{{ $notification->created_at->diffForHumans() }}</span>
+                                            </p>
                                         </div>
+
                                     </div>
                                 </a>
                             </li>
@@ -92,7 +98,7 @@
                         </ul>
                     </div>
                     <div class="topnav-dropdown-footer">
-                        <a href="javascript:void(0)" id="clear-noti-btn">View All Notifications</a>
+                        <a href="{{ url('view_noti') }}">View All Notifications</a>
                     </div>
                 </div>
             </li>
@@ -124,7 +130,7 @@
                         <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
                             Profile</a>
 
-                        
+
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2" data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
                         <x-logout-button />

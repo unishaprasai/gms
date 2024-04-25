@@ -71,16 +71,13 @@
                                         <input type="date" class="form-control" id="date_of_join" name="date_of_join" value="{{ $members->date_of_join }}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="membership_type">Membership Type</label>
-                                        <select class="form-control" id="membership_type" name="membership_type" required>
-                                            <option value="basic" {{ $members->membership_type == 'basic' ? 'selected' : ''
-                                        }}>Basic</option>
-                                            <option value="premium" {{ $members->membership_type == 'premium' ? 'selected' : ''
-                                        }}>Premium</option>
-                                            <option value="gold" {{ $members->membership_type == 'gold' ? 'selected' : ''
-                                        }}>Gold</option>
-                                        </select>
-                                    </div>
+                                    <label for="membership_type">Membership Type</label>
+                                    <select class="form-control" id="membership_type" name="membership_type" required>
+                                        @foreach($packages as $package)
+                                        <option value="{{ $package->name }}">{{ $package->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                     <div class="form-group">
                                         <label for="shift">Choose Shift</label>
                                         <select class="form-control" id="shift" name="shift" required>

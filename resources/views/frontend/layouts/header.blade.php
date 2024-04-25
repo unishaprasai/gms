@@ -82,44 +82,44 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                <nav class="nav-menu">
-    <ul>
-        <li class="{{ Request::is('user/') ? 'active' : '' }}"><a href="{{ url('/user') }}">Home</a></li>
-        <li class="{{ Request::is('about') ? 'active' : '' }}"><a href="{{ url('/about') }}">About Us</a></li>
-        <li class="{{ Request::is('classtime') ? 'active' : '' }}"><a href="{{ url('/classtime') }}">Classes</a></li>
-        <li class="{{ Request::is('services') ? 'active' : '' }}"><a href="{{ url('/services') }}">Services</a></li>
-        <li class="{{ Request::is('team') ? 'active' : '' }}"><a href="{{ url('/team') }}">Our Team</a></li>
-        <li>
-            <a href="#">Pages</a>
-            <ul class="dropdown">
-                <li><a href="{{ url('/about') }}">About us</a></li>
-                <li><a href="{{ url('/classtime') }}">Classes timetable</a></li>
-                <li><a href="{{ url('/bmicalculator') }}">Bmi calculate</a></li>
-                <li><a href="{{ url('/team') }}">Our team</a></li>
-                <li><a href="{{url('gallery')}}">Gallery</a></li>
-                <li><a href="{{ url('/blog') }}">Our blog</a></li>
-                <li><a href="{{ url('/') }}">404</a></li>
-            </ul>
-        </li>
-        <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Contact</a></li>
-    </ul>
-</nav>
-
+                    <nav class="nav-menu">
+                        <ul>
+                            <li class="{{ Request::is('user/') ? 'active' : '' }}"><a href="{{ url('/user') }}">Home</a></li>
+                            <li class="{{ Request::is('about') ? 'active' : '' }}"><a href="{{ url('/about') }}">About Us</a></li>
+                            <li class="{{ Request::is('classtime') ? 'active' : '' }}"><a href="{{ url('/classtime') }}">Classes</a></li>
+                            <li class="{{ Request::is('services') ? 'active' : '' }}"><a href="{{ url('/services') }}">Services</a></li>
+                            <li class="{{ Request::is('team') ? 'active' : '' }}"><a href="{{ url('/team') }}">Our Team</a></li>
+                            <li>
+                                <a href="#">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="{{ url('/classtime') }}">Classes timetable</a></li>
+                                    <li><a href="{{ url('/bmicalculator') }}">Bmi calculate</a></li>
+                                    <li><a href="{{ url('/team') }}">Our team</a></li>
+                                    <li><a href="{{ url('gallery') }}">Gallery</a></li>
+                                </ul>
+                            </li>
+                            <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Contact</a></li>
+                            @auth 
+                            <li>
+                                <a href="#"><i class="fa fa-bell"></i></a>
+                                <ul class="dropdown">
+                                    <!-- Example notification item -->
+                                    <li><a href="#">New notification 1</a></li>
+                                    <li><a href="#">New notification 2</a></li>
+                                    <!-- Add more notification items as needed -->
+                                </ul>
+                            </li>
+                            @endauth
+                        </ul>
+                    </nav>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="top-option">
-                        <div class="to-search search-switch">
-                            <i class="fa fa-search"></i>
-                        </div>
                         <div class="to-social">
-                            <a href="{{url('/profile')}}"><i class="fa fa-user-circle"></i></a>
+                            <a href="{{ url('/profile') }}"><i class="fa fa-user-circle"></i></a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="canvas-open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
+
     </header>
     <!-- Header End -->

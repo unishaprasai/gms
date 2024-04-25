@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Package;
+use App\Models\Trainers;
 use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -31,13 +32,14 @@ class HomeController extends Controller
     
             if ($userType == 'member') {
                 $items = Package::all();
+                $team = Trainers::all();
     
                 // Fetch notifications for members or both users/members
                 $notifications = Announcement::where('recipient', 'member')
                     ->orWhere('recipient', 'both')
                     ->get();
     
-                return view('frontend.index', compact('items', 'notifications'));
+                return view('frontend.index', compact('items', 'notifications','team'));
             }
     
             if ($userType == 'admin') {

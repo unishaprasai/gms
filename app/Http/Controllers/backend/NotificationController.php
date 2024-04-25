@@ -23,4 +23,12 @@ class NotificationController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    public function view()
+    {
+
+        // Fetch notifications based on user's role
+        $notifications = Announcement::all();
+        return view('backend.viewall_notification', compact('notifications'));
+    }
 }

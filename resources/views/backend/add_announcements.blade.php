@@ -58,7 +58,7 @@
                                     <select class="form-control" id="recipient" name="recipient" required>
                                         <option value="trainer">Trainer</option>
                                         <option value="user">User</option>
-                                        <option value="trainer">Both</option>
+                                        <option value="both">Both</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
