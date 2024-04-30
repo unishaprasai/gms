@@ -85,7 +85,7 @@ public function edit_trainers($id)
 {
     $trainer = Trainers::findOrFail($id);
     $packages = package::all();
-    return view('backend.edit_trainers', compact('trainer,packages'));
+    return view('backend.edit_trainers', compact('trainer','packages'));
 }
 public function update_trainers(Request $request, $id)
 {

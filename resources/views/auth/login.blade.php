@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="login-img">
-                    <img src="backend/assets/img/login.jpg" alt="img">
+                    <img src="backend/assets/img/gallery-3.jpg" alt="img">
                 </div>
             </div>
         </div>

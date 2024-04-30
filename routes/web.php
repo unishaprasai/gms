@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 
-Route::get('/view_members', [MemberController::class, 'view_members']);
+Route::get('/view_members', [MemberController::class, 'view_members'])->middleware('auth');
 Route::get('/add_members', [MemberController::class, 'add_member']);
 Route::post('/add_members', [MemberController::class, 'add_members']);
 Route::get('/delete_members/{id}', [MemberController::class, 'delete_members']);
@@ -112,9 +112,6 @@ Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_pa
  Route::get('/delete_trainer_att/{id}', [TrainerAttendanceController::class, 'delete']);
 
 
-// Route::get('/edit_package/{package_id}', [PackageController::class, 'edit_package']);
-// Route::put('/update_package/{package_id}', [PackageController::class, 'update_package']);
-// Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_package']);
 
 Route::get('/add_ann', [AnnouncementController::class, 'index']);
 Route::post('/add_announcement', [AnnouncementController::class, 'store']);
@@ -151,7 +148,6 @@ Route::get('/attendance', [StudentAttendanceController::class, 'index']);
  Route::get('/view_members_att', [StudentAttendanceController::class, 'view_index']);
 
 
-//  Route::get('/attendance', [StudentAttendanceController::class, 'index']);
 
  
 

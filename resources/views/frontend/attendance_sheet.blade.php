@@ -2,6 +2,8 @@
 
 
 @section('main-container')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <section class="breadcrumb-section set-bg" data-setbg="{{url('frontend/img/breadcrumb-bg.jpg')}}">
     <div class="container">
