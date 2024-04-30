@@ -52,7 +52,9 @@
                                         <th>Member Name</th>
                                         <th>Date</th>
                                         <th>Status</th>
+                                        @if(auth()->user()->usertype === 'admin')
                                         <th>Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody id="AttendanceTableBody">
@@ -62,10 +64,12 @@
                                      <td> {{ $attendance->member->name }}</td>
                                     <td> {{ $attendance->attendance_date }}</td>
                                     <td> {{ $attendance->status }}</td>
+                                    @if(auth()->user()->usertype === 'admin')
                                     <td>
                                     <a href="{{url('delete_mem_att', $attendance->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
 
                                         </td>
+                                    @endif
                                     </tr>
                                     @endforeach
                                 </tbody>

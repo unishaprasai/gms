@@ -14,6 +14,7 @@ use App\Http\Controllers\backend\AnnouncementController;
 use App\Http\Controllers\backend\TrainerAttendanceController;
 
 use App\Http\Controllers\backend\NotificationController;
+use App\Http\Controllers\backend\PlanController;
 use App\Http\Controllers\backend\StudentAttendanceController;
 use App\Http\Controllers\Frontend\AboutUsController;
 use App\Http\Controllers\Frontend\BMIController;
@@ -124,6 +125,11 @@ Route::get('/delete_announcement/{id}', [AnnouncementController::class, 'delete'
 Route::post('/notifications/markAllAsRead', 'NotificationController@markAllAsRead')->name('notifications.markAllAsRead');
 Route::get('/view_noti', [NotificationController::class, 'view']);
 
+Route::get('/add_plan', [PlanController::class, 'index']);
+Route::post('/add_plans', [PlanController::class, 'store']);
+Route::get('/view_announcement', [AnnouncementController::class, 'view']);
+Route::get('/delete_announcement/{id}', [AnnouncementController::class, 'delete']);
+
 
 
 
@@ -143,9 +149,9 @@ Route::post('/submit', [ContactController::class, 'store']);
 Route::get('/profile_edit',[ProfileEditController::class,'index']);
 
 Route::get('/attendance', [StudentAttendanceController::class, 'index']);
- Route::post('/update_att', [StudentAttendanceController::class, 'checkIn']);
- Route::get('/delete_mem_att/{id}', [StudentAttendanceController::class, 'delete']);
- Route::get('/view_members_att', [StudentAttendanceController::class, 'view_index']);
+Route::post('/update_att', [StudentAttendanceController::class, 'checkIn']);
+Route::get('/delete_mem_att/{id}', [StudentAttendanceController::class, 'delete']);
+Route::get('/view_members_att', [StudentAttendanceController::class, 'view_index']);
 
 
 

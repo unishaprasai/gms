@@ -64,6 +64,15 @@
                         <li><a href="{{ url('view_package') }}">View Packages</a></li>
                     </ul>
                 </li>
+                <li class="submenu">
+                    <a href="javascript:void(0);"><img src="backend/assets/img/icons/product.svg" alt="img"><span>
+                            Plans</span> <span class="menu-arrow"></span></a>
+
+                    <ul>
+                        <li><a href="{{ url('add_plan11') }}">New Plan </a></li>
+                        <li><a href="{{ url('view_package') }}">View Plan</a></li>
+                    </ul>
+                </li>
 
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="backend/assets/img/icons/places.svg" alt="img"><span>

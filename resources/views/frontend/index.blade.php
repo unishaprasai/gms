@@ -249,7 +249,7 @@
         <div class="row">
             <div class="ts-slider owl-carousel">
 
-            @if(isset($team))
+                @if(isset($team))
 
 
                 @foreach($team as $trainer)
@@ -268,8 +268,8 @@
                 </div>
                 @endforeach
                 @else
-    <p>Team variable is undefined</p>
-@endif
+                <p>Team variable is undefined</p>
+                @endif
             </div>
         </div>
 
