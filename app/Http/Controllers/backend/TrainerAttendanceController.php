@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\backend;
+
 use App\Models\User;
 use App\Models\TrainerAttendance;
 use App\Models\Trainers;
@@ -17,65 +18,64 @@ class TrainerAttendanceController extends Controller
     public function index()
     {
         $email = auth()->user()->email;
-    
+
         // Find the trainer's details based on the email
         $trainerData = DB::table('trainers')
-                        ->join('trainer_attendances', 'trainers.id', '=', 'trainer_attendances.trainer_id')
-                        ->where('trainers.trainer_email', $email)
-                        ->select('trainers.id as trainer_id', 'trainers.trainer_name as trainer_name', 'trainer_attendances.attendance_date', 'trainer_attendances.status')
-                        ->get();
-    
+            ->join('trainer_attendances', 'trainers.id', '=', 'trainer_attendances.trainer_id')
+            ->where('trainers.trainer_email', $email)
+            ->select('trainers.id as trainer_id', 'trainers.trainer_name as trainer_name', 'trainer_attendances.attendance_date', 'trainer_attendances.status')
+            ->get();
+
         return view('backend.attendance', compact('trainerData'));
     }
     public function checkIn()
     {
-        // Get the authenticated user (trainer)
-        $trainer = Auth::user();
-    
-        // Check if the trainer is valid and logged in
+        $user = auth()->user();
+        // Get the trainer's ID based on their email from the trainers table
+        $trainer = Trainers::where('trainer_email', $user->email)->first();
+
+        // Ensure the trainer ID exists
         if (!$trainer) {
-            return redirect()->with('error', 'Invalid user.');
+
+            return redirect()->back()->with('error', 'Trainer ID not found.');
         }
-    
-        $attendanceDate = now()->toDateString();
-    
+
+
+        $attendanceDate = now()->format('Y-m-d');
+
         // Check if the trainer has already checked in for today
         $existingAttendance = TrainerAttendance::where('trainer_id', $trainer->id)
-            ->whereDate('attendance_date', $attendanceDate)
+            ->where('attendance_date', $attendanceDate)
             ->first();
-    
+
+
+
         if ($existingAttendance) {
-            return redirect()->with('error', 'You have already checked in today.');
+            return redirect()->back()->with('error', 'You have already checked in today.');
         }
-    
-        // Get the trainer's ID based on their email from the trainers table
-        $trainerId = Trainers::where('trainer_email', $trainer->email)->value('id');
-    
-        // Ensure the trainer ID exists
-        if (!$trainerId) {
-            return redirect()->with('error', 'Trainer ID not found.');
-        }
-    
+
+
+
         // Create new attendance record
         TrainerAttendance::create([
-            'trainer_id' => $trainerId,
+            'trainer_id' => $trainer->id,
             'attendance_date' => $attendanceDate,
             'status' => 'Present',
         ]);
-    
+
         return redirect()->back()->with('success', 'Attendance recorded.');
     }
 
 
     public function view_index()
-{
-    $trainerAttendances = TrainerAttendance::with('trainer')->get();
+    {
+        $trainerAttendances = TrainerAttendance::with('trainer')->get();
 
 
-    return view('backend.trainer_attendance', compact('trainerAttendances'));
-}
+        return view('backend.trainer_attendance', compact('trainerAttendances'));
+    }
 
-public function delete($id)
+    public function delete($id)
     {
         // Find the trainer by ID
         $trainerAttendances = TrainerAttendance::find($id);
@@ -91,7 +91,4 @@ public function delete($id)
         // Redirect back with success message
         return redirect()->back()->with('success', 'Attendance deleted successfully!');
     }
-
-
-
 }

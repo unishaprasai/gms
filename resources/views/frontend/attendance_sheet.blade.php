@@ -2,7 +2,7 @@
 
 
 @section('main-container')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert2@11"></script>
 
 
 <section class="breadcrumb-section set-bg" data-setbg="{{url('frontend/img/breadcrumb-bg.jpg')}}">
@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb-text">
-                                        <div class="bt-option">
+                    <div class="bt-option">
                         <a href="{{url('/user')}}">Home</a>
                         <span>Attendance</span>
                     </div>
@@ -33,15 +33,16 @@
     </script>
     @endif
 
-    @if($errors->any())
+    @if(session('error'))
     <script>
         Swal.fire({
             title: 'Error',
-            html: '<ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
+            text: '{{ session('error', 'You have already checked in today.') }}',
             icon: 'error'
         });
     </script>
     @endif
+
 
     <div class="row justify-content-center mb-3">
         <div class="col-md-6">

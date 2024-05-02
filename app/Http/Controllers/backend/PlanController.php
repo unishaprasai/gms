@@ -21,7 +21,7 @@ class PlanController extends Controller
         'title' => 'required|string',
         'price' => 'required|numeric',
         'duration' => 'required|string',
-        'features' => 'nullable|array', // Assuming features are optional and submitted as an array
+        'features' => 'nullable|array',
     ]);
 
     $featuresString = implode(', ', $data['features'] ?? []);

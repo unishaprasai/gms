@@ -69,7 +69,7 @@
                             Plans</span> <span class="menu-arrow"></span></a>
 
                     <ul>
-                        <li><a href="{{ url('add_plan11') }}">New Plan </a></li>
+                        <li><a href="{{ url('add_plan') }}">New Plan </a></li>
                         <li><a href="{{ url('view_package') }}">View Plan</a></li>
                     </ul>
                 </li>

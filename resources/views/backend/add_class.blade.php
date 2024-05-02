@@ -59,10 +59,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="shift">Shift</label>
+                                    <label for="shift">Day</label>
                                     <select class="form-control" id="shift" name="shift" required>
-                                        <option value="Morning">Morning</option>
-                                        <option value="Evening">Evening</option>
+                                        <option value="Sunday">Sunday</option>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thrusday">Thrusday</option>
+                                        <option value="Friday">Friday</option>
+
                                     </select>
                                 </div>
                                 <div class="form-group">

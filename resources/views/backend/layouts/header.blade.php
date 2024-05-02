@@ -54,7 +54,7 @@
                 </a>
 
                 <div class="dropdown-menu notifications">
-                    <div class="topnav-dropdown-header">
+                    <div class="topnav-dropdown-header">5
                         <span class="notification-title">Notifications</span>
                     </div>
                     <div class="noti-content">

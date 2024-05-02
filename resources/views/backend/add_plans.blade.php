@@ -60,15 +60,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="features">Features</label>
-                                    <textarea class="form-control" id="features" name="features" required rows="5"></textarea>
+                                    <textarea class="form-control" id="features" name="features[]" required rows="5"></textarea>
+                                    <small id="featuresHelp" class="form-text text-muted">Enter each feature on a new line.</small>
                                 </div>
-
+                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                <button type="button" class="btn btn-danger btn-block" onclick="clearForm()">Cancel</button>
 
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                        
-                        <button type="button" class="btn btn-danger btn-block" onclick="clearForm()">Cancel</button>
+
                         </form>
                     </div>
                 </div>

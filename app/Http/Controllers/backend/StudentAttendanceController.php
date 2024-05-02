@@ -29,46 +29,85 @@ class StudentAttendanceController extends Controller
     
         return view('frontend.attendance_sheet', compact('memberData'));
     }
+    // public function checkIn()
+    // {
+    //     // Get the authenticated user (member)
+    //     $member = Auth::user();
+    
+    //     // Check if the member is valid and logged in
+    //     if (!$member) {
+    //         return redirect()->with('error', 'Invalid user.');
+    //     }
+    
+    //     $attendanceDate = now()->toDateString();
+    
+    //     // Check if the member has already checked in for today
+    //     $existingAttendance = MemberAttendance::where('member_id', $member->id)
+    //         ->whereDate('attendance_date', $attendanceDate)
+    //         ->first();
+    
+    //     if ($existingAttendance) {
+    //         return redirect()->with('error', 'You have already checked in today.');
+    //     }
+    
+    //     // Get the member's ID based on their email from the trainers table
+    //     $memberid = Members::where('email', $member->email)->value('id');
+    
+    //     // Ensure the trainer ID exists
+    //     if (!$memberid) {
+    //         return redirect()->with('error', 'Member ID not found.');
+    //     }
+    
+    //     // Create new attendance record
+    //     MemberAttendance::create([
+    //         'member_id' => $memberid,
+    //         'attendance_date' => $attendanceDate,
+    //         'status' => 'Present',
+    //     ]);
+    
+    //     return redirect()->back()->with('success', 'Attendance recorded.');
+    // }
+
     public function checkIn()
     {
-        // Get the authenticated user (member)
-        $member = Auth::user();
-    
-        // Check if the member is valid and logged in
-        if (!$member) {
-            return redirect()->with('error', 'Invalid user.');
-        }
-    
-        $attendanceDate = now()->toDateString();
-    
-        // Check if the member has already checked in for today
-        $existingAttendance = MemberAttendance::where('member_id', $member->id)
-            ->whereDate('attendance_date', $attendanceDate)
-            ->first();
-    
-        if ($existingAttendance) {
-            return redirect()->with('error', 'You have already checked in today.');
-        }
-    
-        // Get the member's ID based on their email from the trainers table
-        $memberid = Members::where('email', $member->email)->value('id');
+        $user = auth()->user();
+        // Get the members's ID based on their email from the members table
+        $member = Members::where('email', $user->email)->first();
     
         // Ensure the trainer ID exists
-        if (!$memberid) {
-            return redirect()->with('error', 'Member ID not found.');
+        if (!$member) {
+
+            return redirect()->back()->with('error', 'Member ID not found.');
         }
     
-        // Create new attendance record
+    
+        $attendanceDate = now()->format('Y-m-d');
+
+        // Check if the member has already checked in for today
+        $existingAttendance = MemberAttendance::where('member_id', $member->id)
+            ->where('attendance_date', $attendanceDate)
+            ->first();
+
+
+    
+            if ($existingAttendance) {
+                session()->flash('error', 'You have already checked in today.');
+                return redirect()->back();
+            }
+            
+    
+        
+    
         MemberAttendance::create([
-            'member_id' => $memberid,
+            'member_id' => $member->id,
             'attendance_date' => $attendanceDate,
             'status' => 'Present',
         ]);
-    
+
         return redirect()->back()->with('success', 'Attendance recorded.');
     }
 
-    public function view_index()
+        public function view_index()
     {
         $MemberAttendances =MemberAttendance ::with('member')->get();
     
