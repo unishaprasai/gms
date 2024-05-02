@@ -12,7 +12,6 @@
                     <h2>BMI calculator</h2>
                     <div class="bt-option">
                         <a href="{{ url('/user') }}">Home</a>
-                        <a href="#">Pages</a>
                         <span>BMI calculator</span>
                     </div>
                 </div>

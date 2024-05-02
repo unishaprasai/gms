@@ -33,7 +33,8 @@ class PlanController extends Controller
         'features' => $featuresString, 
     ]);
 
-    return redirect()->back()->with('success', 'Pricing created successfully!');
+
+    return redirect()->back()->with('success', 'Plans created successfully!');
 }
 
 }

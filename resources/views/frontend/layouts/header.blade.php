@@ -52,7 +52,6 @@
                         <li><a href="{{url('/classtime')}}">Classes timetable</a></li>
                         <li><a href="{{url('/bmicalculator')}}">Bmi calculate</a></li>
                         <li><a href="{{url('/team')}}">Our team</a></li>
-                        <li><a href="{{url('/')}}">Gallery</a></li>
                         <li><a href="{{url('/blog')}}">Our blog</a></li>
                         <li><a href="{{url('/')}}">404</a></li>
                     </ul>

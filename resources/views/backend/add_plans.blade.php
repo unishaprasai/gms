@@ -61,7 +61,7 @@
                                 <div class="form-group">
                                     <label for="features">Features</label>
                                     <textarea class="form-control" id="features" name="features[]" required rows="5"></textarea>
-                                    <small id="featuresHelp" class="form-text text-muted">Enter each feature on a new line.</small>
+                                    <small id="featuresHelp" class="form-text text-muted">Enter each feature on a new line. also add comma</small>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
                                 <button type="button" class="btn btn-danger btn-block" onclick="clearForm()">Cancel</button>
