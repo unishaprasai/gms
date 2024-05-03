@@ -104,7 +104,7 @@
             }
         });
     document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('class_form');
+        const form = document.getElementById('userform');
 
         form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission

@@ -31,10 +31,7 @@
         <script>
             Swal.fire({
                 title: 'Error',
-                text: '{{ session('
-                error ', '
-                You have already checked in today.
-                ') }}',
+                text: '{{ session(',error',"You have already checked in today") }}',
                 icon: 'error'
             });
         </script>

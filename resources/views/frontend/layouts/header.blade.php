@@ -8,6 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gym | Template</title>
+    <!-- Khalti -->
+
+    <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -93,12 +99,13 @@
                                     <li><a href="{{ url('/classtime') }}">Classes timetable</a></li>
                                     <li><a href="{{ url('/bmicalculator') }}">Bmi calculate</a></li>
                                     <li><a href="{{ url('/team') }}">Our team</a></li>
-                                    <li><a href="{{ url('gallery') }}">Gallery</a></li>
                                 </ul>
                             </li>
                             <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Contact</a></li>
                             @auth
                             <li class="{{ Request::is('mattendance_sheet') ? 'active' : '' }}"><a href="{{ url('/attendance') }}">My Attendance</a></li>
+
+
 
                             <li>
                                 <a href="#"><i class="fa fa-bell"></i></a>
@@ -126,6 +133,11 @@
                     </nav>
                 </div>
                 <div class="col-lg-2">
+                    @auth
+                    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+                        <button id="payment-button">Pay with Khalti</button>
+                    </div>
+                    @endauth
                     <div class="top-option">
                         <div class="to-social">
                             <a href="{{ url('/profile') }}"><i class="fa fa-user-circle"></i></a>
@@ -134,4 +146,64 @@
                 </div>
 
     </header>
+
+    <script>
+
+            var config = {
+                // replace the publicKey with yours
+                "publicKey": "{{ config('app.khalti_public_key') }}",
+                "productIdentity": "1234567890",
+                "productName": "SmartGym",
+                "productUrl": "http://127.0.0.1:8000/",
+                "paymentPreference": [
+                    "KHALTI",
+                    "EBANKING",
+                    "MOBILE_BANKING",
+                    "CONNECT_IPS",
+                    "SCT",
+                    ],
+                "eventHandler": {
+                    onSuccess (payload) {
+                        // hit merchant api for initiating verfication
+                        $.ajax({
+                            type : 'POST',
+                            url : "{{ route('khalti.verifyPayment') }}",
+                            data: {
+                                token : payload.token,
+                                amount : payload.amount,
+                                "_token" : "{{ csrf_token() }}"
+                            },
+                            success : function(res){
+                                $.ajax({
+                                    type : "POST",
+                                    url : "{{ route('khalti.storePayment') }}",
+                                    data : {
+                                        response : res,
+                                        "_token" : "{{ csrf_token() }}"
+                                    },
+                                    success: function(res){
+                                        console.log('transaction successfull');
+                                    }
+                                });
+                                console.log(res);
+                            }
+                        });
+                        console.log(payload);
+                    },
+                    onError (error) {
+                        console.log(error);
+                    },
+                    onClose () {
+                        console.log('widget is closing');
+                    }
+                }
+            };
+
+            var checkout = new KhaltiCheckout(config);
+            var btn = document.getElementById("payment-button");
+            btn.onclick = function () {
+                // minimum transaction amount must be 10, i.e 1000 in paisa.
+                checkout.show({amount: 1000});
+            }
+        </script>
     <!-- Header End -->

@@ -123,7 +123,7 @@
         });
 
         function clearForm() {
-            document.getElementById('class_form').reset();
+            document.getElementById('trainerform').reset();
         }
     </script>
 </body>

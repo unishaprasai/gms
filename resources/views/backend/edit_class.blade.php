@@ -91,6 +91,8 @@
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Update</button>
+                                    <a href="{{ url('/') }}" class="btn btn-lg btn-danger ml-2">Cancel</a>
+
                                     
                                 </form>
                             </div>

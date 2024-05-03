@@ -45,7 +45,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Add Pacakage</h5>
-                            <form action="{{ url('add_package') }}" method="post" enctype="multipart/form-data">
+                            <form id="package_form"  action="{{ url('add_package') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="package_id">Package Id</label>
@@ -94,10 +94,10 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('trainerform');
+            const form = document.getElementById('package_form');
 
             form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent default form submission
+                event.preventDefault();
 
                 Swal.fire({
                     title: 'Confirm Submission',
@@ -117,7 +117,7 @@
         });
 
         function clearForm() {
-            document.getElementById('class_form').reset();
+            document.getElementById('package_form').reset();
         }
     </script>
 

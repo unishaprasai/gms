@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\backend\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\HomeController;
@@ -131,6 +132,10 @@ Route::get('/view_announcement', [AnnouncementController::class, 'view']);
 Route::get('/delete_announcement/{id}', [AnnouncementController::class, 'delete']);
 
 
+
+Route::post('/khalti/payment/verify',[PaymentController::class,'verifyPayment'])->name('khalti.verifyPayment');
+
+Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->name('khalti.storePayment');
 
 
 //Member

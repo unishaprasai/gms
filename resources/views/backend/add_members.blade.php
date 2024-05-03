@@ -97,7 +97,7 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('trainerform');
+            const form = document.getElementById('member_form');
 
             form.addEventListener('submit', function(event) {
                 event.preventDefault(); // Prevent default form submission
@@ -120,7 +120,7 @@
         });
 
         function clearForm() {
-            document.getElementById('class_form').reset();
+            document.getElementById('member_form').reset();
         }
     </script>
 
