@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\backend\ClassController;
 use App\Http\Controllers\backend\PackageController;
 use App\Http\Controllers\backend\AnnouncementController;
+use App\Http\Controllers\backend\EnrollmentController;
 use App\Http\Controllers\backend\TrainerAttendanceController;
 
 use App\Http\Controllers\backend\NotificationController;
@@ -136,6 +137,10 @@ Route::get('/delete_announcement/{id}', [AnnouncementController::class, 'delete'
 Route::post('/khalti/payment/verify',[PaymentController::class,'verifyPayment'])->name('khalti.verifyPayment');
 
 Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->name('khalti.storePayment');
+
+
+Route::post('/enrollments', [EnrollmentController::class, 'store']);
+
 
 
 //Member

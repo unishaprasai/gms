@@ -37,49 +37,104 @@
                     </div>
                 </div>
             </div>
+            <!-- Plus Button to Add Attendance -->
+            <!-- <button class="btn btn-primary mb-3" onclick="toggleAddForm()">Add Attendance</button> -->
+            <button class="btn btn-primary mb-3" onclick="toggleAddForm()" style="width: 153px;">Add Attendance</button>
         </div>
 
-        <div class="row justify-content-end">
 
-            <div class="col-xl-10">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered mx-auto">
-                                <thead>
-                                    <tr class="heading">
-                                        <th>Trainers Id</th>
-                                        <th>Trainer Name</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="AttendanceTableBody">
-                                    @foreach ($trainerAttendances as $attendance)
-                                    <tr>
+        <!-- Form for Manually Adding Attendance (Initially Hidden) -->
+        <div class="fcontainer" style="width: 800px; margin-left: 313px;">
+            <div class="card-body">
+
+                <div class="card-body">
+
+
+                    <div id="addForm" style="display: block;">
+                        <form action="http://127.0.0.1:8000/save" method="POST">
+                            <input type="hidden" name="_token" value="h6muS0r73KR5Jelq8OsztPh7gbNyuMRWRnnH3LtX" autocomplete="off">
+                            <div class="form-group">
+                                <label for="trainerId">Trainer ID</label>
+                                <input type="text" class="form-control" id="trainerId" name="trainerId">
+                            </div>
+                            <div class="form-group">
+                                <label for="attendanceDate">Attendance Date</label>
+                                <input type="date" class="form-control" id="attendanceDate" name="attendanceDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <input type="text" class="form-control" id="status" name="status">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="addForm" style="display: none;">
+            <form action="{{ url('/save') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="trainerId">Trainer ID</label>
+                    <input type="text" class="form-control" id="trainerId" name="trainerId">
+                </div>
+                <div class="form-group">
+                    <label for="attendanceDate">Attendance Date</label>
+                    <input type="date" class="form-control" id="attendanceDate" name="attendanceDate">
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <input type="text" class="form-control" id="status" name="status">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+    </div>
+
+
+    <div class="row justify-content-end">
+
+        <div class="col-xl-10">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered mx-auto">
+                            <thead>
+                                <tr class="heading">
+                                    <th>Trainers Id</th>
+                                    <th>Trainer Name</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="AttendanceTableBody">
+                                @foreach ($trainerAttendances as $attendance)
+                                <tr>
                                     <td> {{ $attendance->trainer_id }}</td>
-                                     <td> {{ $attendance->trainer->trainer_name }}</td>
+                                    <td> {{ $attendance->trainer->trainer_name }}</td>
                                     <td> {{ $attendance->attendance_date }}</td>
                                     <td> {{ $attendance->status }}</td>
                                     <td>
-                                    <a href="{{url('delete_trainer_att', $attendance->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
+                                        <a href="{{url('delete_trainer_att', $attendance->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
 
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="message" id="noResultMessage" style="display: none;">
-                            <div class="alert alert-danger" role="alert">
-                                No attendance found with the given date or ID.
-                            </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="message" id="noResultMessage" style="display: none;">
+                        <div class="alert alert-danger" role="alert">
+                            No attendance found with the given date or ID.
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <script>
@@ -87,6 +142,15 @@
             var alertOverlay = document.querySelector('.alert-overlay');
             if (alertOverlay) {
                 alertOverlay.remove();
+            }
+        }
+
+        function toggleAddForm() {
+            var addForm = document.getElementById('addForm');
+            if (addForm.style.display === 'none') {
+                addForm.style.display = 'block';
+            } else {
+                addForm.style.display = 'none';
             }
         }
 

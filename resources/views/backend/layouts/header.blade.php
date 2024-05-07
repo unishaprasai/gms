@@ -27,7 +27,7 @@
 
         <ul class="nav user-menu">
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <div class="top-nav-search">
                     <a href="javascript:void(0);" class="responsive-search">
                         <i class="fa fa-search"></i>
@@ -42,7 +42,7 @@
                         <a class="btn" id="searchdiv"><img src="backend/assets/img/icons/search.svg" alt="img"></a>
                     </form>
                 </div>
-            </li>
+            </li> -->
 
 
             <li class="nav-item dropdown">
@@ -54,7 +54,7 @@
                 </a>
 
                 <div class="dropdown-menu notifications">
-                    <div class="topnav-dropdown-header">5
+                    <div class="topnav-dropdown-header">
                         <span class="notification-title">Notifications</span>
                     </div>
                     <div class="noti-content">
@@ -83,7 +83,7 @@
                                         </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details">
-                                                <strong>{{ $notification->title }}</strong><br> <!-- Title in bold and content on a new line -->
+                                                <strong>{{ $notification->title }}</strong><br>
                                                 {{ $notification->content }}
                                             </p>
                                             <p class="noti-time">

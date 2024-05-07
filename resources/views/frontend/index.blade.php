@@ -1,5 +1,6 @@
 @extends('frontend.layouts.main')
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @section('main-container')
 <!-- Hero Section Begin -->
@@ -151,19 +152,17 @@
                     <div class="pi-price">
                         <h2>Rs.{{ number_format($singlePlan->price, 0) }}</h2>
                     </div>
-
-
                     @if (!empty($singlePlan->features))
                     <ul>
                         @php
-                            $features = explode(',', $singlePlan->features);
+                        $features = explode(',', $singlePlan->features);
                         @endphp
                         @foreach ($features as $feature)
-                            <li>{{ $feature }}</li>
+                        <li>{{ $feature }}</li>
                         @endforeach
                     </ul>
                     @endif
-                    <a href="#" class="btn btn-primary btn-block pricing-btn">Enroll now</a>
+                    <button type="button" class="btn btn-primary btn-block pricing-btn enroll-btn" data-toggle="modal" data-target="#enrollmentModal" data-plan="{{ $singlePlan->title }}">Enroll now</button>
                 </div>
             </div>
             @endforeach
@@ -171,6 +170,37 @@
     </div>
 </section>
 
+<!-- Modal -->
+<div class="modal fade" id="enrollmentModal" tabindex="-1" role="dialog" aria-labelledby="enrollmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="enrollmentModalLabel">Enroll Now</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="enroll-form" action="{{ url('enrollments') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="plan_title">Plan</label>
+                        <input type="text" class="form-control" id="plan_title" name="plan_title" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer_name">Your Name</label>
+                        <input type="text" class="form-control" id="customer_name" name="customer_name" placeholder="Eg. John Ehn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer_email">Your Email</label>
+                        <input type="text" class="form-control" id="customer_email" name="customer_email" placeholder="example@gmail.com" required>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit">Enroll</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- Pricing Section End -->
@@ -246,5 +276,51 @@
     </div>
 </section>
 <!-- Team Section End -->
+
+
+<script>
+    $(document).ready(function() {
+        $('.enroll-btn').on('click', function() {
+            var planTitle = $(this).data('plan');
+            $('#plan_title').val(planTitle);
+        });
+
+        $('#enroll-form').submit(function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+            
+            // Simulate form submission (you would send the form data to your server here)
+            var formData = $(this).serialize();
+            // Example AJAX call to submit the form data
+            $.post($(this).attr('action'), formData, function(response) {
+                // Display SweetAlert success message
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'You have successfully enrolled in the plan.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    // Optional: Reload the page or perform any other action after success message
+                    if (result.isConfirmed) {
+                        window.location.reload(); // Reload the page
+                    }
+                });
+            }).fail(function() {
+                // Display SweetAlert error message if AJAX request fails
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred while processing your request.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        });
+
+        // Optional: Clear form data when modal is closed
+        $('#enrollmentModal').on('hidden.bs.modal', function () {
+            $(this).find('form')[0].reset();
+        });
+    });
+</script>
+
 
 @endsection
