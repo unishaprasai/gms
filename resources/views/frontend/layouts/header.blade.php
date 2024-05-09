@@ -138,72 +138,104 @@
                         <button id="payment-button">Pay with Khalti</button>
                     </div>
                     @endauth
-                    <div class="top-option">
+
+                    <!-- <div class="top-option">
                         <div class="to-social">
                             <a href="{{ url('/profile') }}"><i class="fa fa-user-circle"></i></a>
                         </div>
+                    </div> -->
+                    <div class="top-option">
+                        <div class="to-social">
+                            <div class="dropdown">
+                                <a href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-user-circle"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                                    <li><a class="dropdown-item" href="{{ url('/profile') }}">My Profile</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">Log Out</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
+
+
+
 
     </header>
 
     <script>
-
-            var config = {
-                // replace the publicKey with yours
-                "publicKey": "{{ config('app.khalti_public_key') }}",
-                "productIdentity": "1234567890",
-                "productName": "SmartGym",
-                "productUrl": "http://127.0.0.1:8000/",
-                "paymentPreference": [
-                    "KHALTI",
-                    "EBANKING",
-                    "MOBILE_BANKING",
-                    "CONNECT_IPS",
-                    "SCT",
-                    ],
-                "eventHandler": {
-                    onSuccess (payload) {
-                        // hit merchant api for initiating verfication
-                        $.ajax({
-                            type : 'POST',
-                            url : "{{ route('khalti.verifyPayment') }}",
-                            data: {
-                                token : payload.token,
-                                amount : payload.amount,
-                                "_token" : "{{ csrf_token() }}"
-                            },
-                            success : function(res){
-                                $.ajax({
-                                    type : "POST",
-                                    url : "{{ route('khalti.storePayment') }}",
-                                    data : {
-                                        response : res,
-                                        "_token" : "{{ csrf_token() }}"
-                                    },
-                                    success: function(res){
-                                        console.log('transaction successfull');
-                                    }
-                                });
-                                console.log(res);
-                            }
-                        });
-                        console.log(payload);
-                    },
-                    onError (error) {
-                        console.log(error);
-                    },
-                    onClose () {
-                        console.log('widget is closing');
-                    }
+        var config = {
+            // replace the publicKey with yours
+            "publicKey": "{{ config('app.khalti_public_key') }}",
+            "productIdentity": "1234567890",
+            "productName": "SmartGym",
+            "productUrl": "http://127.0.0.1:8000/",
+            "paymentPreference": [
+                "KHALTI",
+                "EBANKING",
+                "MOBILE_BANKING",
+                "CONNECT_IPS",
+                "SCT",
+            ],
+            "eventHandler": {
+                onSuccess(payload) {
+                    // hit merchant api for initiating verfication
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('khalti.verifyPayment') }}",
+                        data: {
+                            token: payload.token,
+                            amount: payload.amount,
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        success: function(res) {
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ route('khalti.storePayment') }}",
+                                data: {
+                                    response: res,
+                                    "_token": "{{ csrf_token() }}"
+                                },
+                                success: function(res) {
+                                    console.log('transaction successfull');
+                                }
+                            });
+                            console.log(res);
+                        }
+                    });
+                    console.log(payload);
+                },
+                onError(error) {
+                    console.log(error);
+                },
+                onClose() {
+                    console.log('widget is closing');
                 }
-            };
-
-            var checkout = new KhaltiCheckout(config);
-            var btn = document.getElementById("payment-button");
-            btn.onclick = function () {
-                // minimum transaction amount must be 10, i.e 1000 in paisa.
-                checkout.show({amount: 1000});
             }
-        </script>
+        };
+
+        var checkout = new KhaltiCheckout(config);
+        var btn = document.getElementById("payment-button");
+        btn.onclick = function() {
+            // minimum transaction amount must be 10, i.e 1000 in paisa.
+            checkout.show({
+                amount: 1000
+            });
+        }
+
+
+
+        var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+        var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
+            return new bootstrap.Dropdown(dropdownToggleEl)
+        });
+    </script>
     <!-- Header End -->

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Newenrollments extends Model
 {
     use HasFactory;
+protected $fillable = ['status', /* other fillable fields */];
+
 }

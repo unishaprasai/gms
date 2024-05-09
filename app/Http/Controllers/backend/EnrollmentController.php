@@ -4,6 +4,8 @@ namespace App\Http\Controllers\backend;
 use App\Models\Newenrollments;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class EnrollmentController extends Controller
 {
@@ -27,6 +29,28 @@ class EnrollmentController extends Controller
         // Redirect or return a response as needed
         return redirect()->back()->with('success', 'Enrollment successful!');
     } 
+
+    public function view()
+{
+
+    $enrollments = Newenrollments::all();
+
+    return view('backend.view_newenrollments', compact('enrollments'));
+}
+
+
+
+public function updateStatus(Request $request, Newenrollments $enrollment)
+    {
+        $request->validate([
+            'status' => 'required|in:Pending,Approved,Rejected',
+        ]);
+
+        $enrollment->update(['status' => $request->status]);
+
+        return redirect()->back()->with('success', 'Enrollment status updated successfully.');
+    }
+
 }
 
 

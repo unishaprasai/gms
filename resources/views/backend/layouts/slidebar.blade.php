@@ -71,6 +71,12 @@
                     <ul>
                         <li><a href="{{ url('add_plan') }}">New Plan </a></li>
                         <li><a href="{{ url('view_package') }}">View Plan</a></li>
+                        @if(auth()->user()->usertype === 'admin')
+
+                        <li><a href="{{ url('view_enrollments') }}">New Enrollment </a></li>
+                        @endif
+
+
                     </ul>
                 </li>
 

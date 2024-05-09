@@ -91,4 +91,32 @@ class TrainerAttendanceController extends Controller
         // Redirect back with success message
         return redirect()->back()->with('success', 'Attendance deleted successfully!');
     }
+
+
+
+public function manual(Request $request)
+{
+    // Validate the incoming data
+    $validatedData = $request->validate([
+        'trainerId' => 'required|exists:trainers,id',
+        'trainername' => 'required',
+        'attendanceDate' => 'required|date',
+        'status' => 'required',
+    ]);
+
+    // Create a new TrainerAttendance instance
+    $attendance = new TrainerAttendance();
+    $attendance->trainer_id = $validatedData['trainerId'];
+    $attendance->attendance_date = $validatedData['attendanceDate'];
+    $attendance->status = $validatedData['status'];
+
+    // Save the attendance record
+    $attendance->save();
+
+    // Optionally, you can redirect back with a success message
+    return response()->json(['success' => true, 'message' => 'Attendance recorded successfully']);
+
+    return redirect()->back()->with('success', 'Attendance recorded successfully!');
+}
+
 }

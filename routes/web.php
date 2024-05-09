@@ -113,6 +113,9 @@ Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_pa
  Route::post('/save', [TrainerAttendanceController::class, 'checkIn']);
  Route::get('/view_trainers_att', [TrainerAttendanceController::class, 'view_index']);
  Route::get('/delete_trainer_att/{id}', [TrainerAttendanceController::class, 'delete']);
+ Route::post('/manual_entry', [TrainerAttendanceController::class, 'manual']);
+
+ 
 
 
 
@@ -140,6 +143,14 @@ Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->
 
 
 Route::post('/enrollments', [EnrollmentController::class, 'store']);
+Route::get('/view_enrollments', [EnrollmentController::class, 'view']);
+
+// Route::post('/update_enrollment_status', [EnrollmentController::class,'updateStatus']);
+Route::post('/update_enrollment_status/{enrollment}', [EnrollmentController::class, 'updateStatus'])->name('update_enrollment_status');
+
+
+
+
 
 
 
