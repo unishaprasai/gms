@@ -241,7 +241,7 @@
                         <span>Our Team</span>
                         <h2>TRAIN WITH EXPERTS</h2>
                     </div>
-                    <a href="#" class="primary-btn btn-normal appoinment-btn">appointment</a>
+                    <!-- <><a href="#" class="primary-btn btn-normal appoinment-btn">appointment</a> -->
                 </div>
             </div>
         </div>
@@ -261,7 +261,7 @@
 
                         <div class="ts_text">
                             <h4>{{ $trainer->trainer_name }}</h4>
-                            <span>Gym Trainer</span>
+                          <span>  <button class="primary-btn btn-normal appoinment-btn" data-trainer-id="{{ $trainer->id }}" data-toggle="modal" data-target="#appointmentModal">Appointment</button></span>
                         </div>
                     </div>
                 </div>
@@ -275,6 +275,50 @@
     </div>
     </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="appointmentModal" tabindex="-1" role="dialog" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="appointmentModalLabel">Schedule Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="appointmentForm" action="" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="plan_title">Plan</label>
+                        <input type="text" class="form-control" id="plan_title" name="plan_title" readonly>
+                    </div>
+
+                    <input type="hidden" name="trainer_id" id="trainer_id" value="">
+                    <div class="form-group">
+                        <label for="customer_name">Customer Name:</label>
+                        <input type="text" id="customer_name" name="customer_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date" required min="{{ date('Y-m-d') }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time:</label>
+                        <input type="time" id="time" name="time" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Schedule Appointment</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</div>
+
 <!-- Team Section End -->
 
 
@@ -287,7 +331,7 @@
 
         $('#enroll-form').submit(function(event) {
             event.preventDefault(); // Prevent the form from submitting normally
-            
+
             // Simulate form submission (you would send the form data to your server here)
             var formData = $(this).serialize();
             // Example AJAX call to submit the form data
@@ -315,8 +359,15 @@
             });
         });
 
+        $(document).ready(function() {
+            $('.appoinment-btn').click(function() {
+                var trainerId = $(this).data('trainer-id');
+                $('#trainer_id').val(trainerId);
+            });
+        });
+
         // Optional: Clear form data when modal is closed
-        $('#enrollmentModal').on('hidden.bs.modal', function () {
+        $('#enrollmentModal').on('hidden.bs.modal', function() {
             $(this).find('form')[0].reset();
         });
     });

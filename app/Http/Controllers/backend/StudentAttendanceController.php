@@ -132,6 +132,31 @@ class StudentAttendanceController extends Controller
         return redirect()->back()->with('success', 'Attendance deleted successfully!');
     }
 
+    public function manual(Request $request)
+{
+    // Validate the incoming request data
+    $validatedData = $request->validate([
+        'studentId' => 'required|numeric', // Assuming studentId is numeric
+        'studentname' => 'required|string',
+        'attendanceDate' => 'required|date',
+        'status' => 'required|string',
+    ]);
+
+    // Create a new MemberAttendance instance
+    $attendance = new MemberAttendance;
+    $attendance->member_id = $validatedData['studentId'];
+    $attendance->attendance_date = $validatedData['attendanceDate'];
+    $attendance->status = $validatedData['status'];
+
+    // Save the attendance record
+    $attendance->save();
+
+    // Redirect back with a success message
+    return response()->json(['success' => true, 'message' => 'Attendance recorded successfully']);
+
+    return redirect()->back()->with('success', 'Attendance recorded successfully!');
+}
+
 
 
 

@@ -173,6 +173,8 @@ Route::get('/attendance', [StudentAttendanceController::class, 'index']);
 Route::post('/update_att', [StudentAttendanceController::class, 'checkIn']);
 Route::get('/delete_mem_att/{id}', [StudentAttendanceController::class, 'delete']);
 Route::get('/view_members_att', [StudentAttendanceController::class, 'view_index']);
+Route::post('/manual', [StudentAttendanceController::class, 'manual']);
+
 
 
 

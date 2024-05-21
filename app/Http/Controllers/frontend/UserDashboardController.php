@@ -16,26 +16,28 @@ class UserDashboardController extends Controller
 {
     public function index()
     {
-        if (Auth::check()) {
-            $userType = Auth()->user()->usertype;
-            Log::info("User Type: $userType");
+        // if (Auth::check()) {
+        //     $userType = Auth()->user()->usertype;
+        //     Log::info("User Type: $userType");
 
-            if ($userType == 'member') {
+            // if ($userType == 'member') {
                 $items = Package::all();
                 $team = Trainers::all();
                 $plans=Plans::all();
             
 
 
-                // dd($plans);
+            //     // dd($plans);
 
-                // Fetch notifications for member or both trainers/members
-                $notifications = Announcement::where('recipient', 'user')
-                    ->orWhere('recipient', 'both')
-                    ->get();
+            //     // Fetch notifications for member or both trainers/members
+            //     $notifications = Announcement::where('recipient', 'user')
+            //         ->orWhere('recipient', 'both')
+            //         ->get();
 
-                return view('frontend.index', compact('items', 'notifications', 'team','plans'));
-            }
-        }
+                // return view('frontend.index', compact('items', 'notifications', 'team','plans'));
+                return view('frontend.index',compact('items', 'team','plans'));
+
+            // }
+        // }
     }
 }

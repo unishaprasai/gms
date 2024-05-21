@@ -46,11 +46,7 @@
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
 
-                                    <!-- Remember Me -->
-                                    <div class="form-group form-check">
-                                        <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
-                                        <label class="form-check-label" for="remember_me">{{ __('Remember me') }}</label>
-                                    </div>
+                                    
                                     <div class="mt-3 text-center">
                                         @if (Route::has('password.request'))
                                         <a class="text-sm text-gray-600" href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>

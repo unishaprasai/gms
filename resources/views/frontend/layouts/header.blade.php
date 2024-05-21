@@ -139,12 +139,12 @@
                     </div>
                     @endauth
 
-                    <!-- <div class="top-option">
+                    <div class="top-option">
                         <div class="to-social">
                             <a href="{{ url('/profile') }}"><i class="fa fa-user-circle"></i></a>
                         </div>
-                    </div> -->
-                    <div class="top-option">
+                    </div>
+                    <!-- <div class="top-option">
                         <div class="to-social">
                             <div class="dropdown">
                                 <a href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -164,7 +164,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
 

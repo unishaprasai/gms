@@ -56,7 +56,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="attendanceDate">Attendance Date</label>
-                                <input type="date" class="form-control" id="attendanceDate" name="attendanceDate">
+                                <input type="date" class="form-control" id="attendanceDate" name="attendanceDate" max="{{ date('Y-m-d') }}">
                             </div>
                             <div class="form-group">
                                 <label for="status">Status</label>
@@ -111,6 +111,12 @@
     </div>
 
     <script>
+        // Get the current date in YYYY-MM-DD format
+        var currentDate = new Date().toISOString().split('T')[0];
+
+        // Set the max attribute of the input field to the current date
+        document.getElementById('attendanceDate').setAttribute('max', currentDate);
+
         function closeAlert() {
             var alertOverlay = document.querySelector('.alert-overlay');
             if (alertOverlay) {
