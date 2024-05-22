@@ -261,7 +261,7 @@
 
                         <div class="ts_text">
                             <h4>{{ $trainer->trainer_name }}</h4>
-                          <span>  <button class="primary-btn btn-normal appoinment-btn" data-trainer-id="{{ $trainer->id }}" data-toggle="modal" data-target="#appointmentModal">Appointment</button></span>
+                            <span> <button class="primary-btn btn-normal appoinment-btn" data-trainer-id="{{ $trainer->id }}" data-toggle="modal" data-target="#appointmentModal">Appointment</button></span>
                         </div>
                     </div>
                 </div>
@@ -286,26 +286,29 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="appointmentForm" action="" method="POST">
+            <form id="appointmentForm" action="{{ url('appointment') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="plan_title">Plan</label>
-                        <input type="text" class="form-control" id="plan_title" name="plan_title" readonly>
-                    </div>
-
-                    <input type="hidden" name="trainer_id" id="trainer_id" value="">
-                    <div class="form-group">
-                        <label for="customer_name">Customer Name:</label>
-                        <input type="text" id="customer_name" name="customer_name" required>
+                        <label for="trainer_id">Trainer's ID</label>
+                        <input type="text" class="form-control" id="trainer_id" name="trainer_id" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="date">Date:</label>
-                        <input type="date" id="date" name="date" required min="{{ date('Y-m-d') }}">
+                        <label for="customer_name">Your Name</label>
+                        <input type="text" class="form-control" id="customer_name" name="customer_name" placeholder="Eg. John Ehn" required>
                     </div>
                     <div class="form-group">
-                        <label for="time">Time:</label>
-                        <input type="time" id="time" name="time" required>
+                        <label for="date">Date</label>
+                        <input type="date" class="form-control" id="date" name="date" required min="{{ date('Y-m-d') }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time</label>
+                        <select class="form-control" id="time" name="time" required>
+                            <option value="">Select Time</option>
+                            <option value="08:00">08:00 AM</option>
+                            <option value="09:00">09:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -369,6 +372,38 @@
         // Optional: Clear form data when modal is closed
         $('#enrollmentModal').on('hidden.bs.modal', function() {
             $(this).find('form')[0].reset();
+        });
+    });
+    $(document).ready(function() {
+        $('#appointmentForm').submit(function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Simulate form submission (you would send the form data to your server here)
+            var formData = $(this).serialize();
+            // Example AJAX call to submit the form data
+            $.post($(this).attr('action'), formData, function(response) {
+                // Display SweetAlert success message
+                Swal.fire({
+                    title: 'Success!',
+                    text: response.message,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    // Optional: Reload the page or perform any other action after success message
+                    if (result.isConfirmed) {
+                        window.location.reload(); // Reload the page
+                    }
+                });
+            }).fail(function(xhr) {
+                // Display SweetAlert error message if AJAX request fails
+                var errorMessage = xhr.responseJSON.message;
+                Swal.fire({
+                    title: 'Error!',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
         });
     });
 </script>

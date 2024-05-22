@@ -8,16 +8,16 @@ use App\Models\members;
 use Illuminate\Support\Facades\Hash;      
 use Illuminate\Support\Facades\Storage;
 use App\Models\Package;
-
+use App\Models\Plans;
 
 class MemberController extends Controller
 {
 
 
 public function add_member()
-{      $packages = package::all(); // Fetch all packages from the database
+{      $plan = Plans::all(); // Fetch all plan from the database
 
-    return view('backend.add_members',compact('packages'));
+    return view('backend.add_members',compact('plan'));
 }
 
 
@@ -83,11 +83,11 @@ public function delete_members($id)
 
 public function edit_members($id)
 {
-    $packages = package::all(); // Fetch all packages from the database
+    $plan = Plans::all(); // Fetch all packages from the database
 
     
     $members=members::find($id);
-    return view('backend.edit_members',compact('members','packages'));
+    return view('backend.edit_members',compact('members','plan'));
 }
 
 public function update_member(Request $request, $id)

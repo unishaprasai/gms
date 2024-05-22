@@ -7,19 +7,15 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gym | Template</title>
+    <title>Smart Gym</title>
     <!-- Khalti -->
-
     <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 
 
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
-
-    <!-- Css Styles -->
     <link rel="stylesheet" href="{{url('frontend/css/bootstrap.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('frontend/css/font-awesome.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('frontend/css/flaticon.css')}}" type="text/css">
@@ -29,14 +25,28 @@
     <link rel="stylesheet" href="{{url('frontend/css/slicknav.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('frontend/css/style.css')}}" type="text/css">
 </head>
+<style>
+    .to-social .user-profile {
+        font-size: 14px;
+        text-transform: none;
+    }
+
+    /* .to-social .xyz {
+
+        margin-top: -45px;
+        margin-right: -4000px;
+
+    } */
+    .nav-menu ul li:last-child {
+        margin-right: -1200px;
+        margin-top: -50px;
+    }
+</style>
 
 <body>
-    <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
-
-    <!-- Offcanvas Menu Section Begin -->
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
         <div class="canvas-close">
@@ -65,28 +75,18 @@
                 <li><a href="{{('/contact')}}">Contact</a></li>
             </ul>
         </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="canvas-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-youtube-play"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-        </div>
     </div>
-    <!-- Offcanvas Menu Section End -->
-
-    <!-- Header Section Begin -->
     <header class="header-section">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-2 offset-lg-1">
                     <div class="logo">
                         <a href="{{url('/')}}">
                             <img src="{{url('frontend/img/logo.png')}}" alt="">
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-7">
                     <nav class="nav-menu">
                         <ul>
                             <li class="{{ Request::is('user/') ? 'active' : '' }}"><a href="{{ url('/user') }}">Home</a></li>
@@ -97,16 +97,13 @@
                                 <a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="{{ url('/classtime') }}">Classes timetable</a></li>
-                                    <li><a href="{{ url('/bmicalculator') }}">Bmi calculate</a></li>
+                                    <li><a href="{{ url('/bmicalculator') }}">BMI calculate</a></li>
                                     <li><a href="{{ url('/team') }}">Our team</a></li>
                                 </ul>
                             </li>
                             <li class="{{ Request::is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Contact</a></li>
                             @auth
                             <li class="{{ Request::is('mattendance_sheet') ? 'active' : '' }}"><a href="{{ url('/attendance') }}">My Attendance</a></li>
-
-
-
                             <li>
                                 <a href="#"><i class="fa fa-bell"></i></a>
                                 <ul class="dropdown">
@@ -126,55 +123,39 @@
                                     @endif
                                     @endforeach
                                 </ul>
-
                             </li>
+                            <div class="to-social">
+
+                                <li>
+                                    <a href="#" class="user-profile">{{ Auth::user()->name }}</a>
+                                    <ul class="dropdown">
+                                        <li><a href="{{ url('/profile') }}">My Profile</a></li>
+                                        <li><a href="{{ url('/payments') }}">My Payments</a></li>
+                                        <li class="last-dropdown-item"><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                                    </ul>
+                                </li>
+                                @else
+                                <li>
+                                    <a href="{{ route('login') }}">Login</a>
+                                </li>
+                            </div>
+
                             @endauth
+                        </ul>
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-2">
-                    @auth
-                    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-                        <button id="payment-button">Pay with Khalti</button>
-                    </div>
-                    @endauth
-
-                    <div class="top-option">
-                        <div class="to-social">
-                            <a href="{{ url('/profile') }}"><i class="fa fa-user-circle"></i></a>
-                        </div>
-                    </div>
-                    <!-- <div class="top-option">
-                        <div class="to-social">
-                            <div class="dropdown">
-                                <a href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-user-circle"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                                    <li><a class="dropdown-item" href="{{ url('/profile') }}">My Profile</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <form method="POST" action="{{ route('logout') }}">
-                                            @csrf
-                                            <button type="submit" class="dropdown-item">Log Out</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> -->
-
-
-
-
+            </div>
+        </div>
     </header>
+
+
+
+
 
     <script>
         var config = {
-            // replace the publicKey with yours
-            "publicKey": "{{ config('app.khalti_public_key') }}",
+            "publicKey": "{{ config('services.khalti.public_key') }}",
             "productIdentity": "1234567890",
             "productName": "SmartGym",
             "productUrl": "http://127.0.0.1:8000/",
@@ -187,7 +168,6 @@
             ],
             "eventHandler": {
                 onSuccess(payload) {
-                    // hit merchant api for initiating verfication
                     $.ajax({
                         type: 'POST',
                         url: "{{ route('khalti.verifyPayment') }}",
@@ -205,7 +185,7 @@
                                     "_token": "{{ csrf_token() }}"
                                 },
                                 success: function(res) {
-                                    console.log('transaction successfull');
+                                    console.log('transaction successful');
                                 }
                             });
                             console.log(res);
@@ -225,17 +205,12 @@
         var checkout = new KhaltiCheckout(config);
         var btn = document.getElementById("payment-button");
         btn.onclick = function() {
-            // minimum transaction amount must be 10, i.e 1000 in paisa.
             checkout.show({
                 amount: 1000
             });
         }
-
-
-
-        var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
-        var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
-            return new bootstrap.Dropdown(dropdownToggleEl)
-        });
     </script>
-    <!-- Header End -->
+
+</body>
+
+</html>

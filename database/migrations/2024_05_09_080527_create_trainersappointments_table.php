@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('customer_name'); // Customer's Name
             $table->date('date'); // Date of the appointment
             $table->time('time'); // Time of the appointment
-            $table->string('status')->default('Completed'); // Status of the appointment (default: 'Pending')
+            $table->string('status')->default('Completed'); // Status of the appointment (default: 'Completed')
             $table->timestamps();
         });
     }

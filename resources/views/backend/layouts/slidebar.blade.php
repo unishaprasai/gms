@@ -80,6 +80,14 @@
                     </ul>
                 </li>
 
+                @if(auth()->user()->usertype === 'trainer')
+                <li>
+                    <a href="{{ url('myappointment') }}"><img src="backend/assets/img/icons/dashboard.svg" alt="img"><span>
+                            Appoinments</span> </a>
+                </li>
+                @endif
+
+
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="backend/assets/img/icons/places.svg" alt="img"><span>
                             Attendance</span> <span class="menu-arrow"></span></a>

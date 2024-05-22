@@ -5,6 +5,7 @@
     <base href="/public">
     @include('backend.layouts.css')
     <title>Edit Gym Membership</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 @include('backend.layouts.slidebar')
 
@@ -14,14 +15,18 @@
         <h1 class="mt-5 mb-4 text-center">Edit Gym Membership</h1>
 
         @if(session('success'))
-        <div class="alert-overlay">
-            <div class="alert-box">
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-                <button type="button" class="btn btn-success btn-block" onclick="closeAlert()">Okay</button>
-            </div>
-        </div>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'Okay'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ url('/view_members') }}";
+                }
+            });
+        </script>
         @endif
 
         @if($errors->any())
@@ -71,19 +76,18 @@
                                         <input type="date" class="form-control" id="date_of_join" name="date_of_join" value="{{ $members->date_of_join }}" required>
                                     </div>
                                     <div class="form-group">
-                                    <label for="membership_type">Membership Type</label>
-                                    <select class="form-control" id="membership_type" name="membership_type" required>
-                                        @foreach($packages as $package)
-                                        <option value="{{ $package->name }}">{{ $package->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                        <label for="membership_type">Membership Type</label>
+                                        <select class="form-control" id="membership_type" name="membership_type" required>
+                                            @foreach($plan as $plans)
+                                            <option value="{{ $plans->title }}">{{ $plans->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label for="shift">Choose Shift</label>
                                         <select class="form-control" id="shift" name="shift" required>
                                             <option value="day" {{ $members->shift == 'day' ? 'selected' : '' }}>Day</option>
-                                            <option value="evening" {{ $members->shift == 'evening' ? 'selected' : '' }}>Evening
-                                            </option>
+                                            <option value="evening" {{ $members->shift == 'evening' ? 'selected' : '' }}>Evening</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -92,9 +96,8 @@
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-lg btn-primary">Update</button>
-                                        <a href="{{ url('/view_members') }}" class="btn btn-lg btn-danger ml-2">Cancel</a>
+                                        <a href="{{ url('/view_members') }}" class="btn btn-lg btn-danger ml-2" onclick="return cancelConfirmation(event)">Cancel</a>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -106,12 +109,28 @@
     @include('backend.layouts.footer')
 
     <script>
+        function cancelConfirmation(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, cancel it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ url('/view_members') }}";
+                }
+            });
+        }
+
         function closeAlert() {
             var alertOverlay = document.querySelector('.alert-overlay');
             if (alertOverlay) {
                 alertOverlay.remove();
             }
-            // Redirect to the view members page
             window.location.href = "{{ url('/view_members') }}";
         }
     </script>

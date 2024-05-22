@@ -69,8 +69,8 @@
                                 <div class="form-group">
                                     <label for="membership_type">Membership Type</label>
                                     <select class="form-control" id="membership_type" name="membership_type" required>
-                                        @foreach($packages as $package)
-                                        <option value="{{ $package->name }}">{{ $package->name }}</option>
+                                        @foreach($plan as $plans)
+                                        <option value="{{ $plans->title }}">{{ $plans->title }}</option>
                                         @endforeach
                                     </select>
                                 </div>

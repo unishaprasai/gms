@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\backend\ClassController;
 use App\Http\Controllers\backend\PackageController;
 use App\Http\Controllers\backend\AnnouncementController;
+use App\Http\Controllers\backend\AppointmentsController;
 use App\Http\Controllers\backend\EnrollmentController;
 use App\Http\Controllers\backend\TrainerAttendanceController;
 
@@ -141,6 +142,9 @@ Route::post('/khalti/payment/verify',[PaymentController::class,'verifyPayment'])
 
 Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->name('khalti.storePayment');
 
+// Route::post('/initiate-payment', 'PaymentController@initiatePayment');
+
+
 
 Route::post('/enrollments', [EnrollmentController::class, 'store']);
 Route::get('/view_enrollments', [EnrollmentController::class, 'view']);
@@ -174,6 +178,13 @@ Route::post('/update_att', [StudentAttendanceController::class, 'checkIn']);
 Route::get('/delete_mem_att/{id}', [StudentAttendanceController::class, 'delete']);
 Route::get('/view_members_att', [StudentAttendanceController::class, 'view_index']);
 Route::post('/manual', [StudentAttendanceController::class, 'manual']);
+
+
+
+//Appointments
+Route::get('/myappointment', [AppointmentsController::class, 'index']);
+
+Route::post('/appointment', [AppointmentsController::class, 'store']);
 
 
 

@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     @include('backend.layouts.css')
-  </head>
-  @include('backend.layouts.slidebar')
-  @include('backend.layouts.header')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+@include('backend.layouts.slidebar')
+@include('backend.layouts.header')
 
 <body>
     <div class="fcontainer">
-    <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">View Members</h1>
+        <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">View Members</h1>
         @if(session('success'))
-        <div class="alert-overlay">
-            <div class="alert-box">
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-                <button type="button" class="btn btn-success btn-block" onclick="closeAlert()">Okay</button>
-            </div>
-        </div>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'Okay'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.reload();
+                }
+            });
+        </script>
         @endif
 
-        <div class="row justify-content-center mb-3"> <!-- Centering the search button -->
+        <div class="row justify-content-center mb-3"> <!-- Centering the search and refresh buttons -->
             <div class="col-md-6">
                 <div class="input-group">
                     <input type="text" class="form-control" id="searchInput" placeholder="Search by name or email">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="searchButton">Search</button>
+                        <button class="btn btn-outline-secondary" type="button" id="refreshButton">Refresh</button>
                     </div>
                 </div>
             </div>
@@ -41,7 +48,7 @@
                             <table class="table table-bordered mx-auto">
                                 <thead>
                                     <tr class="heading">
-                                                                                <th>Name</th>
+                                        <th>Name</th>
                                         <th>Email</th>
                                         <th>Address</th>
                                         <th>Phone Number</th>
@@ -51,7 +58,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tableBody">
                                     @foreach($members as $member)
                                     <tr>
                                         <td>{{$member->name}}</td>
@@ -67,22 +74,22 @@
                                             <!-- Delete button with confirmation message -->
                                             <a href="{{url('delete_members',$member->id)}}"
                                                 class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
+                                                onclick="return deleteConfirmation(event, '{{url('delete_members', $member->id)}}')">Delete</a>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div id="noResultMessage" class="alert alert-danger" role="alert" style="display: none;">
+                                No members found with the given name or email.
+                            </div>
                         </div>
+                        <!-- Pagination Controls -->
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center" id="paginationControls"></ul>
+                        </nav>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Message area -->
-        <div class="message" id="noResultMessage" style="display: none;">
-            <div class="alert alert-danger" role="alert">
-                No members found with the given name or email.
             </div>
         </div>
     </div>
@@ -96,24 +103,35 @@
             }
         }
 
-        // Add an event listener to the search button
-        document.getElementById('searchButton').addEventListener('click', function () {
-            // Get the search query from the input field
-            var searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+        // Function to handle delete confirmation with SweetAlert
+        function deleteConfirmation(event, url) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        }
 
-            // Get all table rows
+        // Search functionality
+        document.getElementById('searchButton').addEventListener('click', function () {
+            var searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
             var rows = document.querySelectorAll('.table tbody tr');
             var noResultMessage = document.getElementById('noResultMessage');
-
-            // Flag to check if any member is found
             var found = false;
 
-            // Loop through each row and hide/show based on the search query
             rows.forEach(function (row) {
-                var name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                var email = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                var name = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+                var email = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
 
-                // Check if name or email contains the search query
                 if (name.includes(searchQuery) || email.includes(searchQuery)) {
                     row.style.display = '';
                     found = true;
@@ -122,13 +140,62 @@
                 }
             });
 
-            // Display message if no members found
             if (!found) {
                 noResultMessage.style.display = 'block';
             } else {
                 noResultMessage.style.display = 'none';
             }
+
+            paginateTable();
         });
+
+        // Refresh button functionality
+        document.getElementById('refreshButton').addEventListener('click', function () {
+            window.location.reload();
+        });
+
+        // Pagination functionality
+        function paginateTable() {
+            var rows = document.querySelectorAll('.table tbody tr');
+            var rowsPerPage = 8;
+            var currentPage = 1;
+            var totalPages = Math.ceil(rows.length / rowsPerPage);
+
+            function showPage(page) {
+                rows.forEach((row, index) => {
+                    if (index >= (page - 1) * rowsPerPage && index < page * rowsPerPage) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+
+            function createPagination() {
+                var paginationControls = document.getElementById('paginationControls');
+                paginationControls.innerHTML = '';
+
+                for (let i = 1; i <= totalPages; i++) {
+                    let li = document.createElement('li');
+                    li.className = 'page-item' + (i === currentPage ? ' active' : '');
+                    li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                    li.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        currentPage = i;
+                        showPage(currentPage);
+                        createPagination();
+                    });
+                    paginationControls.appendChild(li);
+                }
+            }
+
+            showPage(currentPage);
+            createPagination();
+        }
+
+        window.onload = function () {
+            paginateTable();
+        };
     </script>
 </body>
 
