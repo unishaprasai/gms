@@ -85,6 +85,11 @@ Route::get('/view_trainers', [TrainerController::class, 'view_trainers']);
 Route::get('/edit_trainers/{id}', [TrainerController::class, 'edit_trainers']);
 Route::put('/update_trainers/{id}', [TrainerController::class, 'update_trainers']);
 Route::get('/delete_trainers/{id}', [TrainerController::class, 'delete_trainers']);
+Route::get('/profilet', [TrainerController::class, 'tprofile']);
+Route::put('/update_profile/{id}',[TrainerController::class,'updateProfile']);
+
+
+
 
 
 
@@ -127,7 +132,6 @@ Route::get('/delete_announcement/{id}', [AnnouncementController::class, 'delete'
 
 
 
-// Route::get('/add_announcement', [NotificationController::class, 'index']);
 Route::post('/notifications/markAllAsRead', 'NotificationController@markAllAsRead')->name('notifications.markAllAsRead');
 Route::get('/view_noti', [NotificationController::class, 'view']);
 
@@ -142,7 +146,15 @@ Route::post('/khalti/payment/verify',[PaymentController::class,'verifyPayment'])
 
 Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->name('khalti.storePayment');
 
-// Route::post('/initiate-payment', 'PaymentController@initiatePayment');
+Route::get('/payments', [PaymentController::class, 'index']);
+Route::get('/adminpayments', [PaymentController::class, 'adminview']);
+Route::post('/manualpayment', [PaymentController::class, 'store']);
+
+
+
+
+
+
 
 
 
@@ -165,6 +177,11 @@ Route::get('bmicalculator',[BMIController::class,'index']);
 Route::get('/classtime',[ClassTimeController::class,'index']);
 Route::get('/services',[ServiceController::class,'index']);
 Route::get('/team',[TeamController::class,'index']);
+Route::get('/myprofile',[UserDashboardController::class,'profile']);
+Route::put('/update_myprofile/{id}',[UserDashboardController::class,'updateProfile']);
+
+
+
 
 
 

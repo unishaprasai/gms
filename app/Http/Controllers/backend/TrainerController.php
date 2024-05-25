@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Trainers;
 use App\Models\Package;
+use Illuminate\Support\Facades\Auth;
 
 
 class TrainerController extends Controller
@@ -111,6 +112,44 @@ public function update_trainers(Request $request, $id)
 
     return redirect()->back()->with('success', 'Trainer updated successfully!');
 }
+
+
+public function tprofile(){
+
+    $user = Auth::user();
+    $trainer = Trainers::where('trainer_email', $user->email)->firstOrFail();
+
+
+    return view('backend.Editprofile',compact('trainer'));
+
+
+}
+
+public function updateProfile(Request $request, $id)
+    {
+        // Validate the request data
+        $request->validate([
+            'tname' => 'required|string|max:255',
+            'temail' => 'required|string|email|max:255|unique:trainers,trainer_email,' . $id,
+            'taddress' => 'required|string|max:255',
+            'tphone' => 'required|string|max:15',
+        ]);
+
+        // Find the trainer by ID
+        $trainer = Trainers::findOrFail($id);
+
+        // Update trainer attributes
+        $trainer->trainer_name = $request->input('tname');
+        $trainer->trainer_email = $request->input('temail');
+        $trainer->trainer_address = $request->input('taddress');
+        $trainer->phone = $request->input('tphone');
+
+        // Save the updated trainer instance
+        $trainer->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
 
 
 

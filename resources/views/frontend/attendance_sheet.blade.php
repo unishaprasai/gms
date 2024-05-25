@@ -61,7 +61,10 @@
 
     <div class="row justify-content-end">
         <div class="col-xl-10">
-            <div class="card">
+            <div class="card" style="
+            margin-left: -82px;
+            margin-right: 140px;
+        ">
                 <div class="card-body">
                     @if (count($memberData) > 0)
                     <div class="table-responsive">

@@ -108,11 +108,13 @@
                 </li>
 
 
+                @if(auth()->user()->usertype === 'admin')
 
                 <li>
-                    <a href="index.html"><img src="backend/assets/img/icons/purchase1.svg" alt="img"><span>
+                    <a href="{{ url('adminpayments') }}"><img src="backend/assets/img/icons/purchase1.svg" alt="img"><span>
                             Payments</span> </a>
                 </li>
+                @endif
 
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="backend/assets/img/icons/quotation1.svg" alt="img"><span>

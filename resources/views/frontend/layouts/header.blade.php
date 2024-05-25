@@ -37,10 +37,10 @@
         margin-right: -4000px;
 
     } */
-    .nav-menu ul li:last-child {
+    /* .nav-menu ul li:last-child {
         margin-right: -1200px;
         margin-top: -50px;
-    }
+    } */
 </style>
 
 <body>
@@ -126,29 +126,30 @@
                             </li>
                             <div class="to-social">
 
-                                <li>
-                                    <a href="#" class="user-profile">{{ Auth::user()->name }}</a>
-                                    <ul class="dropdown">
-                                        <li><a href="{{ url('/profile') }}">My Profile</a></li>
-                                        <li><a href="{{ url('/payments') }}">My Payments</a></li>
-                                        <li class="last-dropdown-item"><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
-                                    </ul>
-                                </li>
-                                @else
-                                <li>
-                                    <a href="{{ route('login') }}">Login</a>
-                                </li>
-                            </div>
 
-                            @endauth
+                                <li>
+                                    <a href="#" class="user-profile" style="margin-left: 950px;margin-top: -41px; width: 135px;">{{ Auth::user()->name }}</a>
+                                    <ul class="dropdown" style="margin-left: 950px; margin-top: -41px;width: 135px;">
+                                        <li><a href="{{ url('/myprofile') }}">My Profile</a></li>
+                                        <li><a href="{{ url('/payments') }}">My Payments</a></li>
+                                        <li> <x-logout-button /></li>
+                                </li>
                         </ul>
-                        </ul>
-                    </nav>
+                        </li>
+                        @else
+                        <li>
+                            <a href="{{ route('login') }}">Login</a>
+                        </li>
                 </div>
+
+                @endauth
+                </ul>
+                </ul>
+                </nav>
             </div>
         </div>
+        </div>
     </header>
-
 
 
 
@@ -168,6 +169,7 @@
             ],
             "eventHandler": {
                 onSuccess(payload) {
+                    console.log('Khalti onSuccess payload:', payload);
                     $.ajax({
                         type: 'POST',
                         url: "{{ route('khalti.verifyPayment') }}",
@@ -177,6 +179,7 @@
                             "_token": "{{ csrf_token() }}"
                         },
                         success: function(res) {
+                            console.log('Payment verification response:', res);
                             $.ajax({
                                 type: "POST",
                                 url: "{{ route('khalti.storePayment') }}",
@@ -185,19 +188,38 @@
                                     "_token": "{{ csrf_token() }}"
                                 },
                                 success: function(res) {
-                                    console.log('transaction successful');
+                                    console.log('Transaction stored successfully:', res);
+                                    Swal.fire({
+                                        title: 'Success',
+                                        text: 'Transaction successful!',
+                                        icon: 'success'
+                                    });
+                                },
+                                error: function(err) {
+                                    console.error('Error storing transaction:', err);
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: 'Failed to store payment!' + err.responseJSON.message,
+                                        icon: 'error'
+                                    });
                                 }
                             });
-                            console.log(res);
+                        },
+                        error: function(err) {
+                            console.error('Payment verification failed:', err);
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Verification failed!',
+                                icon: 'error'
+                            });
                         }
                     });
-                    console.log(payload);
                 },
                 onError(error) {
-                    console.log(error);
+                    console.error('Khalti payment error:', error);
                 },
                 onClose() {
-                    console.log('widget is closing');
+                    console.log('Khalti widget is closing');
                 }
             }
         };
@@ -210,6 +232,8 @@
             });
         }
     </script>
+
+
 
 </body>
 

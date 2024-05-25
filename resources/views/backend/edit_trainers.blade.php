@@ -9,37 +9,37 @@
 @include('backend.layouts.slidebar')
 
 <body>
-@extends('backend.layouts.header')
+    @extends('backend.layouts.header')
 
-@section('content')
+    @section('content')
     <div class="fcontainer">
         <h1 class="mt-5 mb-4 text-center">Update Trainers</h1>
 
         @if(session('success'))
-            <div class="alert-overlay">
-                <div class="alert-box">
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success') }}
-                    </div>
-                    <button type="button" class="btn btn-success btn-block" id="closeButton">Okay</button>
+        <div class="alert-overlay">
+            <div class="alert-box">
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
                 </div>
+                <button type="button" class="btn btn-success btn-block" id="closeButton">Okay</button>
             </div>
+        </div>
         @endif
 
         @if($errors->any())
-            <div class="alert-overlay">
-                <div class="alert-box">
-                    <div class="alert alert-danger" role="alert">
-                        <strong>Error:</strong>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        <button type="button" class="btn btn-success btn-block" id="closeButton">Okay</button>
-                    </div>
+        <div class="alert-overlay">
+            <div class="alert-box">
+                <div class="alert alert-danger" role="alert">
+                    <strong>Error:</strong>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn btn-success btn-block" id="closeButton">Okay</button>
                 </div>
             </div>
+        </div>
         @endif
 
         <div class="main-panel">
@@ -79,13 +79,15 @@
                                         <input type="date" class="form-control" id="trainer_date_of_join" name="trainer_date_of_join" value="{{ $trainer->date_of_join }}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="assign_exercise">Assign Exercise</label>
+                                        <label for="assign_exercise">Assign Exercise </label>
                                         <select class="form-control" id="assign_exercise" name="assign_exercise" value="{{ $trainer->Assign_exercise }}" required>
-                                            <option value="basic">Basic</option>
-                                            <option value="premium">Premium</option>
-                                            <option value="gold">Gold</option>
+                                            @foreach($packages as $package)
+                                            <option value="{{ $package->name }}">{{ $package->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
+
+
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-lg btn-primary">Update</button>
                                         <a href="{{ url('/view_trainers') }}" class="btn btn-lg btn-danger ml-2">Cancel</a>
