@@ -7,7 +7,8 @@
                             Dashboard</span> </a>
                 </li>
                 <li class="submenu">
-                    <a href="javascript:void(0);"><img src="backend/assets/img/icons/users1.svg" alt="img"><span>
+                    <a href="javascript:void(0);"> <i data-feather="user-check"></i>
+                        <span>
                             Users</span> <span class="menu-arrow"></span></a>
 
                     <ul>
@@ -65,7 +66,7 @@
                     </ul>
                 </li>
                 <li class="submenu">
-                    <a href="javascript:void(0);"><img src="backend/assets/img/icons/product.svg" alt="img"><span>
+                    <a href="javascript:void(0);"><img src="backend/assets/img/icons/transcation.svg" alt="img"><span>
                             Plans</span> <span class="menu-arrow"></span></a>
 
                     <ul>
@@ -82,14 +83,15 @@
 
                 @if(auth()->user()->usertype === 'trainer')
                 <li>
-                    <a href="{{ url('myappointment') }}"><img src="backend/assets/img/icons/dashboard.svg" alt="img"><span>
+                    <a href="{{ url('myappointment') }}"><img src="backend/assets/img/icons/plus-circle.svg" alt="img"><span>
                             Appoinments</span> </a>
                 </li>
                 @endif
 
 
                 <li class="submenu">
-                    <a href="javascript:void(0);"><img src="backend/assets/img/icons/places.svg" alt="img"><span>
+                    <a href="javascript:void(0);"> <i data-feather="file"></i>
+                        <span>
                             Attendance</span> <span class="menu-arrow"></span></a>
 
                     <ul>
@@ -111,13 +113,13 @@
                 @if(auth()->user()->usertype === 'admin')
 
                 <li>
-                    <a href="{{ url('adminpayments') }}"><img src="backend/assets/img/icons/purchase1.svg" alt="img"><span>
+                    <a href="{{ url('adminpayments') }}"><img src="backend/assets/img/icons/cash.svg" alt="img"><span>
                             Payments</span> </a>
                 </li>
                 @endif
 
                 <li class="submenu">
-                    <a href="javascript:void(0);"><img src="backend/assets/img/icons/quotation1.svg" alt="img"><span>
+                    <a href="javascript:void(0);"><img src="backend/assets/img/icons/notification-bing.svg" alt="img"><span>
                             Announcements</span> <span class="menu-arrow"></span></a>
 
                     <ul>

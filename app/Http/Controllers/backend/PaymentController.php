@@ -15,39 +15,72 @@ use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
+    public function getPaymentAmount()
+    {
+        $userEmail = auth()->user()->email;
+        $member = Members::where('email', $userEmail)->first();
+        if (!$member) {
+            return response()->json(['success' => false, 'error' => 'User not found in members table'], 404);
+        }
+        $membershipType = $member->membership_type;
+        $plan = Plans::where('title', $membershipType)->first();
+        if (!$plan) {
+            return response()->json(['success' => false, 'error' => 'Membership plan not found'], 404);
+        }
+        $amount = $plan->price;
+    
+        return response()->json(['success' => true, 'amount' => $amount]);
+    }
+    
     public function verifyPayment(Request $request)
     {
-        $token = $request->token;
-
-        $args = http_build_query(array(
-            'token' => $token,
-            'amount'  => 1000
-        ));
-
+        $userEmail = auth()->user()->email; // Assuming you're using Laravel's authentication
+    
+        // Get the membership type for the logged-in user
+        $member = Members::where('email', $userEmail)->first();
+        if (!$member) {
+            return response()->json(['error' => 'User not found in members table'], 404);
+        }
+        $membershipType = $member->membership_type;
+    
+        // Get the corresponding price from the plans table
+        $plan = Plans::where('title', $membershipType)->first();
+        if (!$plan) {
+            return response()->json(['error' => 'Membership plan not found'], 404);
+        }
+        $amount = $plan->price;
+    
+        // Build API request parameters
+        $args = http_build_query([
+            'token' => $request->token,
+            'amount' => $amount,
+            
+        ]);
+    
         $url = "https://khalti.com/api/v2/payment/verify/";
-
-        # Make the call using API.
+    
+        // Make the call using API
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$args);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $secret_key = config('app.khalti_secret_key');
-
+    
         $headers = ["Authorization: Key $secret_key"];
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
+    
         // Response
         $response = curl_exec($ch);
         $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
+    
         return $response;
     }
-
-
+    
     public function storePayment(Request $request)
     {
-        Log::info('Received payment response', ['response' => $request->response]);
+        Log::info('Request payload', ['payload' => $request->all()]);
     
         // Convert the JSON string to an associative array
         $response = json_decode($request->response, true);
@@ -55,6 +88,19 @@ class PaymentController extends Controller
         if (!$response) {
             Log::error('Invalid payment response format');
             return response()->json(['error' => 'Invalid payment response format'], 400);
+        }
+    
+        Log::info('Decoded payment response', ['response' => $response]);
+    
+        // Check if 'amount' exists and is valid
+        if (!isset($response['amount'])) {
+            Log::error('Amount not found in the payment response', ['response' => $response]);
+            return response()->json(['error' => 'Amount not found in the payment response'], 400);
+        }
+    
+        if (!is_numeric($response['amount'])) {
+            Log::error('Amount is not a numeric value', ['amount' => $response['amount']]);
+            return response()->json(['error' => 'Amount is not a numeric value', 'amount' => $response['amount']], 400);
         }
     
         // Get the authenticated user's email
@@ -90,10 +136,9 @@ class PaymentController extends Controller
             Log::error('Error storing payment', ['error' => $e->getMessage()]);
             return response()->json(['error' => 'Failed to store payment', 'message' => $e->getMessage()], 500);
         }
-
-
     }
-
+    
+    
     public function index()
     {
         // Get the authenticated user's email

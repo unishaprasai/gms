@@ -16,12 +16,11 @@
         <h1 class="mt-5 mb-4 text-center">Update Trainers</h1>
 
         @if(session('success'))
-        <div class="alert-overlay">
+        <div class="alert-overlay" style="margin-left: 389px; width: 748px;">
             <div class="alert-box">
                 <div class="alert alert-success" role="alert">
                     {{ session('success') }}
                 </div>
-                <button type="button" class="btn btn-success btn-block" id="closeButton">Okay</button>
             </div>
         </div>
         @endif
@@ -103,3 +102,15 @@
     </div>
 </body>
 @include('backend.layouts.footer')
+
+<script>
+        // Hide success message after 5 seconds (5000 milliseconds)
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var successMessage = document.getElementById('successMessage');
+                if (successMessage) {
+                    successMessage.style.display = 'none';
+                }
+            }, 5000); 
+        });
+    </script>

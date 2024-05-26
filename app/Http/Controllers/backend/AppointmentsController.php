@@ -51,25 +51,31 @@ class AppointmentsController extends Controller
 
     public function index()
     {
+        // Get the authenticated user
         $trainer = Auth::user();
-
-        $appointments = $trainer->TrainersAppointments;
-
-
+    
+        if (!$trainer) {
+            // Handle the case where there is no authenticated user
+            return redirect()->route('login')->with('error', 'You need to log in to view your appointments.');
+        }
+    
         // Get the authenticated user's email
-        $email = auth()->user()->email;
-
+        $email = $trainer->email;
+    
         // Retrieve the trainer's ID based on their email
         $trainer = Trainers::where('trainer_email', $email)->first();
-
+    
         if ($trainer) {
             // If trainer exists, retrieve their appointments based on their ID
             $trainerId = $trainer->id;
             $appointments = Trainersappointments::where('trainer_id', $trainerId)->get();
         } else {
             // Handle case where trainer does not exist
-            return null;
+            $appointments = collect(); // Use an empty collection instead of null
         }
-         return view('backend.Myappointmnets', compact('appointments'));
+    
+        return view('backend.Myappointmnets', compact('appointments'));
     }
+    
+
 }

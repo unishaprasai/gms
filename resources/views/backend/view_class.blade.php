@@ -31,6 +31,8 @@
                     <input type="text" class="form-control" id="searchInput" placeholder="Search Classes">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="searchButton">Search</button>
+                        <button class="btn btn-outline-secondary btn-blue" type="button" id="refreshButton">Refresh</button>
+
                     </div>
                 </div>
             </div>
@@ -46,10 +48,11 @@
                                 <thead>
                                     <tr class="heading">
                                         <th>Class Name</th>
-                                        <th>Venue</th>
                                         <th>Trainers Name</th>
                                         <th>Shift</th>
                                         <th>Time</th>
+                                        <th>Venue</th>
+
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -62,7 +65,7 @@
                                         <td>{{ $class->class_time }}</td>
                                         <td>{{ $class->venue }}</td>
                                         <td>
-                                            
+
                                             <a href="{{url('edit_class', $class->id)}}" class="btn btn-sm btn-primary">Edit</a>
                                             <a href="{{url('delete_class', $class->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this class?')">Delete</a>
                                         </td>
@@ -71,15 +74,17 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="message" id="noResultMessage" style="display: none;">
+                            <div class="alert alert-danger" role="alert">
+                                No classes found.
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="message" id="noResultMessage" style="display: none;">
-            <div class="alert alert-danger" role="alert">
-                No trainers found with the given name or email.
-            </div>
-        </div>
+
     </div>
 
     <script>
@@ -89,6 +94,11 @@
                 alertOverlay.remove();
             }
         }
+
+        // Add an event listener to the refresh button
+        document.getElementById('refreshButton').addEventListener('click', function() {
+            location.reload();
+        });
 
         // Add an event listener to the search button
         document.getElementById('searchButton').addEventListener('click', function() {
@@ -104,11 +114,11 @@
 
             // Loop through each row and hide/show based on the search query
             rows.forEach(function(row) {
+                var class_name = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
                 var trainer_name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                var trainer_email = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
 
                 // Check if name or email contains the search query
-                if (trainer_name.includes(searchQuery) || trainer_email.includes(searchQuery)) {
+                if (class_name.includes(searchQuery) || trainer_name.includes(searchQuery)) {
                     row.style.display = '';
                     found = true;
                 } else {
@@ -116,7 +126,7 @@
                 }
             });
 
-            // Display message if no members found
+            // Display message if no classes found
             if (!found) {
                 noResultMessage.style.display = 'block';
             } else {

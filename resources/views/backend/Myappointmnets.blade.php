@@ -85,28 +85,7 @@
                     location.reload();
                 }
 
-                document.addEventListener('DOMContentLoaded', function() {
-                    const form = document.getElementById('checkin');
 
-                    form.addEventListener('submit', function(event) {
-                        event.preventDefault(); // Prevent default form submission
-
-                        Swal.fire({
-                            title: 'Attendance Record',
-                            text: 'Are you sure you want to Check in?',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, checked in!'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Form submission when confirmed
-                                form.submit();
-                            }
-                        });
-                    });
-                });
 
                 // Add an event listener to the search button
                 document.getElementById('searchButton').addEventListener('click', function() {

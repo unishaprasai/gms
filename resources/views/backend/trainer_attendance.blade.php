@@ -7,8 +7,8 @@
     <!-- Include SweetAlert library -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
 </head>
+
 @include('backend.layouts.slidebar')
 
 <body>
@@ -17,7 +17,7 @@
         <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">Trainer Attendance</h1>
 
         @if(session('success'))
-        <div class="alert-overlay">
+        <div class="alert-overlay" style="margin-left: 389px; width: 748px;">
             <div class="alert-box">
                 <div class="alert alert-success" role="alert">
                     {{ session('success') }}
@@ -30,7 +30,7 @@
         <div class="row justify-content-center mb-3">
             <div class="col-md-6">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Search Attendance">
+                    <input type="date" class="form-control" id="date" name="date" placeholder="Search Payments" required>
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary btn-green" type="button" id="searchButton">Search</button>
                         <button class="btn btn-outline-secondary btn-blue" type="button" id="refreshButton">Refresh</button>
@@ -41,30 +41,28 @@
         </div>
 
         <div class="fcontainer" style="width: 800px; margin-left: 313px;">
-            <div class="card-body">
-                <div class="card-body">
-                    <div id="addForm" style="display: block;">
-                        <form action="{{ url('manual_entry') }}" method="POST" id="attendanceForm">
-                            @csrf
-                            <div class="form-group">
-                                <label for="trainerId">Trainer ID</label>
-                                <input type="text" class="form-control" id="trainerId" name="trainerId">
-                            </div>
-                            <div class="form-group">
-                                <label for="trainername">Trainer Name</label>
-                                <input type="text" class="form-control" id="trainername" name="trainername">
-                            </div>
-                            <div class="form-group">
-                                <label for="attendanceDate">Attendance Date</label>
-                                <input type="date" class="form-control" id="attendanceDate" name="attendanceDate" max="{{ date('Y-m-d') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="status">Status</label>
-                                <input type="text" class="form-control" id="status" name="status">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
+            <div class="card-body" >
+                <div id="addForm" style="display: none;">
+                    <form action="{{ url('manual_entry') }}" method="POST" id="attendanceForm">
+                        @csrf
+                        <div class="form-group">
+                            <label for="trainerId">Trainer ID</label>
+                            <input type="text" class="form-control" id="trainerId" name="trainerId">
+                        </div>
+                        <div class="form-group">
+                            <label for="trainername">Trainer Name</label>
+                            <input type="text" class="form-control" id="trainername" name="trainername">
+                        </div>
+                        <div class="form-group">
+                            <label for="attendanceDate">Attendance Date</label>
+                            <input type="date" class="form-control" id="attendanceDate" name="attendanceDate" max="{{ date('Y-m-d') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <input type="text" class="form-control" id="status" name="status">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -104,6 +102,16 @@
                                 No attendance found with the given date or ID.
                             </div>
                         </div>
+                        <nav>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <button class="page-link" id="prevPage">Previous</button>
+                                </li>
+                                <li class="page-item">
+                                    <button class="page-link" id="nextPage">Next</button>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -111,6 +119,41 @@
     </div>
 
     <script>
+        let currentPage = 1;
+        const rowsPerPage = 5;
+        const tableBody = document.getElementById('AttendanceTableBody');
+        const rows = Array.from(tableBody.querySelectorAll('tr'));
+        const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+        function displayPage(page) {
+            tableBody.innerHTML = '';
+
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedRows = rows.slice(start, end);
+
+            paginatedRows.forEach(row => tableBody.appendChild(row));
+
+            document.getElementById('prevPage').disabled = page === 1;
+            document.getElementById('nextPage').disabled = page === totalPages;
+        }
+
+        document.getElementById('prevPage').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPage(currentPage);
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayPage(currentPage);
+            }
+        });
+
+        displayPage(currentPage);
+
         // Get the current date in YYYY-MM-DD format
         var currentDate = new Date().toISOString().split('T')[0];
 
@@ -185,6 +228,56 @@
                         confirmButtonText: 'Okay'
                     });
                 });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add an event listener to the search button
+            document.getElementById('searchButton').addEventListener('click', function() {
+                // Get the search date from the date picker
+                var searchDate = document.getElementById('date').value;
+
+                // Get all table rows
+                var rows = document.querySelectorAll('.table tbody tr');
+                var noResultMessage = document.getElementById('noResultMessage');
+
+                // Flag to check if any record is found
+                var found = false;
+
+                // Loop through each row and hide/show based on the search date
+                rows.forEach(function(row) {
+                    var paymentDate = row.querySelector('td:nth-child(3)').textContent;
+
+                    // Check if the payment date matches the search date
+                    if (paymentDate === searchDate) {
+                        row.style.display = '';
+                        found = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // Display message if no records found for the search date
+                if (!found) {
+                    noResultMessage.style.display = 'block';
+                } else {
+                    noResultMessage.style.display = 'none';
+                }
+            });
+        });
+
+        // Hide success message after 5 seconds (5000 milliseconds)
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var successMessage = document.getElementById('successMessage');
+                if (successMessage) {
+                    successMessage.style.display = 'none';
+                }
+            }, 5000);
+        });
+
+        // Refresh functionality
+        document.getElementById('refreshButton').addEventListener('click', function() {
+            location.reload();
         });
     </script>
 </body>

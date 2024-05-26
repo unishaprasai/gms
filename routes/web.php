@@ -145,6 +145,8 @@ Route::get('/delete_announcement/{id}', [AnnouncementController::class, 'delete'
 Route::post('/khalti/payment/verify',[PaymentController::class,'verifyPayment'])->name('khalti.verifyPayment');
 
 Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->name('khalti.storePayment');
+Route::get('/getpaymentamount', [PaymentController::class,'getPaymentAmount'])->name('getPaymentAmount');
+
 
 Route::get('/payments', [PaymentController::class, 'index']);
 Route::get('/adminpayments', [PaymentController::class, 'adminview']);

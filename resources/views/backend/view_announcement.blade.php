@@ -13,13 +13,12 @@
     @include('backend.layouts.header')
       <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">View Announcements</h1>
         @if(session('success'))
-        <div class="alert-overlay">
+        <div class="alert-overlay"style="margin-left: 389px; width: 748px;">
             <div class="alert-box">
                 <div class="alert alert-success" role="alert">
                     {{ session('success') }}
                 </div>
-                <button type="button" class="btn btn-success btn-block" onclick="closeAlert()">Okay</button>
-            </div>
+                        </div>
         </div>
         @endif
 

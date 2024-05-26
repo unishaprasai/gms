@@ -29,7 +29,7 @@
         <div class="row justify-content-center mb-3">
             <div class="col-md-6">
                 <div class="input-group">
-                    <input type="date" class="form-control" id="searchInput" placeholder="Search Payments">
+                    <input type="date" class="form-control" id="date" name="date"placeholder="Search Payments" required>
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary btn-green" type="button" id="searchButton">Search</button>
                         <button class="btn btn-outline-secondary btn-blue" type="button" id="refreshButton">Refresh</button>
@@ -41,7 +41,7 @@
 
         <div class="fcontainer" style="width: 800px; margin-left: 313px;">
             <div class="card-body">
-                <div id="addForm" style="display: block;">
+                <div id="addForm" style="display: none;">
                     <form action="{{ url('manualpayment') }}" method="POST" id="paymentForm">
                         @csrf
                         <div class="form-group">
@@ -195,49 +195,42 @@
             });
         });
 
-        // Search functionality
+    
+        
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add an event listener to the search button
         document.getElementById('searchButton').addEventListener('click', function() {
-            var searchInput = document.getElementById('searchInput').value;
-            if (searchInput) {
-                fetch('{{ url('search_payment') }}?date=' + searchInput, {
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    var tableBody = document.getElementById('PaymentTableBody');
-                    tableBody.innerHTML = '';
-                    if (data.length > 0) {
-                        data.forEach(payment => {
-                            var row = `<tr>
-                                <td>${payment.member_id}</td>
-                                <td>${payment.member_name}</td>
-                                <td>${payment.payment_date}</td>
-                                <td>${payment.amount}</td>
-                                <td>${payment.status}</td>
-                                <td>${payment.payment_mode}</td>
-                                <td>${payment.membership_type}</td>
-                            </tr>`;
-                            tableBody.insertAdjacentHTML('beforeend', row);
-                        });
-                        document.getElementById('noResultMessage').style.display = 'none';
-                    } else {
-                        document.getElementById('noResultMessage').style.display = 'block';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'An error occurred while processing your request.',
-                        icon: 'error',
-                        confirmButtonColor: '#d33',
-                        confirmButtonText: 'Okay'
-                    });
-                });
+            // Get the search date from the date picker
+            var searchDate = document.getElementById('date').value;
+
+            // Get all table rows
+            var rows = document.querySelectorAll('.table tbody tr');
+            var noResultMessage = document.getElementById('noResultMessage');
+
+            // Flag to check if any record is found
+            var found = false;
+
+            // Loop through each row and hide/show based on the search date
+            rows.forEach(function(row) {
+                var paymentDate = row.querySelector('td:nth-child(3)').textContent;
+
+                // Check if the payment date matches the search date
+                if (paymentDate === searchDate) {
+                    row.style.display = '';
+                    found = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Display message if no records found for the search date
+            if (!found) {
+                noResultMessage.style.display = 'block';
+            } else {
+                noResultMessage.style.display = 'none';
             }
         });
+    });
 
         // Refresh functionality
         document.getElementById('refreshButton').addEventListener('click', function() {
