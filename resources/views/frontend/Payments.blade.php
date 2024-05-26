@@ -179,39 +179,11 @@
 
     var checkout = new KhaltiCheckout(config);
     var btn = document.getElementById("payment-button");
-btn.onclick = function() {
-    // Fetch the amount dynamically from the server
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('/getpaymentamount') }}",
-        success: function(response) {
-       
-            if (response.success) {
-                var amount = response.amount;
-                var amountInPaisa = amount * 100;
-                checkout.show({
-                    amount: amountInPaisa
-                });
-            } else {
-                console.error('Failed to fetch payment amount:', response.error);
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Failed to fetch payment amount!',
-                    icon: 'error'
-                });
-            }
-        },
-        error: function(err) {
-            console.error('Error fetching payment amount:', err);
-            Swal.fire({
-                title: 'Error',
-                text: 'Failed to fetch payment amount!',
-                icon: 'error'
-            });
-        }
-    });
-}
-
+    btn.onclick = function() {
+        checkout.show({
+            amount: 1000
+        });
+    }
 
     function refreshPage() {
         location.reload();
