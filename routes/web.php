@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-
+//Routes for User
 Route::get('/view_members', [MemberController::class, 'view_members'])->middleware('auth');
 Route::get('/add_members', [MemberController::class, 'add_member']);
 Route::post('/add_members', [MemberController::class, 'add_members']);
@@ -69,7 +69,7 @@ Route::get('/delete_members/{id}', [MemberController::class, 'delete_members']);
 Route::get('/edit_members/{id}', [MemberController::class, 'edit_members']);
 Route::put('/update_member/{id}', [MemberController::class, 'update_member']); 
 
-
+//Routes for User
 Route::get('/add_users', [UserController::class, 'add_users'])->middleware('isAdmin');
 Route::post('/store_users', [UserController::class, 'store_users'])->name('store_users')->middleware('isAdmin');
 Route::get('/view_users', [UserController::class, 'view_users']);
@@ -78,22 +78,18 @@ Route::put('/update_users/{id}', [UserController::class, 'update_users'])->middl
 Route::get('/delete_users/{id}', [UserController::class, 'delete_users'])->middleware('isAdmin');
 
 
-
-Route::get('/add_trainers', [TrainerController::class, 'index']);
-Route::post('/add_trainers', [TrainerController::class, 'add_trainers']);
-Route::get('/view_trainers', [TrainerController::class, 'view_trainers']);
-Route::get('/edit_trainers/{id}', [TrainerController::class, 'edit_trainers']);
-Route::put('/update_trainers/{id}', [TrainerController::class, 'update_trainers']);
-Route::get('/delete_trainers/{id}', [TrainerController::class, 'delete_trainers']);
+//Routes for trainer
+Route::get('/add_trainers', [TrainerController::class, 'index'])->middleware('isAdmin');
+Route::post('/add_trainers', [TrainerController::class, 'add_trainers'])->middleware('isAdmin');
+Route::get('/view_trainers', [TrainerController::class, 'view_trainers'])->middleware('isAdmin');
+Route::get('/edit_trainers/{id}', [TrainerController::class, 'edit_trainers'])->middleware('isAdmin');
+Route::put('/update_trainers/{id}', [TrainerController::class, 'update_trainers'])->middleware('isAdmin');
+Route::get('/delete_trainers/{id}', [TrainerController::class, 'delete_trainers'])->middleware('isAdmin');
 Route::get('/profilet', [TrainerController::class, 'tprofile']);
 Route::put('/update_profile/{id}',[TrainerController::class,'updateProfile']);
 
 
-
-
-
-
-
+//Routes for class
 Route::get('/add_classes', [ClassController::class, 'index']);
 Route::post('/add_class', [ClassController::class, 'addClass']);
 Route::get('/view_class', [classController::class, 'view_class']);
@@ -102,7 +98,7 @@ Route::put('/update_class/{id}', [ClassController::class, 'update_class']);
 Route::get('/delete_class/{id}', [ClassController::class, 'delete_class']);
 
 
-
+//Routes for Packages
 Route::get('/add_packages', [PackageController::class, 'index']);
 Route::post('/add_package', [PackageController::class, 'add_package']);
 Route::get('/view_package', [PackageController::class, 'view_package']);
@@ -111,59 +107,47 @@ Route::put('/update_package/{package_id}', [PackageController::class, 'update_pa
 Route::get('/delete_package/{package_id}', [PackageController::class, 'delete_package']);
 
 
-
-
-
-
+//Routes for Trainers Attendance
  Route::get('/attendance_sheet', [TrainerAttendanceController::class, 'index'])->name('backend.attendance');
  Route::post('/save', [TrainerAttendanceController::class, 'checkIn']);
  Route::get('/view_trainers_att', [TrainerAttendanceController::class, 'view_index']);
  Route::get('/delete_trainer_att/{id}', [TrainerAttendanceController::class, 'delete']);
  Route::post('/manual_entry', [TrainerAttendanceController::class, 'manual']);
 
- 
 
-
-
+//Routes for announcements
 Route::get('/add_ann', [AnnouncementController::class, 'index']);
 Route::post('/add_announcement', [AnnouncementController::class, 'store']);
 Route::get('/view_announcement', [AnnouncementController::class, 'view']);
 Route::get('/delete_announcement/{id}', [AnnouncementController::class, 'delete']);
 
-
-
+//Routes for notifications
 Route::post('/notifications/markAllAsRead', 'NotificationController@markAllAsRead')->name('notifications.markAllAsRead');
 Route::get('/view_noti', [NotificationController::class, 'view']);
 
+//Routes for Plans
 Route::get('/add_plan', [PlanController::class, 'index']);
 Route::post('/add_plans', [PlanController::class, 'store']);
 Route::get('/view_announcement', [AnnouncementController::class, 'view']);
 Route::get('/delete_announcement/{id}', [AnnouncementController::class, 'delete']);
 
 
-
+//Routes for Payments
 Route::post('/khalti/payment/verify',[PaymentController::class,'verifyPayment'])->name('khalti.verifyPayment');
-
 Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->name('khalti.storePayment');
 Route::get('/getpaymentamount', [PaymentController::class,'getPaymentAmount'])->name('getPaymentAmount');
 
-
-Route::get('/payments', [PaymentController::class, 'index']);
-Route::get('/adminpayments', [PaymentController::class, 'adminview']);
-Route::post('/manualpayment', [PaymentController::class, 'store']);
-
+Route::get('/payments', [PaymentController::class, 'index'])->middleware('isAdmin');
+Route::get('/adminpayments', [PaymentController::class, 'adminview'])->middleware('isAdmin');
+Route::post('/manualpayment', [PaymentController::class, 'store'])->middleware('isAdmin');
 
 
 
 
 
-
-
-
+//Routes for enrollments
 Route::post('/enrollments', [EnrollmentController::class, 'store']);
 Route::get('/view_enrollments', [EnrollmentController::class, 'view']);
-
-// Route::post('/update_enrollment_status', [EnrollmentController::class,'updateStatus']);
 Route::post('/update_enrollment_status/{enrollment}', [EnrollmentController::class, 'updateStatus'])->name('update_enrollment_status');
 
 
@@ -181,11 +165,6 @@ Route::get('/services',[ServiceController::class,'index']);
 Route::get('/team',[TeamController::class,'index']);
 Route::get('/myprofile',[UserDashboardController::class,'profile']);
 Route::put('/update_myprofile/{id}',[UserDashboardController::class,'updateProfile']);
-
-
-
-
-
 
 Route::get('/contact',[ContactController::class,'index']);
 Route::post('/submit', [ContactController::class, 'store']);
@@ -208,12 +187,8 @@ Route::post('/appointment', [AppointmentsController::class, 'store']);
 
 
 
- 
 
-
-
-
-
+//Middleware
 Route::middleware('isAdmin')->group(function(){
     
 });

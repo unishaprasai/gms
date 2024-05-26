@@ -43,7 +43,7 @@ public function add_members(Request $request)
     $validatedData = $request->validate([
         'memail'=>'required|email|unique:members,email',
         'maddress' => 'required|string|max:255',
-        'mphone' => 'required|string|max:10',
+        'mphone' => ['required','string','size:10','regex:/^[0-9]+$/'],      
         'date_of_join' => 'required|date',
         'membership_type' => 'nullable|string|max:255', 
         'shift' => 'required|string|max:50',
@@ -98,7 +98,7 @@ public function update_member(Request $request, $id)
         'mname' => 'required',
         'memail'=>'required|email',
         'maddress' => 'required',
-        'mphone' => 'required',
+        'mphone' => ['required','string','size:10','regex:/^[0-9]+$/'],      
         'date_of_join' => 'required|date',
         'membership_type' => 'required',
         'shift' => 'required',

@@ -36,7 +36,10 @@
                     </div>
                 </div>
             </div>
+            @if(auth()->user()->usertype === 'admin')
+
             <button class="btn btn-primary mb-3" onclick="toggleAddForm()" style="width: 153px;">Add Attendance</button>
+            @endif
         </div>
 
         <div class="fcontainer" style="width: 800px; margin-left: 313px;">

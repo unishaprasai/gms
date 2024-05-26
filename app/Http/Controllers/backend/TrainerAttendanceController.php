@@ -114,8 +114,6 @@ public function manual(Request $request)
     $attendance->save();
 
     // Optionally, you can redirect back with a success message
-    return response()->json(['success' => true, 'message' => 'Attendance recorded successfully']);
-
     return redirect()->back()->with('success', 'Attendance recorded successfully!');
 }
 
