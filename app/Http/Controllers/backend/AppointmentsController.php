@@ -17,10 +17,10 @@ class AppointmentsController extends Controller
     {
         // Validate the form data
         $request->validate([
-            'trainer_id' => 'required',
-            'customer_name' => 'required',
+            'trainer_id' => 'required|numeric',
+            'customer_name' => 'required|string',
             'date' => 'required|date',
-            'time' => 'required'
+            'time' => 'required',
         ]);
 
         // Check if appointment already exists for the given date, time, and trainer ID
@@ -53,18 +53,18 @@ class AppointmentsController extends Controller
     {
         // Get the authenticated user
         $trainer = Auth::user();
-    
+
         if (!$trainer) {
             // Handle the case where there is no authenticated user
             return redirect()->route('login')->with('error', 'You need to log in to view your appointments.');
         }
-    
+
         // Get the authenticated user's email
         $email = $trainer->email;
-    
+
         // Retrieve the trainer's ID based on their email
         $trainer = Trainers::where('trainer_email', $email)->first();
-    
+
         if ($trainer) {
             // If trainer exists, retrieve their appointments based on their ID
             $trainerId = $trainer->id;
@@ -73,9 +73,7 @@ class AppointmentsController extends Controller
             // Handle case where trainer does not exist
             $appointments = collect(); // Use an empty collection instead of null
         }
-    
+
         return view('backend.Myappointmnets', compact('appointments'));
     }
-    
-
 }

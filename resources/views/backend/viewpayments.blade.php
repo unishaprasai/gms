@@ -16,12 +16,11 @@
         <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">Payment History</h1>
 
         @if(session('success'))
-        <div class="alert-overlay">
+        <div class="alert-overlay" style="margin-left: 389px; width: 748px;">
             <div class="alert-box">
                 <div class="alert alert-success" role="alert">
                     {{ session('success') }}
                 </div>
-                <button type="button" class="btn btn-success btn-block" onclick="closeAlert()">Okay</button>
             </div>
         </div>
         @endif
@@ -29,7 +28,7 @@
         <div class="row justify-content-center mb-3">
             <div class="col-md-6">
                 <div class="input-group">
-                    <input type="date" class="form-control" id="date" name="date"placeholder="Search Payments" required>
+                    <input type="date" class="form-control" id="date" name="date" placeholder="Search Payments" required>
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary btn-green" type="button" id="searchButton">Search</button>
                         <button class="btn btn-outline-secondary btn-blue" type="button" id="refreshButton">Refresh</button>
@@ -153,84 +152,93 @@
             var formData = new FormData(form);
 
             fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: data.message,
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Okay'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            location.reload();
-                        }
-                    });
-                } else {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Okay'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: data.message,
+                            icon: 'error',
+                            confirmButtonColor: '#d33',
+                            confirmButtonText: 'Okay'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
                     Swal.fire({
                         title: 'Error!',
-                        text: data.message,
+                        text: 'An error occurred while processing your request.',
                         icon: 'error',
                         confirmButtonColor: '#d33',
                         confirmButtonText: 'Okay'
                     });
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'An error occurred while processing your request.',
-                    icon: 'error',
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'Okay'
                 });
-            });
         });
 
-    
-        
-    document.addEventListener('DOMContentLoaded', function() {
-        // Add an event listener to the search button
-        document.getElementById('searchButton').addEventListener('click', function() {
-            // Get the search date from the date picker
-            var searchDate = document.getElementById('date').value;
 
-            // Get all table rows
-            var rows = document.querySelectorAll('.table tbody tr');
-            var noResultMessage = document.getElementById('noResultMessage');
 
-            // Flag to check if any record is found
-            var found = false;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add an event listener to the search button
+            document.getElementById('searchButton').addEventListener('click', function() {
+                // Get the search date from the date picker
+                var searchDate = document.getElementById('date').value;
 
-            // Loop through each row and hide/show based on the search date
-            rows.forEach(function(row) {
-                var paymentDate = row.querySelector('td:nth-child(3)').textContent;
+                // Get all table rows
+                var rows = document.querySelectorAll('.table tbody tr');
+                var noResultMessage = document.getElementById('noResultMessage');
 
-                // Check if the payment date matches the search date
-                if (paymentDate === searchDate) {
-                    row.style.display = '';
-                    found = true;
+                // Flag to check if any record is found
+                var found = false;
+
+                // Loop through each row and hide/show based on the search date
+                rows.forEach(function(row) {
+                    var paymentDate = row.querySelector('td:nth-child(3)').textContent;
+
+                    // Check if the payment date matches the search date
+                    if (paymentDate === searchDate) {
+                        row.style.display = '';
+                        found = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // Display message if no records found for the search date
+                if (!found) {
+                    noResultMessage.style.display = 'block';
                 } else {
-                    row.style.display = 'none';
+                    noResultMessage.style.display = 'none';
                 }
             });
-
-            // Display message if no records found for the search date
-            if (!found) {
-                noResultMessage.style.display = 'block';
-            } else {
-                noResultMessage.style.display = 'none';
-            }
         });
-    });
+        // Hide success message after 5 seconds (5000 milliseconds)
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var successMessage = document.getElementById('successMessage');
+                if (successMessage) {
+                    successMessage.style.display = 'none';
+                }
+            }, 5000);
+        });
 
         // Refresh functionality
         document.getElementById('refreshButton').addEventListener('click', function() {

@@ -16,12 +16,11 @@
         <h1 class="mt-5 mb-4 text-center">Update Package</h1>
 
         @if(session('success'))
-        <div class="alert-overlay">
+        <div class="alert-overlay" style="margin-left: 389px; width: 748px;">
             <div class="alert-box">
                 <div class="alert alert-success" role="alert">
                     {{ session('success') }}
                 </div>
-                <button type="button" class="btn btn-success btn-block" id="closeButton">Okay</button>
             </div>
         </div>
         @endif
@@ -49,7 +48,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Update Package Details</h5>
-                                <form action="{{ url('update_package/' . $packages->package_id) }}"  method="post" enctype="multipart/form-data">
+                                <form action="{{ url('update_package/' . $packages->package_id) }}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT') <!-- Use PUT method for updates -->
                                     <div class="form-group">
@@ -90,4 +89,15 @@
         </div>
     </div>
 </body>
+<script>
+    // Hide success message after 5 seconds (5000 milliseconds)
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+        }, 5000);
+    });
+</script>
 @include('backend.layouts.footer')

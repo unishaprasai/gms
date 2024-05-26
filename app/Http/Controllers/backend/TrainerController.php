@@ -24,7 +24,7 @@ class TrainerController extends Controller
             'tname' => 'required|string|max:255',
             'temail' => 'required|email|unique:trainers,trainer_email',
             'taddress' => 'required|string|max:255',
-            'tphone' => 'required|string|max:20',
+            'tphone' => 'required|string|max:10',
             'assign_exercise' => 'required|string|max:255',
             'trainer_date_of_join' => 'required|date',
             'salary' => 'required|numeric',

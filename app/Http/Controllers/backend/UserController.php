@@ -84,7 +84,7 @@ class UserController extends Controller
     $validatedData = $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|email|max:255',
-        'usertype' => 'required|in:admin,user', // Example validation for user type
+        'usertype' => 'required|in:Trainer,Member', // Example validation for user type
         // Add more validation rules for other fields as needed
     ]);
 

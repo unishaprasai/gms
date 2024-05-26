@@ -41,8 +41,9 @@ public function add_members(Request $request)
     $member->shift = $request->input('shift');
 
     $validatedData = $request->validate([
+        'memail'=>'required|email|unique:members,email',
         'maddress' => 'required|string|max:255',
-        'mphone' => 'required|string|max:20',
+        'mphone' => 'required|string|max:10',
         'date_of_join' => 'required|date',
         'membership_type' => 'nullable|string|max:255', 
         'shift' => 'required|string|max:50',
@@ -95,7 +96,7 @@ public function update_member(Request $request, $id)
     // Validate the request data
     $validatedData = $request->validate([
         'mname' => 'required',
-        'memail' => 'required|email',
+        'memail'=>'required|email',
         'maddress' => 'required',
         'mphone' => 'required',
         'date_of_join' => 'required|date',

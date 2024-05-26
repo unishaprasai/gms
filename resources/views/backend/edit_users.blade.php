@@ -13,21 +13,20 @@
 
     @section('content')
     <div class="fcontainer">
-        <h1 class="mt-5 mb-4 text-center">Update Trainers</h1>
+        <h1 class="mt-5 mb-4 text-center">Update Users</h1>
 
         @if(session('success'))
-        <div class="alert-overlay">
+        <div class="alert-overlay" style="margin-left: 389px; width: 748px;">
             <div class="alert-box">
                 <div class="alert alert-success" role="alert">
                     {{ session('success') }}
                 </div>
-                <button type="button" class="btn btn-success btn-block" id="closeButton">Okay</button>
             </div>
         </div>
         @endif
 
         @if($errors->any())
-        <div class="alert-overlay">
+        <div class="alert-overlay" style="margin-left: 389px; width: 748px;">
             <div class="alert-box">
                 <div class="alert alert-danger" role="alert">
                     <strong>Error:</strong>
@@ -36,7 +35,6 @@
                         <li>{{ $error }}</li>
                         @endforeach
                     </ul>
-                    <button type="button" class="btn btn-success btn-block" id="closeButton">Okay</button>
                 </div>
             </div>
         </div>
@@ -65,8 +63,8 @@
                                     <div class="form-group">
                                         <label for="usertype">User Type</label>
                                         <select class="form-control" id="usertype" name="usertype" required>
-                                            <option value="admin" {{ $users->usertype == 'Trainer' ? 'selected' : '' }}>Trainer</option>
-                                            <option value="user" {{ $users->usertype == 'Member' ? 'selected' : '' }}>Member</option>
+                                            <option value="Trainer" {{ $users->usertype == 'Trainer' ? 'selected' : '' }}>Trainer</option>
+                                            <option value="Member" {{ $users->usertype == 'Member' ? 'selected' : '' }}>Member</option>
                                             <!-- Add more options as needed -->
                                         </select>
                                     </div>
@@ -85,4 +83,15 @@
         </div>
     </div>
 </body>
+<script>
+    // Hide success message after 5 seconds (5000 milliseconds)
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+        }, 5000);
+    });
+</script>
 @include('backend.layouts.footer')

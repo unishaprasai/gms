@@ -17,9 +17,6 @@
         <h1 class="mt-5 mb-4 text-center" style="padding-top: 28px;">My Appoinments</h1>
 
 
-
-
-
         <div class="row justify-content-center mb-3">
             <div class="col-md-6">
                 <div class="form-group">
